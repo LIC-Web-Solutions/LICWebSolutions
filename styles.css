@@ -15,6 +15,11 @@
   font-family: "SuisseIntl", sans-serif;
 }
 
+.row {
+  margin: 0 auto;
+  padding: 0 0 0 var(--globalPadding);
+}
+
 img {
   width: 100%;
 }
@@ -132,10 +137,9 @@ nav {
 
 .header__hero {
   position: relative;
-  padding-top: 113px;
-  padding-bottom: 70px;
+  padding-top: 86px;
   margin-top: -87px;
-  min-height: calc(100vh - 63px);
+  max-height: calc(100vh - 63px);
 }
 
 .videom {
@@ -221,6 +225,42 @@ nav {
 }
 
 /* HEADER */
+
+/* MAIN */
+
+.main__container {
+  display: flex;
+}
+
+.main__left,
+.main__right .main__right--box {
+  color:  black;
+}
+
+.main__left,
+.main__right,
+.main__right--box {
+  /* background-color: pink; */
+  border: 1px solid #b1bdd0;
+  display: flex;
+}
+
+.main__left,
+.main__right {
+  width: 50%;
+}
+
+.main__right {
+  flex-wrap: wrap;
+  margin-top: -100px;
+}
+
+.main__right--box {
+  width: 50%;
+  min-height: 360px;
+}
+
+/* MAIN */
 
 /* Media Queries */
 
