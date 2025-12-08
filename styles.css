@@ -217,7 +217,7 @@ nav {
   display: inline-block;
   flex: 0 0 auto;
   margin-left: 8px;
-  background-image: url("assets/teal-arrow.svg");
+  background-image: url("/assets/teal-arrow.svg");
 }
 
 /* HEADER */
