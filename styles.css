@@ -88,6 +88,14 @@ nav {
   /* background-color: var(--licblue); */
 }
 
+.scrolled {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #1c225d;
+  z-index: 1000000;
+}
+
 .nav__container {
   height: 100%;
   display: flex;
@@ -234,7 +242,7 @@ nav {
 
 .main__left,
 .main__right .main__right--box {
-  color:  black;
+  color: black;
 }
 
 .main__left,
