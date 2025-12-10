@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 :root {
   --licblue: #1e2875;
@@ -12,7 +13,7 @@
   padding: 0;
   box-sizing: border-box;
   color: #ffffff;
-  font-family: "SuisseIntl", sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 .row {
@@ -147,7 +148,7 @@ nav {
   position: relative;
   padding-top: 86px;
   margin-top: -87px;
-  max-height: calc(100vh - 63px);
+  height: calc(100vh - 63px);
 }
 
 .videom {
@@ -175,7 +176,7 @@ nav {
 .panel {
   display: block;
   width: 33px;
-  height: 120px;
+  height: 110px;
   margin: 21px -15px;
   border: none;
   cursor: pointer;
@@ -243,13 +244,16 @@ nav {
 .main__left,
 .main__right .main__right--box {
   color: black;
+  background-color: #f1f2f3;
+  width: 50%;
+  min-height: 360px;
+  border-left: 1px solid #b1bdd0;
+  border-top: 1px solid #b1bdd0;
 }
 
 .main__left,
 .main__right,
 .main__right--box {
-  /* background-color: pink; */
-  border: 1px solid #b1bdd0;
   display: flex;
 }
 
@@ -258,14 +262,35 @@ nav {
   width: 50%;
 }
 
+.main__left {
+  flex-direction: column;
+  
+}
+
 .main__right {
   flex-wrap: wrap;
   margin-top: -100px;
 }
 
 .main__right--box {
-  width: 50%;
-  min-height: 360px;
+  padding: 32px 48px;
+}
+
+.box__wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.box-h3 {
+  font-size: 28px;
+  color: var(--licblue);
+  font-weight: 600;
+}
+
+.box-img {
+  width: 60px;
+  opacity: .25;
 }
 
 /* MAIN */
