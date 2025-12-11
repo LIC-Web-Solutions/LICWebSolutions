@@ -97,6 +97,10 @@ nav {
   z-index: 1000000;
 }
 
+.scrolled + .header__hero { /* sibling offset */
+  margin-top: 0; /* keep layout from jumping when nav becomes fixed */
+}
+
 .nav__container {
   height: 100%;
   display: flex;
@@ -231,6 +235,23 @@ nav {
   flex: 0 0 auto;
   margin-left: 8px;
   background-image: url("assets/teal-arrow.svg");
+}
+
+.hero__booking:hover a::after,
+.hero__booking a:hover::after {
+  animation: heroBookingPulse 200ms ease;
+}
+
+@keyframes heroBookingPulse {
+  0% {
+    background-size: 100% auto;
+  }
+  50% {
+    background-size: 70% auto;
+  }
+  100% {
+    background-size: 100% auto;
+  }
 }
 
 /* HEADER */
