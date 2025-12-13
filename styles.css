@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 
 :root {
   --licblue: #1e2875;
@@ -97,7 +97,8 @@ nav {
   z-index: 1000000;
 }
 
-.scrolled + .header__hero { /* sibling offset */
+.scrolled + .header__hero {
+  /* sibling offset */
   margin-top: 0; /* keep layout from jumping when nav becomes fixed */
 }
 
@@ -137,12 +138,63 @@ nav {
   cursor: pointer;
   font-size: 14px;
   letter-spacing: 0.025em;
+  position: relative;
 }
 
-.nav__list--item:hover,
-.nav__list--item:hover i {
+/* .nav__list--item:hover, */
+/* .nav__list--item:hover i, */
+.nav__list--item:hover .list-item__title,
+.nav__list--item:hover .list-item__title i {
   color: #8dd2e2;
 }
+
+.list-item__title {
+  display: flex;
+  align-items: center;
+}
+
+.nav__dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: rgba(28, 34, 93, 0.9);
+  /* min-width: 100%; */
+  min-width: 190px;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+}
+
+.nav__list :last-child .nav__dropdown {
+  left: auto;
+  right: 0;
+}
+
+.nav__dropdown li {
+  font-size: 13px;
+  letter-spacing: 0;
+  text-transform: none;
+  opacity: 1;
+  white-space: nowrap;
+}
+
+.nav__dropdown li:hover {
+  color: #8dd2e2;
+  opacity: 1;
+}
+
+.nav__list--item:hover .nav__dropdown,
+.nav__list--item:focus-within .nav__dropdown {
+  opacity: 1;
+  visibility: visible;
+  /* transform: translateY(0); */
+  pointer-events: auto;
+}
+
+/*  */
 
 .fa-chevron-down {
   margin-left: 0.4rem;
@@ -285,7 +337,6 @@ nav {
 
 .main__left {
   flex-direction: column;
-  
 }
 
 .main__right {
@@ -311,7 +362,7 @@ nav {
 
 .box-img {
   width: 60px;
-  opacity: .25;
+  opacity: 0.25;
 }
 
 /* MAIN */
