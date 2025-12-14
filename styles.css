@@ -85,7 +85,7 @@ a {
 nav {
   height: 86px;
   position: relative;
-  z-index: 1;
+  z-index: 10;
   /* background-color: var(--licblue); */
 }
 
@@ -141,8 +141,8 @@ nav {
   position: relative;
 }
 
-/* .nav__list--item:hover, */
-/* .nav__list--item:hover i, */
+.nav__list--item:hover,
+.nav__list--item:hover i,
 .nav__list--item:hover .list-item__title,
 .nav__list--item:hover .list-item__title i {
   color: #8dd2e2;
@@ -190,8 +190,17 @@ nav {
 .nav__list--item:focus-within .nav__dropdown {
   opacity: 1;
   visibility: visible;
-  /* transform: translateY(0); */
   pointer-events: auto;
+}
+
+.nav__dropdown li a {
+      height: 100%;
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
 }
 
 /*  */
