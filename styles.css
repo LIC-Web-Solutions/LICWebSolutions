@@ -76,7 +76,8 @@ a {
   border-radius: 0.15rem;
 }
 
-.banner__contact {
+.banner__contact:hover {
+  background: #539599;
 }
 
 .banner__search {
