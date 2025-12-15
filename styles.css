@@ -73,7 +73,7 @@ a {
 .banner__contact {
   border: 1px solid white;
   padding: 6px 12px;
-  border-radius: 0.4rem;
+  border-radius: 0.15rem;
 }
 
 .banner__contact {
@@ -188,8 +188,6 @@ nav {
   opacity: 1;
 }
 
-
-
 .nav__dropdown li a {
   height: 100%;
   display: flex;
@@ -275,7 +273,8 @@ nav {
   padding-top: 1.5rem;
 }
 
-.hero__booking a {
+.hero__booking a,
+.main__booking a {
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -283,6 +282,19 @@ nav {
 }
 
 .hero__booking a::after {
+  background-image: url("assets/teal-arrow.svg");
+}
+
+.main__booking a {
+  color: #1c225d;
+}
+
+.main__booking a::after {
+  background-image: url("assets/aqua-arrow.svg");
+}
+
+.hero__booking a::after,
+.main__booking a::after {
   content: "";
   width: 56px;
   height: 24px;
@@ -292,11 +304,12 @@ nav {
   display: inline-block;
   flex: 0 0 auto;
   margin-left: 8px;
-  background-image: url("assets/teal-arrow.svg");
 }
 
 .hero__booking:hover a::after,
-.hero__booking a:hover::after {
+.hero__booking a:hover::after,
+.main__booking:hover a::after,
+.main__booking a:hover::after {
   animation: heroBookingPulse 200ms ease;
 }
 
@@ -343,8 +356,33 @@ nav {
 
 .main__left {
   flex-direction: column;
+  padding: 3rem;
 }
 
+.main__left--container {
+  display: flex;
+  flex-direction: column;
+}
+
+.main__left--h1,
+.main__left--p {
+  color: var(--licblue);
+}
+
+.main__left--h1 {
+  margin-bottom: 16px;
+  font-weight: 600;
+  line-height: 125%;
+  font-size: 38px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.main__left--p {
+  font-size: 18px;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  text-align: justify;
+}
 .main__right {
   flex-wrap: wrap;
   margin-top: -100px;
