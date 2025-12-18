@@ -429,6 +429,7 @@ nav {
 
 .approach__right {
   width: 50%;
+  overflow: hidden;
 }
 
 .approach__right img {
