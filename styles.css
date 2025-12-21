@@ -424,6 +424,7 @@ nav {
 .approach__left {
   width: 50%;
   background-color: #1c225d;
+  border: 1px solid #457C80;
 }
 
 .approach__right {
