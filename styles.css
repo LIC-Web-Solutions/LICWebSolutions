@@ -111,7 +111,6 @@ nav {
   margin: 0 auto;
   padding: 0 var(--globalPadding);
   border-bottom: 1px solid #b1bdd0;
-  /* max-width: 1200px; */
 }
 
 .nav__logo--wrapper {
@@ -127,7 +126,6 @@ nav {
 .nav__list {
   display: flex;
   align-items: center;
-  display: none;
 }
 
 .nav__list--item {
@@ -424,7 +422,7 @@ nav {
 .approach__left {
   width: 50%;
   background-color: #1c225d;
-  border: 1px solid #457C80;
+  border: 1px solid #457c80;
 }
 
 .approach__right {
@@ -465,19 +463,79 @@ nav {
 
 .copyright {
   padding: 1rem 0;
-  background-color: #1c225d;;
-
+  background-color: #1c225d;
 }
-
-
 
 /* FOOTER */
 
 /* Media Queries */
 
-@media (min-width: 1200px) {
+@media (max-width: 1200px) {
   /* header queries */
   .nav__list {
-    display: flex;
+    display: none;
+  }
+
+  .header__banner {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav__container {
+    padding: 0 0.5rem;
+  }
+
+  .nav__logo--img {
+    height: 42px;
+    width: 296px;
+  }
+  .header__hero {
+    padding-top: 113px;
+    padding-bottom: 70px;
+  }
+
+  .hero {
+    padding: 1rem;
+  }
+
+  .hero__container {
+    padding: 225px 20px 40px 35px;
+  }
+
+  .hero__title {
+    font-size: 35px;
+  }
+
+  .hero__booking a,
+  .main__booking a {
+    font-size: 16px;
+  }
+
+  .main__container,
+  .main__header {
+    flex-direction: column;
+  }
+
+  .main__left,
+  .main__right {
+    width: 100%;
+  }
+
+  .main__right {
+    margin-top: 0; /* remove desktop hack */
+  }
+
+  .main__right--box {
+    width: 100% !important;
+    padding: 32px 48px;
+  }
+  .main__approach {
+    flex-direction: column-reverse;
+  }
+
+  .approach__left,
+  .approach__right {
+    width: 100%;
   }
 }
