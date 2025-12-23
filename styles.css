@@ -327,18 +327,13 @@ nav {
   cursor: pointer;
 }
 
-.mobile-menu__toggle::after {
-  content: "";
-  width: 10px;
-  height: 10px;
-  border-right: 2px solid #ffffff;
-  border-bottom: 2px solid #ffffff;
-  transform: rotate(45deg);
+.mobile-menu__chevron {
+  font-size: 12px;
   transition: transform 160ms ease;
 }
 
-.mobile-menu__item.is-open .mobile-menu__toggle::after {
-  transform: rotate(-135deg);
+.mobile-menu__item.is-open .mobile-menu__chevron {
+  transform: rotate(-180deg);
 }
 
 .mobile-menu__submenu {
