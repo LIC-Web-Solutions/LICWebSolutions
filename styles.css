@@ -588,6 +588,7 @@ body.mobile-nav-open {
   font-size: 28px;
   color: var(--licblue);
   font-weight: 600;
+  font-family: "Montserrat", sans-serif;
 }
 
 .box-img {
@@ -599,7 +600,7 @@ body.mobile-nav-open {
   position: absolute;
   inset: 0;
   background: #4f8f93;
-  padding: 32px 36px;
+  padding: 32px 48px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -635,6 +636,7 @@ body.mobile-nav-open {
   font-weight: 700;
 }
 
+/* todo: use .hero__booking a::after, .main__booking a::after instead */
 .box__overlay-links li::before {
   content: "›";
   display: inline-flex;
