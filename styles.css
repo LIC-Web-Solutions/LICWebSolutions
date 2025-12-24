@@ -484,7 +484,8 @@ body.mobile-nav-open {
 .hero__booking:hover a::after,
 .hero__booking a:hover::after,
 .main__booking:hover a::after,
-.main__booking a:hover::after {
+.main__booking a:hover::after,
+.box__overlay-links a:hover::before {
   animation: heroBookingPulse 200ms ease;
 }
 
@@ -636,26 +637,30 @@ body.mobile-nav-open {
   font-weight: 700;
 }
 
-/* todo: use .hero__booking a::after, .main__booking a::after instead */
-.box__overlay-links li::before {
-  content: "›";
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  border-radius: 999px;
-  background: rgba(0, 0, 0, 0.18);
-  font-size: 16px;
-}
 
 .box__overlay-links a {
   color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+}
+
+.box__overlay-links a::before {
+  content: "";
+  width: 56px;
+  height: 24px;
+  background-image: url("assets/teal-arrow.svg");
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: left center;
+  display: inline-block;
+  flex: 0 0 auto;
+  margin-right: 8px;
 }
 
 .main__right--box:hover .box__overlay {
   opacity: 1;
   transform: translateY(0);
+  pointer-events: auto;
 }
 
 .main__right--box:hover .box__wrapper {
