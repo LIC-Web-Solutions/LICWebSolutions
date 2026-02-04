@@ -4,7 +4,7 @@
 
 :root {
   --licblue: #1e2875;
-  --globalPadding: 3rem; /* globalized padding */
+  --globalPadding: clamp(1rem, -5rem + 12.5vw, 3rem);
   --navHeight: 86px;
 }
 
@@ -507,12 +507,8 @@ body.mobile-nav-open {
 
 /* MAIN */
 
-.main__container,
-.main__header {
-  display: flex;
-}
-
 .main__container {
+  display: flex;
   flex-direction: column;
 }
 
@@ -520,21 +516,8 @@ body.mobile-nav-open {
 .main__right .main__right--box {
   color: black;
   background-color: #f1f2f3;
-  width: 50%;
-  min-height: 360px;
   border-left: 1px solid #b1bdd0;
   border-top: 1px solid #b1bdd0;
-}
-
-.main__left,
-.main__right,
-.main__right--box {
-  display: flex;
-}
-
-.main__left,
-.main__right {
-  width: 50%;
 }
 
 .main__left {
@@ -567,10 +550,6 @@ body.mobile-nav-open {
   margin-bottom: 1rem;
   line-height: 1.5;
   text-align: justify;
-}
-.main__right {
-  flex-wrap: wrap;
-  margin-top: -100px;
 }
 
 .main__right--box {
@@ -858,16 +837,30 @@ body.modal-open {
 /* FOOTER */
 
 /* Media Queries */
+@media (min-width: 1024px) {
+  .main__header {
+    display: flex;
+  }
+
+  .main__left,
+  .main__right,
+  .main__right--box {
+    display: flex;
+    width: 50%;
+    min-height: 360px;
+  }
+
+  .main__right {
+    flex-wrap: wrap;
+    margin-top: -100px;
+  }
+}
 
 @media (max-width: 768px) {
   .nav__container {
     padding: 0 0.5rem;
   }
 
-  .nav__logo--img {
-    height: 42px;
-    width: 296px;
-  }
   .header__hero {
     padding-top: 113px;
     padding-bottom: 70px;
