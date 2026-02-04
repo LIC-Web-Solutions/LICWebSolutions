@@ -152,11 +152,7 @@ nav {
 .nav__logo--wrapper {
   display: flex;
   align-items: center;
-}
-
-.nav__logo--img {
-  height: 60px;
-  width: 390px;
+  width: clamp(19rem, 15.374rem + 13.491vw, 24rem);
 }
 
 .nav__list {
