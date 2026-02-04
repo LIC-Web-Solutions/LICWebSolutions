@@ -36,7 +36,7 @@ a {
 
 /* HEADER styles */
 .header__banner {
-  display: flex;
+  display: none;
   align-items: center;
   height: 4rem;
   background-color: var(--licblue);
@@ -91,22 +91,20 @@ nav {
 }
 
 .nav__toggle {
-  display: none;
+  display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 6px;
-  width: 44px;
-  height: 44px;
+  gap: 10px;
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: 10px;
+  border: none;
   cursor: pointer;
+  padding: 0.5rem 0 0.5rem 0.5rem;
 }
 
 .nav__toggle span {
   display: block;
-  width: 22px;
-  height: 2px;
+  width: 27px;
+  height: 1px;
   background: #ffffff;
   margin: 0 auto;
   transition:
@@ -156,7 +154,7 @@ nav {
 }
 
 .nav__list {
-  display: flex;
+  display: none;
   align-items: center;
 }
 
@@ -237,7 +235,8 @@ nav {
 
 .header__hero {
   position: relative;
-  padding-top: 86px;
+  padding-top: 113px;
+  padding-bottom: 70px;
   margin-top: -87px;
   height: calc(100vh - 63px);
 }
@@ -400,7 +399,7 @@ body.mobile-nav-open {
   z-index: 1;
   height: 100%;
   display: flex;
-  padding: var(--globalPadding);
+  padding: 1rem;
 }
 
 .hero__panels {
@@ -430,11 +429,11 @@ body.mobile-nav-open {
 }
 
 .hero__container {
-  padding: 114px 0 40px 100px;
+  padding: 225px 20px 40px 35px;
 }
 
 .hero__title {
-  font-size: 60px;
+  font-size: clamp(2.188rem, 0.2rem + 7.396vw, 3.75rem);
   font-weight: 500;
   margin-bottom: 0.5rem;
   line-height: 1.2;
@@ -451,7 +450,6 @@ body.mobile-nav-open {
   font-weight: 600;
   display: flex;
   align-items: center;
-  font-size: 18px;
 }
 
 .hero__booking a::after {
@@ -821,6 +819,20 @@ body.modal-open {
 /* FOOTER */
 
 /* Media Queries */
+@media (min-width: 1200px) {
+  .nav__toggle {
+    display: none;
+  }
+
+  .header__banner {
+    display: flex;
+  }
+
+  .nav__list {
+    display: flex;
+  }
+}
+
 @media (min-width: 1024px) {
   .main__header {
     display: flex;
@@ -840,33 +852,22 @@ body.modal-open {
   }
 }
 
-@media (max-width: 768px) {
-  .nav__container {
-    padding: 0 0.5rem;
-  }
-
+@media (min-width: 768px) {
   .header__hero {
-    padding-top: 113px;
-    padding-bottom: 70px;
+    padding-top: 86px;
+    padding-bottom: 0; /* reset to default if needed, or remove this line */
   }
 
   .hero {
-    padding: 1rem;
+    padding: var(--globalPadding);
   }
 
   .hero__container {
-    padding: 225px 20px 40px 35px;
+    padding: 114px 0 40px 100px;
   }
+}
 
-  .hero__title {
-    font-size: 35px;
-  }
-
-  .hero__booking a,
-  .main__booking a {
-    font-size: 16px;
-  }
-
+@media (max-width: 768px) {
   .main__container,
   .main__header {
     flex-direction: column;
@@ -892,20 +893,5 @@ body.modal-open {
   .approach__left,
   .approach__right {
     width: 100%;
-  }
-}
-
-@media (max-width: 1200px) {
-  /* header queries */
-  .nav__list {
-    display: none;
-  }
-
-  .nav__toggle {
-    display: flex;
-  }
-
-  .header__banner {
-    display: none;
   }
 }
