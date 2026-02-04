@@ -109,7 +109,9 @@ nav {
   height: 2px;
   background: #ffffff;
   margin: 0 auto;
-  transition: transform 200ms ease, opacity 200ms ease;
+  transition:
+    transform 200ms ease,
+    opacity 200ms ease;
 }
 
 .nav__toggle.is-active span:nth-child(1) {
@@ -402,7 +404,7 @@ body.mobile-nav-open {
   z-index: 1;
   height: 100%;
   display: flex;
-  padding: 3rem;
+  padding: var(--globalPadding);
 }
 
 .hero__panels {
@@ -537,7 +539,7 @@ body.mobile-nav-open {
 
 .main__left {
   flex-direction: column;
-  padding: 3rem;
+  padding: var(--globalPadding);
 }
 
 .main__left--container {
@@ -572,7 +574,7 @@ body.mobile-nav-open {
 }
 
 .main__right--box {
-  padding: 32px 48px;
+  padding: 2rem clamp(1.5rem, -7.227rem + 13.636vw, 3rem);
   position: relative;
   overflow: hidden;
 }
@@ -582,7 +584,9 @@ body.mobile-nav-open {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  transition: opacity 200ms ease, transform 200ms ease;
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
 }
 
 .box-h3 {
@@ -601,13 +605,15 @@ body.mobile-nav-open {
   position: absolute;
   inset: 0;
   background: #4f8f93;
-  padding: 32px 48px;
+  padding: 2rem clamp(1.5rem, -7.227rem + 13.636vw, 3rem);
   display: flex;
   flex-direction: column;
   gap: 12px;
   opacity: 0;
   /* transform: translateY(10px); */
-  transition: opacity 200ms ease, transform 200ms ease;
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
   pointer-events: none;
 }
 
@@ -636,7 +642,6 @@ body.mobile-nav-open {
   gap: 10px;
   font-weight: 700;
 }
-
 
 .box__overlay-links a {
   color: #ffffff;
@@ -812,7 +817,9 @@ body.modal-open {
   cursor: pointer;
   font-weight: 700;
   letter-spacing: 0.01em;
-  transition: background 200ms ease, transform 200ms ease;
+  transition:
+    background 200ms ease,
+    transform 200ms ease;
 }
 
 .contact-modal__submit:hover {
@@ -822,16 +829,6 @@ body.modal-open {
 
 .contact-modal__submit:active {
   transform: translateY(0);
-}
-
-@media (max-width: 540px) {
-  .contact-modal__dialog {
-    padding: 28px 20px 24px;
-  }
-
-  .contact-modal__title {
-    font-size: 24px;
-  }
 }
 /* MAIN */
 
@@ -861,21 +858,6 @@ body.modal-open {
 /* FOOTER */
 
 /* Media Queries */
-
-@media (max-width: 1200px) {
-  /* header queries */
-  .nav__list {
-    display: none;
-  }
-
-  .nav__toggle {
-    display: flex;
-  }
-
-  .header__banner {
-    display: none;
-  }
-}
 
 @media (max-width: 768px) {
   .nav__container {
@@ -933,5 +915,20 @@ body.modal-open {
   .approach__left,
   .approach__right {
     width: 100%;
+  }
+}
+
+@media (max-width: 1200px) {
+  /* header queries */
+  .nav__list {
+    display: none;
+  }
+
+  .nav__toggle {
+    display: flex;
+  }
+
+  .header__banner {
+    display: none;
   }
 }
