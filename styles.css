@@ -506,12 +506,6 @@ body.mobile-nav-open {
 /* HEADER */
 
 /* MAIN */
-
-.main__container {
-  display: flex;
-  flex-direction: column;
-}
-
 .main__left,
 .main__right .main__right--box {
   color: black;
@@ -521,13 +515,7 @@ body.mobile-nav-open {
 }
 
 .main__left {
-  flex-direction: column;
-  padding: var(--globalPadding);
-}
-
-.main__left--container {
-  display: flex;
-  flex-direction: column;
+  padding: 3rem var(--globalPadding);
 }
 
 .main__left--h1,
