@@ -6,6 +6,7 @@
   --licblue: #1e2875;
   --globalPadding: clamp(1rem, -5rem + 12.5vw, 3rem);
   --navHeight: 86px;
+  --bodyFontSize: clamp(1rem, 0.66rem + 0.532vw, 1.125rem);
 }
 
 * {
@@ -238,7 +239,6 @@ nav {
   padding-top: 113px;
   padding-bottom: 70px;
   margin-top: -87px;
-  height: calc(100vh - 63px);
 }
 
 .mobile-menu {
@@ -450,6 +450,7 @@ body.mobile-nav-open {
   font-weight: 600;
   display: flex;
   align-items: center;
+  letter-spacing: -0.1px;
 }
 
 .hero__booking a::after {
@@ -519,25 +520,35 @@ body.mobile-nav-open {
 
 .main__left--h1,
 .approach__left--h1 {
-  margin-bottom: 16px;
   font-weight: 600;
   line-height: 125%;
-  font-size: 38px;
+  font-size: 24px;
   font-family: "Montserrat", sans-serif;
 }
 
 .main__left--p,
 .approach__left--p {
-  font-size: 18px;
+  font-size: var(--bodyFontSize);
   margin-bottom: 1rem;
   line-height: 1.5;
-  text-align: justify;
+  letter-spacing: -0.5px;
 }
 
 .main__right--box {
   padding: 2rem clamp(1.5rem, -7.227rem + 13.636vw, 3rem);
   position: relative;
   overflow: hidden;
+}
+
+.main__right--box::after {
+  content: "";
+  background-image: url(/assets/arrow-down-circle.svg);
+  background-repeat: no-repeat;
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  width: 28px;
+  height: 28px;
 }
 
 .box__wrapper {
@@ -548,10 +559,11 @@ body.mobile-nav-open {
   transition:
     opacity 200ms ease,
     transform 200ms ease;
+  gap: 2.5rem;
 }
 
 .box-h3 {
-  font-size: 28px;
+  font-size: clamp(1.125rem, -0.75rem + 3.906vw, 1.75rem);
   color: var(--licblue);
   font-weight: 600;
   font-family: "Montserrat", sans-serif;
@@ -567,7 +579,7 @@ body.mobile-nav-open {
   inset: 0;
   background: #4f8f93;
   padding: 2rem clamp(1.5rem, -7.227rem + 13.636vw, 3rem);
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 12px;
   opacity: 0;
@@ -585,9 +597,10 @@ body.mobile-nav-open {
 }
 
 .box__overlay-text {
-  font-size: 15px;
-  line-height: 1.6;
-  opacity: 0.95;
+  font-size: var(--bodyFontSize);
+  line-height: 1.5;
+  opacity: 0.9;
+  letter-spacing: -0.5px;
 }
 
 .box__overlay-links {
@@ -621,17 +634,6 @@ body.mobile-nav-open {
   display: inline-block;
   flex: 0 0 auto;
   margin-right: 8px;
-}
-
-.main__right--box:hover .box__overlay {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-.main__right--box:hover .box__wrapper {
-  opacity: 0;
-  transform: translateY(-6px);
 }
 
 .main__approach {
@@ -819,6 +821,9 @@ body.modal-open {
 /* FOOTER */
 
 /* Media Queries */
+@media (min-width: 1400px) {
+}
+
 @media (min-width: 1200px) {
   .nav__toggle {
     display: none;
@@ -850,11 +855,42 @@ body.modal-open {
     flex-wrap: wrap;
     margin-top: -100px;
   }
+
+  .main__left--h1,
+  .approach__left--h1 {
+    font-size: 38px;
+  }
+
+  .box__overlay {
+    display: flex;
+  }
+
+  .main__right--box:hover .box__overlay {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .main__right--box:hover .box__wrapper {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  .main__left--h1,
+  .approach__left--h1 {
+    margin-bottom: 16px;
+  }
+
+  .main__left--p,
+  .approach__left--p {
+    text-align: justify;
+  }
 }
 
 @media (min-width: 768px) {
   .header__hero {
     padding-top: 86px;
+    height: calc(100vh - 63px);
     padding-bottom: 0; /* reset to default if needed, or remove this line */
   }
 
@@ -880,11 +916,6 @@ body.modal-open {
 
   .main__right {
     margin-top: 0; /* remove desktop hack */
-  }
-
-  .main__right--box {
-    width: 100% !important;
-    padding: 32px 48px;
   }
   .main__approach {
     flex-direction: column-reverse;
