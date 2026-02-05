@@ -583,10 +583,6 @@ body.mobile-nav-open {
   flex-direction: column;
   gap: 12px;
   opacity: 0;
-  /* transform: translateY(10px); */
-  transition:
-    opacity 200ms ease,
-    transform 200ms ease;
   pointer-events: none;
 }
 
@@ -898,13 +894,11 @@ body.modal-open {
 
   .main__right--box:hover .box__overlay {
     opacity: 1;
-    transform: translateY(0);
     pointer-events: auto;
   }
 
   .main__right--box:hover .box__wrapper {
     opacity: 0;
-    transform: translateY(-6px);
   }
 
   .main__left--h1 {
