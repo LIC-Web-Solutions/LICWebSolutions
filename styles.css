@@ -638,17 +638,31 @@ body.mobile-nav-open {
 
 .main__approach {
   display: flex;
+  flex-direction: column;
 }
 
 .approach__left {
   width: 50%;
   background-color: #1c225d;
   border: 1px solid #457c80;
+  padding: 2rem var(--globalPadding);
+}
+
+.approach__left--container {
+  display: flex;
+  flex-direction: column;
+}
+
+.approach__left--h1 {
+  margin-bottom: 16px;
 }
 
 .approach__right {
-  width: 50%;
   overflow: hidden;
+  background-image: url("./assets/pepsicolasign.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: 63vw;
 }
 
 .approach__right img {
@@ -657,11 +671,6 @@ body.mobile-nav-open {
   object-fit: cover;
 }
 
-.approach__left--container {
-  padding: 64px 99px 64px 48px;
-  display: flex;
-  flex-direction: column;
-}
 
 /* CONTACT MODAL */
 
@@ -876,11 +885,9 @@ body.modal-open {
     transform: translateY(-6px);
   }
 
-  .main__left--h1,
-  .approach__left--h1 {
+  .main__left--h1 {
     margin-bottom: 16px;
   }
-
   .main__left--p,
   .approach__left--p {
     text-align: justify;
@@ -901,26 +908,18 @@ body.modal-open {
   .hero__container {
     padding: 114px 0 40px 100px;
   }
+
+  .main__approach {
+    flex-direction: row;
+  }
+
+  .approach__right {
+    width: 50%;
+    min-height: 450px;
+  }
 }
 
 @media (max-width: 768px) {
-  .main__container,
-  .main__header {
-    flex-direction: column;
-  }
-
-  .main__left,
-  .main__right {
-    width: 100%;
-  }
-
-  .main__right {
-    margin-top: 0; /* remove desktop hack */
-  }
-  .main__approach {
-    flex-direction: column-reverse;
-  }
-
   .approach__left,
   .approach__right {
     width: 100%;
