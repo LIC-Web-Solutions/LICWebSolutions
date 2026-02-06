@@ -829,15 +829,7 @@ body.modal-open {
 }
 
 @media (min-width: 1200px) {
-  .nav__toggle {
-    display: none;
-  }
-
   .header__banner {
-    display: flex;
-  }
-
-  .nav__list {
     display: flex;
   }
 }
@@ -845,6 +837,13 @@ body.modal-open {
 @media (min-width: 1024px) {
   nav {
     height: 86px;
+  }
+  .nav__toggle {
+    display: none;
+  }
+
+  .nav__list {
+    display: flex;
   }
   .hero__container {
     padding: 114px 0 40px 100px;
