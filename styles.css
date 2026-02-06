@@ -35,6 +35,10 @@ a {
   text-decoration: none;
 }
 
+header {
+  position: relative;
+}
+
 /* HEADER styles */
 .header__banner {
   display: none;
@@ -92,14 +96,19 @@ nav {
 }
 
 .nav__toggle {
-  display: flex;
+  --easing: cubic-bezier(0.4, 0, 0.2, 1);
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 10px;
+  padding: 0;
   background: transparent;
-  border: none;
+  border: 0;
   cursor: pointer;
-  padding: 0.5rem 0 0.5rem 0.5rem;
+  position: relative;
 }
 
 .nav__toggle span {
@@ -111,18 +120,19 @@ nav {
   transition:
     transform 200ms ease,
     opacity 200ms ease;
+  transform-origin: center;
 }
 
-.nav__toggle.is-active span:nth-child(1) {
-  transform: translateY(8px) rotate(45deg);
+.nav__toggle.burger-open span:nth-child(1) {
+  transform: translateY(11px) rotate(45deg);
 }
 
-.nav__toggle.is-active span:nth-child(2) {
+.nav__toggle.burger-open span:nth-child(2) {
   opacity: 0;
 }
 
-.nav__toggle.is-active span:nth-child(3) {
-  transform: translateY(-8px) rotate(-45deg);
+.nav__toggle.burger-open span:nth-child(3) {
+  transform: translateY(-11px) rotate(-45deg);
 }
 
 .scrolled {
@@ -136,6 +146,29 @@ nav {
 .scrolled + .header__hero {
   /* sibling offset */
   margin-top: 0; /* keep layout from jumping when nav becomes fixed */
+}
+
+.nav__mobile {
+  position: absolute;
+  top: 65px;
+  left: 0;
+  width: 100%;
+  background: #003569;
+  z-index: 100;
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    height 400ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 200ms ease;
+  will-change: height, opacity;
+}
+
+.nav__mobile.mobile-open {
+  height: calc(100% - 65px);
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .nav__container {
