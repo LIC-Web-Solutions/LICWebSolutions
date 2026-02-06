@@ -172,6 +172,46 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    const serviceBoxes = Array.from(document.querySelectorAll('.main__right--box'));
+    if (serviceBoxes.length) {
+        const mobileQuery = window.matchMedia('(max-width: 1023px)');
+
+        const closeAllBoxes = function() {
+            serviceBoxes.forEach(function(box) {
+                box.classList.remove('is-open');
+            });
+        };
+
+        const handleBoxClick = function(event) {
+            if (!mobileQuery.matches) return; // only toggle on mobile
+            if (event.target.closest('a')) return; // don't toggle if clicking a link inside the box
+            const box = event.currentTarget;
+            const isOpen = box.classList.contains('is-open');
+            closeAllBoxes();
+            if (!isOpen) {
+                box.classList.add('is-open');
+            }
+        };
+
+        serviceBoxes.forEach(function(box) {
+            box.addEventListener('click', handleBoxClick);
+        });
+
+        if (typeof mobileQuery.addEventListener === 'function') {
+            mobileQuery.addEventListener('change', function(event) {
+                if (!event.matches) {
+                    closeAllBoxes();
+                }
+            });
+        } else if (typeof mobileQuery.addListener === 'function') { // addListener for older browsers
+            mobileQuery.addListener(function(event) {
+                if (!event.matches) {
+                    closeAllBoxes();
+                }
+            });
+        }
+    }
+
     document.addEventListener('keydown', function(event) {
         if (event.key !== 'Escape') return;
         if (mobileMenu && mobileMenu.classList.contains('is-open')) {
