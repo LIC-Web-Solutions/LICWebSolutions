@@ -88,8 +88,9 @@ header {
 }
 
 nav {
+  width: 100%;
   height: 65px;
-  position: relative;
+  position: fixed;
   z-index: 10;
   background-color: var(--licblue);
 }
@@ -147,25 +148,21 @@ nav {
 }
 
 .nav__mobile {
-  position: absolute;
+  position: fixed;
   top: 65px;
   left: 0;
   width: 100%;
   background: #003569;
   z-index: 100;
-  height: 0;
+  max-height: 0;
   overflow: hidden;
-  opacity: 0;
   pointer-events: none;
-  transition:
-    height 350ms ease,
-    opacity 150ms ease;
-  will-change: height, opacity;
+  transition: max-height 350ms ease-in-out;
+  will-change: height;
 }
 
 .nav__mobile.mobile-open {
-  height: calc(100% - 65px);
-  opacity: 1;
+  max-height: 100vh;
   pointer-events: auto;
 }
 
@@ -173,14 +170,12 @@ nav {
   width: 100%;
   max-width: 100%;
   background: #0b2f59;
-  /* height: 100%; */
   padding: var(--globalPadding);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 25px;
+  justify-content: space-between;
 }
-
-
 
 .mobile-menu__header {
   display: flex;
@@ -304,8 +299,7 @@ nav {
 }
 .mobile-menu__item.is-open .mobile-menu__toggle,
 .mobile-menu__item.is-open .mobile-menu__toggle .mobile-menu__chevron > i {
-    color: #8dd2e2;
-
+  color: #8dd2e2;
 }
 /* .is-open is only there  */
 
@@ -332,7 +326,7 @@ nav {
 }
 
 .mobile-menu__actions {
-  margin-top: auto;
+  /* margin-top: auto; */
   display: flex;
   gap: 12px;
   flex-direction: column;
@@ -450,7 +444,6 @@ nav {
   position: relative;
   padding-top: 113px;
   padding-bottom: 70px;
-  margin-top: -65px;
 }
 
 .videom {
@@ -908,6 +901,7 @@ body.modal-open {
   nav {
     height: 86px;
     background-color: transparent;
+    position: relative;
   }
   .nav__toggle {
     display: none;

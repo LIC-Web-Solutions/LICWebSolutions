@@ -6,10 +6,7 @@ document.addEventListener(
     const header = document.querySelector("#main-navbar");
     const hero = document.querySelector(".header__hero");
     if (!header) return;
-    if (mobileQuery.matches && window.scrollY >= 65) {
-      header.classList.add("scrolled");
-      hero.classList.add("hero-scrolled");
-    } else if (!mobileQuery.matches && window.scrollY >= 64) {
+    if (!mobileQuery.matches && window.scrollY >= 64) {
         header.classList.add("scrolled");
         hero.classList.add("hero-scrolled");
     } else {
