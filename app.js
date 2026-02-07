@@ -18,6 +18,11 @@ document.addEventListener(
 );
 
 document.addEventListener("DOMContentLoaded", function () {
+  const footerYear = document.querySelector("#footer-year");
+  if (footerYear) {
+    footerYear.textContent = String(new Date().getFullYear());
+  }
+
   const panels = Array.from(document.querySelectorAll(".hero__panels .panel"));
   const heroTitle = document.querySelector(".hero__title");
   if (panels.length && heroTitle) {
@@ -162,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const contactModal = document.querySelector("#contact-modal");
   const contactTriggers = Array.from(
-    document.querySelectorAll(".banner__contact"),
+    document.querySelectorAll(".banner__contact, .js-contact-trigger"),
   );
   let closeModal;
 
