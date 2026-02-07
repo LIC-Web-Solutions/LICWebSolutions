@@ -1,12 +1,20 @@
+ let mobileQuery = window.matchMedia("(max-width: 1023px)");
+
 document.addEventListener(
   "scroll",
   function () {
     const header = document.querySelector("#main-navbar");
+    const hero = document.querySelector(".header__hero");
     if (!header) return;
-    if (window.scrollY >= 60) {
+    if (mobileQuery.matches && window.scrollY >= 65) {
       header.classList.add("scrolled");
+      hero.classList.add("hero-scrolled");
+    } else if (!mobileQuery.matches && window.scrollY >= 64) {
+        header.classList.add("scrolled");
+        hero.classList.add("hero-scrolled");
     } else {
       header.classList.remove("scrolled");
+      hero.classList.remove("hero-scrolled");
     }
   },
   { passive: true },
@@ -138,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-//   COnTACT MODAL BELow
+  //   COnTACT MODAL BELow
 
   const contactModal = document.querySelector("#contact-modal");
   const contactTriggers = Array.from(
@@ -200,9 +208,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const serviceBoxes = Array.from(
     document.querySelectorAll(".main__right--box"),
   );
-  if (serviceBoxes.length) {
-    const mobileQuery = window.matchMedia("(max-width: 1023px)");
 
+ 
+
+  if (serviceBoxes.length) {
     const closeAllBoxes = function () {
       serviceBoxes.forEach(function (box) {
         box.classList.remove("is-open");
