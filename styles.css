@@ -162,7 +162,10 @@ nav {
 }
 
 .nav__mobile.mobile-open {
-  max-height: 100vh;
+  max-height: calc(100vh - 65px);
+  max-height: calc(100dvh - 65px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   pointer-events: auto;
 }
 
