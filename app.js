@@ -1,4 +1,4 @@
- let mobileQuery = window.matchMedia("(max-width: 1023px)");
+let mobileQuery = window.matchMedia("(max-width: 1023px)");
 
 document.addEventListener(
   "scroll",
@@ -7,8 +7,8 @@ document.addEventListener(
     const hero = document.querySelector(".header__hero");
     if (!header) return;
     if (!mobileQuery.matches && window.scrollY >= 64) {
-        header.classList.add("scrolled");
-        hero.classList.add("hero-scrolled");
+      header.classList.add("scrolled");
+      hero.classList.add("hero-scrolled");
     } else {
       header.classList.remove("scrolled");
       hero.classList.remove("hero-scrolled");
@@ -205,8 +205,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const serviceBoxes = Array.from(
     document.querySelectorAll(".main__right--box"),
   );
-
- 
 
   if (serviceBoxes.length) {
     const closeAllBoxes = function () {

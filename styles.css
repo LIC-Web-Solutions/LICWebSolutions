@@ -162,7 +162,7 @@ nav {
 }
 
 .nav__mobile.mobile-open {
-  max-height: 100vh;
+  max-height: calc(100vh - 65px);
   pointer-events: auto;
 }
 
