@@ -389,31 +389,102 @@
         </form>
       </div>
     </div>
-    <footer>
+    <footer class="footer" aria-label="Site footer">
       <div class="footer__container">
-        <figure class="footer__img">
-          <iframe
-            class="footer__iframe"
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/UUFKnkx1QJA?si=MunXUspRtpDLdvZx"
-            title="YouTube video player"
-            frameborder="0"
-            allow="
-              accelerometer;
-              autoplay;
-              clipboard-write;
-              encrypted-media;
-              gyroscope;
-              picture-in-picture;
-              web-share;
-            "
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-          ></iframe>
-        </figure>
-        <div class="copyright">
-          <p>© 2026 LICWebSolutions. All rights reserved.</p>
+        <div class="footer__top">
+          <div class="footer__brand">
+            <a class="footer__logo" href="#" aria-label="LIC Web Solutions home">
+              <img
+                class="footer__logo-img"
+                src="assets/LICLogo2025FullBlack.png"
+                alt="LIC Web Solutions"
+              />
+            </a>
+            <p class="footer__tagline">
+              Strategic design and development for modern, high-performing
+              websites.
+            </p>
+            <div class="footer__social" aria-label="Social links">
+              <a class="footer__social-link" href="#" aria-label="LinkedIn">
+                <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+              </a>
+              <a class="footer__social-link" href="#" aria-label="Instagram">
+                <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a class="footer__social-link" href="#" aria-label="Facebook">
+                <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+
+          <nav class="footer__nav" aria-label="Footer navigation">
+            <div class="footer__col">
+              <h3 class="footer__heading">Company</h3>
+              <ul class="footer__list">
+                <li><a class="footer__link" href="#">About</a></li>
+                <li><a class="footer__link" href="#">Team</a></li>
+                <li><a class="footer__link" href="#">Careers</a></li>
+                <li><a class="footer__link" href="#">Contact</a></li>
+              </ul>
+            </div>
+            <div class="footer__col">
+              <h3 class="footer__heading">Services</h3>
+              <ul class="footer__list">
+                <li><a class="footer__link" href="#">Web Design & UX</a></li>
+                <li><a class="footer__link" href="#">Web Development</a></li>
+                <li><a class="footer__link" href="#">Maintenance</a></li>
+                <li><a class="footer__link" href="#">Mobile Apps</a></li>
+              </ul>
+            </div>
+            <div class="footer__col">
+              <h3 class="footer__heading">Resources</h3>
+              <ul class="footer__list">
+                <li><a class="footer__link" href="#">Insights</a></li>
+                <li><a class="footer__link" href="#">Guides</a></li>
+                <li><a class="footer__link" href="#">Case Studies</a></li>
+                <li><a class="footer__link" href="#">Support</a></li>
+              </ul>
+            </div>
+          </nav>
+
+          <div class="footer__contact">
+            <h3 class="footer__heading">Get in touch</h3>
+            <ul class="footer__list footer__list--contact">
+              <li>
+                <a class="footer__link" href="mailto:hello@licwebsolutions.com">
+                  <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                  hello@licwebsolutions.com
+                </a>
+              </li>
+              <li>
+                <a class="footer__link" href="tel:+17185551234">
+                  <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                  (718) 555-1234
+                </a>
+              </li>
+              <li>
+                <a class="footer__link" href="#">
+                  <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                  Long Island City, NY
+                </a>
+              </li>
+            </ul>
+            <a class="footer__button js-contact-trigger" href="#">
+              Book a call
+            </a>
+          </div>
+        </div>
+
+        <div class="footer__bottom">
+          <p class="footer__copyright">
+            &copy; <span id="footer-year">2026</span> LIC Web Solutions. All
+            rights reserved.
+          </p>
+          <ul class="footer__legal">
+            <li><a class="footer__link" href="#">Privacy</a></li>
+            <li><a class="footer__link" href="#">Terms</a></li>
+            <li><a class="footer__link" href="#">Sitemap</a></li>
+          </ul>
         </div>
       </div>
     </footer>
