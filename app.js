@@ -52,14 +52,93 @@ document.addEventListener("DOMContentLoaded", function () {
     startRotation();
   }
 
-  const burger = document.querySelector(".nav__toggle");
   const mobileMenu = document.querySelector(".nav__mobile");
-  burger.addEventListener("click", () => {
-    const open = burger.classList.toggle("burger-open");
-    burger.setAttribute("aria-expanded", open ? "true" : "false");
-    burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-    mobileMenu.classList.toggle("mobile-open", open);
+  const mobileToggle = document.querySelector(".nav__toggle");
+  const mobileLinks = mobileMenu
+    ? Array.from(mobileMenu.querySelectorAll("a"))
+    : [];
+  const mobileItems = mobileMenu
+    ? Array.from(mobileMenu.querySelectorAll(".mobile-menu__item"))
+    : [];
+  const mobileToggles = mobileMenu
+    ? Array.from(mobileMenu.querySelectorAll(".mobile-menu__toggle"))
+    : [];
+  const mobileSegments = mobileMenu
+    ? Array.from(mobileMenu.querySelectorAll(".mobile-menu__segment-btn"))
+    : [];
+  let openMobileMenu = function () {};
+  let closeMobileMenu = function () {};
+
+  if (mobileMenu && mobileToggle) {
+    openMobileMenu = function () {
+      mobileMenu.classList.add("mobile-open");
+      mobileMenu.setAttribute("aria-hidden", "false");
+      mobileToggle.classList.add("burger-open");
+      mobileToggle.setAttribute("aria-expanded", "true");
+      mobileToggle.setAttribute("aria-label", "Close menu");
+      //   document.body.classList.add("mobile-nav-open");
+    };
+
+    closeMobileMenu = function () {
+      mobileMenu.classList.remove("mobile-open");
+      mobileMenu.setAttribute("aria-hidden", "true");
+      mobileToggle.classList.remove("burger-open");
+      mobileToggle.setAttribute("aria-expanded", "false");
+      mobileToggle.setAttribute("aria-label", "Open menu");
+      //   document.body.classList.remove("mobile-nav-open");
+      mobileItems.forEach(function (item) {
+        item.classList.remove("mobile-open");
+      });
+    };
+
+    mobileToggle.addEventListener("click", function () {
+      const isOpen = mobileMenu.classList.contains("mobile-open");
+      if (isOpen) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    });
+  }
+
+  mobileToggles.forEach((toggle) => {
+    toggle.addEventListener("click", () => {
+      const item = toggle.closest(".mobile-menu__item");
+      if (!item) return;
+
+      const isOpen = item.classList.contains("is-open");
+      // is-open is a flag
+      // close others
+      mobileItems.forEach((other) => {
+        if (other !== item) {
+          other.classList.remove("is-open");
+          const otherToggle = other.querySelector(".mobile-menu__toggle");
+          if (otherToggle) otherToggle.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      // toggle this one
+      item.classList.toggle("is-open", !isOpen);
+      toggle.setAttribute("aria-expanded", String(!isOpen));
+    });
   });
+
+  mobileSegments.forEach(function (button) {
+    button.addEventListener("click", function () {
+      mobileSegments.forEach(function (otherButton) {
+        otherButton.classList.remove("is-active");
+      });
+      button.classList.add("is-active");
+    });
+  });
+
+  mobileLinks.forEach(function (link) {
+    link.addEventListener("click", function () {
+      closeMobileMenu();
+    });
+  });
+
+//   COnTACT MODAL BELow
 
   const contactModal = document.querySelector("#contact-modal");
   const contactTriggers = Array.from(
