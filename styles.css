@@ -49,7 +49,7 @@ header {
 .header__banner--container {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin: 0 auto;
   padding: 0 var(--globalPadding);
 }
@@ -162,7 +162,6 @@ nav {
 }
 
 .nav__mobile.mobile-open {
-  max-height: calc(100vh - 65px);
   max-height: calc(100dvh - 65px);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -170,14 +169,12 @@ nav {
 }
 
 .mobile-menu__panel {
-  width: 100%;
-  max-width: 100%;
+  min-height: 695px;
   background: #0b2f59;
   padding: var(--globalPadding);
   display: flex;
   flex-direction: column;
   gap: 25px;
-  justify-content: space-between;
 }
 
 .mobile-menu__header {
