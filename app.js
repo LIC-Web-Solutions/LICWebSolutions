@@ -104,6 +104,21 @@ document.addEventListener("DOMContentLoaded", function () {
         openMobileMenu();
       }
     });
+
+    const desktopQuery = window.matchMedia("(min-width: 1024px)");
+    const handleDesktopChange = function (event) {
+      if (event.matches) {
+        closeMobileMenu();
+      }
+    };
+    if (desktopQuery.matches) {
+      closeMobileMenu();
+    }
+    if (typeof desktopQuery.addEventListener === "function") {
+      desktopQuery.addEventListener("change", handleDesktopChange);
+    } else if (typeof desktopQuery.addListener === "function") {
+      desktopQuery.addListener(handleDesktopChange);
+    }
   }
 
   mobileToggles.forEach((toggle) => {
