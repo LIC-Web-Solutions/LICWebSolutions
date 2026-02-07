@@ -91,7 +91,7 @@ nav {
   height: 65px;
   position: relative;
   z-index: 10;
-  /* background-color: var(--licblue); */
+  background-color: var(--licblue);
 }
 
 .nav__toggle {
@@ -142,9 +142,8 @@ nav {
   z-index: 1000000;
 }
 
-.scrolled + .header__hero {
-  /* sibling offset */
-  margin-top: 0; /* keep layout from jumping when nav becomes fixed */
+.hero-scrolled {
+  margin-top: 0 !important;
 }
 
 .nav__mobile {
@@ -159,8 +158,8 @@ nav {
   opacity: 0;
   pointer-events: none;
   transition:
-    height 400ms cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 200ms ease;
+    height 350ms ease,
+    opacity 150ms ease;
   will-change: height, opacity;
 }
 
@@ -174,8 +173,8 @@ nav {
   width: 100%;
   max-width: 100%;
   background: #0b2f59;
-  height: 100%;
-  padding: 22px 18px 28px;
+  /* height: 100%; */
+  padding: var(--globalPadding);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -451,7 +450,7 @@ nav {
   position: relative;
   padding-top: 113px;
   padding-bottom: 70px;
-  margin-top: -87px;
+  margin-top: -65px;
 }
 
 .videom {
@@ -908,6 +907,7 @@ body.modal-open {
 @media (min-width: 1024px) {
   nav {
     height: 86px;
+    background-color: transparent;
   }
   .nav__toggle {
     display: none;
@@ -920,6 +920,7 @@ body.modal-open {
     padding: 114px 0 40px 100px;
   }
   .header__hero {
+    margin-top: -86px;
     padding-top: 86px;
     height: calc(100vh - 63px);
     padding-bottom: 0; /* reset to default if needed, or remove this line */
