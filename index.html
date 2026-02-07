@@ -101,8 +101,108 @@
               </ul>
             </li>
           </ul>
+          <div class="nav__mobile" id="mobile-menu" aria-hidden="true">
+            <div class="mobile-menu__panel">
+              <div class="mobile-menu__segment">
+                <button
+                  class="mobile-menu__segment-btn is-active"
+                  type="button"
+                >
+                  FOR BUSINESSES
+                </button>
+                <span class="mobile-menu__segment-divider">/</span>
+                <button class="mobile-menu__segment-btn" type="button">
+                  FOR INDIVIDUALS
+                </button>
+              </div>
+
+              <form class="mobile-menu__search" role="search">
+                <input type="search" placeholder="Search" aria-label="Search" />
+                <button type="submit" aria-label="Search">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+              </form>
+
+              <ul class="mobile-menu__list">
+                <li class="mobile-menu__item">
+                  <button class="mobile-menu__toggle" type="button">
+                    About
+                    <span class="mobile-menu__chevron"
+                      ><i class="fa-solid fa-chevron-down"></i
+                    ></span>
+                  </button>
+                  <ul class="mobile-menu__submenu">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Core Values</a></li>
+                    <li><a href="#">Problem Solving Approach</a></li>
+                    <li><a href="#">Team</a></li>
+                  </ul>
+                </li>
+                <li class="mobile-menu__item">
+                  <button class="mobile-menu__toggle" type="button">
+                    Services
+                    <span class="mobile-menu__chevron"
+                      ><i class="fa-solid fa-chevron-down"></i
+                    ></span>
+                  </button>
+                  <ul class="mobile-menu__submenu">
+                    <li><a href="#">Web Design & UX</a></li>
+                    <li><a href="#">Web Development</a></li>
+                    <li><a href="#">Website Maintenance</a></li>
+                    <li><a href="#">Mobile App Development</a></li>
+                  </ul>
+                </li>
+                <li class="mobile-menu__item">
+                  <button class="mobile-menu__toggle" type="button">
+                    Work
+                    <span class="mobile-menu__chevron"
+                      ><i class="fa-solid fa-chevron-down"></i
+                    ></span>
+                  </button>
+                  <ul class="mobile-menu__submenu">
+                    <li><a href="#">Industries We Serve</a></li>
+                    <li><a href="#">Featured Projects</a></li>
+                  </ul>
+                </li>
+                <li class="mobile-menu__item">
+                  <button class="mobile-menu__toggle" type="button">
+                    Insights
+                    <span class="mobile-menu__chevron"
+                      ><i class="fa-solid fa-chevron-down"></i
+                    ></span>
+                  </button>
+                  <ul class="mobile-menu__submenu">
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Industry Insights</a></li>
+                    <li><a href="#">Guides & Tutorials</a></li>
+                  </ul>
+                </li>
+                <li class="mobile-menu__item">
+                  <button class="mobile-menu__toggle" type="button">
+                    Contact
+                    <span class="mobile-menu__chevron"
+                      ><i class="fa-solid fa-chevron-down"></i
+                    ></span>
+                  </button>
+                  <ul class="mobile-menu__submenu">
+                    <li><a href="#">Book a Call</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Locations</a></li>
+                  </ul>
+                </li>
+              </ul>
+
+              <div class="mobile-menu__actions">
+                <a class="mobile-menu__action" href="#">Contact</a>
+                <a class="mobile-menu__action" href="#">Client Login</a>
+                <a class="mobile-menu__action" href="#">Book a Call</a>
+                <a class="mobile-menu__action" href="#">Support</a>
+              </div>
+            </div>
+          </div>
         </div>
       </nav>
+
       <div class="header__hero">
         <video
           class="videom"
@@ -242,13 +342,12 @@
               </div>
             </div>
           </div>
-          <div class="approach__right">
-            
-          </div>
+          <div class="approach__right"></div>
         </div>
       </div>
     </main>
-    <div class="contact-modal"
+    <div
+      class="contact-modal"
       id="contact-modal"
       role="dialog"
       aria-modal="true"
