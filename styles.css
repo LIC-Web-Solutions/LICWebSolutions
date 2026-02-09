@@ -3,10 +3,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 
 :root {
-  --licblue: #1e2875;
-  --licaccent: #539599;
+  --licblue: #1C225D;
+  --licblue2: #003569;
+  --navHeight: 86px; /*. convert 2 clamp l8r */
   --globalPadding: clamp(1rem, -5rem + 12.5vw, 3rem);
-  --navHeight: 86px;
   --bodyFontSize: clamp(1rem, 0.66rem + 0.532vw, 1.125rem);
 }
 
@@ -703,7 +703,7 @@ nav {
 
 .approach__left {
   /* width: 100%; */
-  background-color: #1c225d;
+  background-color: var(--licblue2);
   border: 1px solid #457c80;
   padding: 2rem var(--globalPadding);
 }
@@ -865,7 +865,7 @@ body.modal-open {
 
 /* FOOTER */
 .footer {
-  background: linear-gradient(180deg, var(--licblue) 0%, #12174a 100%);
+  background-image: url("/assets/lic-water-bg.jpg");
   border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
