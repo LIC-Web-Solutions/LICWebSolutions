@@ -409,8 +409,7 @@ nav {
   right: 0;
 } /*  last nav list item is pushed inwards to prevent breakage  */
 
-.nav__list--item:hover .nav__dropdown,
-.nav__list--item:focus-within .nav__dropdown {
+.nav__list--item:hover .nav__dropdown {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
