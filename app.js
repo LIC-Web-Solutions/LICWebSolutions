@@ -89,9 +89,9 @@ document.addEventListener("DOMContentLoaded", function () {
       navToggle.setAttribute("aria-expanded", "false");
       navToggle.setAttribute("aria-label", "Open menu");
       //   document.body.classList.remove("mobile-nav-open");
-      mobileItems.forEach(function (item) {
-        item.classList.remove("mobile-open");
-      });
+      // mobileItems.forEach(function (item) {
+      //   item.classList.remove("is-open");
+      // });                                    optional submenu close on nav close
     };
 
     navToggle.addEventListener("click", function () {
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    const desktopQuery  = window.matchMedia("(min-width: 1024px)");
+    const desktopQuery = window.matchMedia("(min-width: 1024px)");
     const handleDesktopChange = function (event) {
       if (event.matches) {
         closeNavMobile();
@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } else if (typeof desktopQuery.addListener === "function") {
       desktopQuery.addListener(handleDesktopChange);
     }
-  }
+  } // shut the mobile nav system after 1024px breakpoint
 
   mobileToggles.forEach((toggle) => {
     toggle.addEventListener("click", () => {
@@ -143,12 +143,72 @@ document.addEventListener("DOMContentLoaded", function () {
 
   mobileLinks.forEach(function (link) {
     link.addEventListener("click", function () {
-      closeNavMobile();
+      closeNavMobile(); // every time a submenu link is clicked,
+      //  close the mobile nav
     });
   });
 
-  //   COnTACT MODAL BELow
 
+
+// SERVICE BOXES ON RIGHT OF MAIN SECTION
+  const serviceBoxes = Array.from(
+    document.querySelectorAll(".main__right--box"), // the 4 quadrants on right of main section
+  );
+
+  if (serviceBoxes.length) {
+    const closeAllBoxes = function () {
+      serviceBoxes.forEach(function (box) {
+        box.classList.remove("is-open");
+      });
+    };
+
+    const handleBoxClick = function (event) {
+      if (!mobileQuery.matches) return; // only toggle on mobile
+      if (event.target.closest("a")) return; // don't toggle if clicking a link inside the box
+      const box = event.currentTarget;
+      const isOpen = box.classList.contains("is-open");
+      closeAllBoxes();
+      if (!isOpen) {
+        box.classList.add("is-open");
+      }
+    };
+
+    serviceBoxes.forEach(function (box) {
+      box.addEventListener("click", handleBoxClick);
+    });
+
+    if (typeof mobileQuery.addEventListener === "function") {
+      mobileQuery.addEventListener("change", function (event) {
+        if (!event.matches) {
+          closeAllBoxes();
+        }
+      });
+    } else if (typeof mobileQuery.addListener === "function") {
+      // addListener for older browsers
+      mobileQuery.addListener(function (event) {
+        if (!event.matches) {
+          closeAllBoxes();
+        }
+      });
+    }
+  }
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key !== "Escape") return;
+    if (navMobile && navMobile.classList.contains("is-open")) {
+      closeNavMobile();
+      return;
+    }
+    if (
+      contactModal &&
+      contactModal.classList.contains("is-open") &&
+      typeof closeModal === "function"
+    ) {
+      closeModal();
+    }
+  });
+
+  //   CONTACT MODAL BELOW
   const contactModal = document.querySelector("#contact-modal");
   const contactTriggers = Array.from(
     document.querySelectorAll(".banner__contact, .js-contact-trigger"),
@@ -205,61 +265,4 @@ document.addEventListener("DOMContentLoaded", function () {
         closeModal();
       });
   }
-
-  const serviceBoxes = Array.from(
-    document.querySelectorAll(".main__right--box"),
-  );
-
-  if (serviceBoxes.length) {
-    const closeAllBoxes = function () {
-      serviceBoxes.forEach(function (box) {
-        box.classList.remove("is-open");
-      });
-    };
-
-    const handleBoxClick = function (event) {
-      if (!mobileQuery.matches) return; // only toggle on mobile
-      if (event.target.closest("a")) return; // don't toggle if clicking a link inside the box
-      const box = event.currentTarget;
-      const isOpen = box.classList.contains("is-open");
-      closeAllBoxes();
-      if (!isOpen) {
-        box.classList.add("is-open");
-      }
-    };
-
-    serviceBoxes.forEach(function (box) {
-      box.addEventListener("click", handleBoxClick);
-    });
-
-    if (typeof mobileQuery.addEventListener === "function") {
-      mobileQuery.addEventListener("change", function (event) {
-        if (!event.matches) {
-          closeAllBoxes();
-        }
-      });
-    } else if (typeof mobileQuery.addListener === "function") {
-      // addListener for older browsers
-      mobileQuery.addListener(function (event) {
-        if (!event.matches) {
-          closeAllBoxes();
-        }
-      });
-    }
-  }
-
-  document.addEventListener("keydown", function (event) {
-    if (event.key !== "Escape") return;
-    if (navMobile && navMobile.classList.contains("is-open")) {
-      closeNavMobile();
-      return;
-    }
-    if (
-      contactModal &&
-      contactModal.classList.contains("is-open") &&
-      typeof closeModal === "function"
-    ) {
-      closeModal();
-    }
-  });
 });
