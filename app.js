@@ -1,21 +1,17 @@
-let mobileQuery = window.matchMedia("(max-width: 1023px)");
+const mobileQuery = window.matchMedia("(max-width: 1023px)");
 
-document.addEventListener(
-  "scroll",
-  function () {
-    const header = document.querySelector("#main-navbar");
-    const hero = document.querySelector(".header__hero");
-    if (!header) return;
-    if (!mobileQuery.matches && window.scrollY >= 64) {
-      header.classList.add("scrolled");
-      hero.classList.add("hero-scrolled");
-    } else {
-      header.classList.remove("scrolled");
-      hero.classList.remove("hero-scrolled");
-    }
-  },
-  { passive: true },
-);
+function onScroll() {
+  const header = document.querySelector("#main-navbar");
+  const hero = document.querySelector("[data-scroll-hero]");
+  if (!header || !hero) return;
+  const scrolled = !mobileQuery.matches && window.scrollY >= 64;
+  header.classList.toggle("scrolled", scrolled);
+  if (hero) {
+    hero.classList.toggle("hero-scrolled", scrolled);
+  }
+}
+document.addEventListener("scroll", onScroll, { passive: true });
+onScroll();
 
 document.addEventListener("DOMContentLoaded", function () {
   const footerYear = document.querySelector("#footer-year");
@@ -62,69 +58,66 @@ document.addEventListener("DOMContentLoaded", function () {
     startRotation();
   }
 
-  const mobileMenu = document.querySelector(".nav__mobile");
-  const mobileToggle = document.querySelector(".nav__toggle");
-  const mobileLinks = mobileMenu
-    ? Array.from(mobileMenu.querySelectorAll("a"))
+  const navMobile = document.querySelector(".nav__mobile");
+  const navToggle = document.querySelector(".nav__toggle");
+  const mobileLinks = navMobile
+    ? Array.from(navMobile.querySelectorAll("a"))
     : [];
-  const mobileItems = mobileMenu
-    ? Array.from(mobileMenu.querySelectorAll(".mobile-menu__item"))
+  const mobileItems = navMobile
+    ? Array.from(navMobile.querySelectorAll(".mobile-menu__item"))
     : [];
-  const mobileToggles = mobileMenu
-    ? Array.from(mobileMenu.querySelectorAll(".mobile-menu__toggle"))
+  const mobileToggles = navMobile
+    ? Array.from(navMobile.querySelectorAll(".mobile-menu__toggle"))
     : [];
-  const mobileSegments = mobileMenu
-    ? Array.from(mobileMenu.querySelectorAll(".mobile-menu__segment-btn"))
-    : [];
-  let openMobileMenu = function () {};
-  let closeMobileMenu = function () {};
+  let openNavMobile = function () {};
+  let closeNavMobile = function () {};
 
-  if (mobileMenu && mobileToggle) {
-    openMobileMenu = function () {
-      mobileMenu.classList.add("mobile-open");
-      mobileMenu.setAttribute("aria-hidden", "false");
-      mobileToggle.classList.add("burger-open");
-      mobileToggle.setAttribute("aria-expanded", "true");
-      mobileToggle.setAttribute("aria-label", "Close menu");
+  if (navMobile && navToggle) {
+    openNavMobile = function () {
+      navMobile.classList.add("mobile-open");
+      navMobile.setAttribute("aria-hidden", "false");
+      navToggle.classList.add("burger-open");
+      navToggle.setAttribute("aria-expanded", "true");
+      navToggle.setAttribute("aria-label", "Close menu");
       //   document.body.classList.add("mobile-nav-open");
     };
 
-    closeMobileMenu = function () {
-      mobileMenu.classList.remove("mobile-open");
-      mobileMenu.setAttribute("aria-hidden", "true");
-      mobileToggle.classList.remove("burger-open");
-      mobileToggle.setAttribute("aria-expanded", "false");
-      mobileToggle.setAttribute("aria-label", "Open menu");
+    closeNavMobile = function () {
+      navMobile.classList.remove("mobile-open");
+      navMobile.setAttribute("aria-hidden", "true");
+      navToggle.classList.remove("burger-open");
+      navToggle.setAttribute("aria-expanded", "false");
+      navToggle.setAttribute("aria-label", "Open menu");
       //   document.body.classList.remove("mobile-nav-open");
-      mobileItems.forEach(function (item) {
-        item.classList.remove("mobile-open");
-      });
+      // mobileItems.forEach(function (item) {
+      //   item.classList.remove("is-open");
+      // });                                    optional submenu close on nav close
     };
 
-    mobileToggle.addEventListener("click", function () {
-      const isOpen = mobileMenu.classList.contains("mobile-open");
+    navToggle.addEventListener("click", function () {
+      const isOpen = navMobile.classList.contains("mobile-open");
       if (isOpen) {
-        closeMobileMenu();
+        closeNavMobile();
       } else {
-        openMobileMenu();
+        openNavMobile();
       }
     });
 
     const desktopQuery = window.matchMedia("(min-width: 1024px)");
     const handleDesktopChange = function (event) {
       if (event.matches) {
-        closeMobileMenu();
+        closeNavMobile();
       }
     };
     if (desktopQuery.matches) {
-      closeMobileMenu();
+      closeNavMobile();
     }
     if (typeof desktopQuery.addEventListener === "function") {
       desktopQuery.addEventListener("change", handleDesktopChange);
     } else if (typeof desktopQuery.addListener === "function") {
       desktopQuery.addListener(handleDesktopChange);
     }
-  }
+  } // shut the mobile nav system after 1024px breakpoint
 
   mobileToggles.forEach((toggle) => {
     toggle.addEventListener("click", () => {
@@ -148,82 +141,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  mobileSegments.forEach(function (button) {
-    button.addEventListener("click", function () {
-      mobileSegments.forEach(function (otherButton) {
-        otherButton.classList.remove("is-active");
-      });
-      button.classList.add("is-active");
-    });
-  });
-
   mobileLinks.forEach(function (link) {
     link.addEventListener("click", function () {
-      closeMobileMenu();
+      closeNavMobile(); // every time a submenu link is clicked,
+      //  close the mobile nav
     });
   });
 
-  //   COnTACT MODAL BELow
 
-  const contactModal = document.querySelector("#contact-modal");
-  const contactTriggers = Array.from(
-    document.querySelectorAll(".banner__contact, .js-contact-trigger"),
-  );
-  let closeModal;
 
-  if (contactModal && contactTriggers.length) {
-    const closeButton = contactModal.querySelector(".contact-modal__close");
-    const modalForm = contactModal.querySelector(".contact-modal__form");
-    let lastFocusedElement = null;
-
-    const openModal = function () {
-      lastFocusedElement = document.activeElement;
-      contactModal.classList.add("is-open");
-      contactModal.setAttribute("aria-hidden", "false");
-      document.body.classList.add("modal-open");
-      closeButton && closeButton.focus();
-    };
-
-    closeModal = function () {
-      contactModal.classList.remove("is-open");
-      contactModal.setAttribute("aria-hidden", "true");
-      document.body.classList.remove("modal-open");
-      if (
-        lastFocusedElement &&
-        typeof lastFocusedElement.focus === "function"
-      ) {
-        lastFocusedElement.focus();
-      }
-    };
-
-    contactTriggers.forEach(function (trigger) {
-      trigger.addEventListener("click", function (event) {
-        event.preventDefault();
-        closeMobileMenu();
-        openModal();
-      });
-    });
-
-    closeButton &&
-      closeButton.addEventListener("click", function () {
-        closeModal();
-      });
-
-    contactModal.addEventListener("click", function (event) {
-      if (event.target === contactModal) {
-        closeModal();
-      }
-    });
-
-    modalForm &&
-      modalForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-        closeModal();
-      });
-  }
-
+// SERVICE BOXES ON RIGHT OF MAIN SECTION
   const serviceBoxes = Array.from(
-    document.querySelectorAll(".main__right--box"),
+    document.querySelectorAll(".main__right--box"), // the 4 quadrants on right of main section
   );
 
   if (serviceBoxes.length) {
@@ -266,8 +195,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.addEventListener("keydown", function (event) {
     if (event.key !== "Escape") return;
-    if (mobileMenu && mobileMenu.classList.contains("is-open")) {
-      closeMobileMenu();
+    if (navMobile && navMobile.classList.contains("is-open")) {
+      closeNavMobile();
       return;
     }
     if (
@@ -278,4 +207,62 @@ document.addEventListener("DOMContentLoaded", function () {
       closeModal();
     }
   });
+
+  //   CONTACT MODAL BELOW
+  const contactModal = document.querySelector("#contact-modal");
+  const contactTriggers = Array.from(
+    document.querySelectorAll(".banner__contact, .js-contact-trigger"),
+  );
+  let closeModal;
+
+  if (contactModal && contactTriggers.length) {
+    const closeButton = contactModal.querySelector(".contact-modal__close");
+    const modalForm = contactModal.querySelector(".contact-modal__form");
+    let lastFocusedElement = null;
+
+    const openModal = function () {
+      lastFocusedElement = document.activeElement;
+      contactModal.classList.add("is-open");
+      contactModal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+      closeButton && closeButton.focus();
+    };
+
+    closeModal = function () {
+      contactModal.classList.remove("is-open");
+      contactModal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+      if (
+        lastFocusedElement &&
+        typeof lastFocusedElement.focus === "function"
+      ) {
+        lastFocusedElement.focus();
+      }
+    };
+
+    contactTriggers.forEach(function (trigger) {
+      trigger.addEventListener("click", function (event) {
+        event.preventDefault();
+        closeNavMobile();
+        openModal();
+      });
+    });
+
+    closeButton &&
+      closeButton.addEventListener("click", function () {
+        closeModal();
+      });
+
+    contactModal.addEventListener("click", function (event) {
+      if (event.target === contactModal) {
+        closeModal();
+      }
+    });
+
+    modalForm &&
+      modalForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        closeModal();
+      });
+  }
 });
