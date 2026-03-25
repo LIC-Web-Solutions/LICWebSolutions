@@ -13,7 +13,7 @@
   padding: 0;
   box-sizing: border-box;
   color: #ffffff;
-  font-family: "Open Sans", sans-serif;
+  font-family: var(--font-open-sans), sans-serif;
 }
 
 .row {
@@ -171,6 +171,7 @@ nav {
   display: flex;
   flex-direction: column;
   gap: 25px;
+  border-bottom: 1px solid #ffffff59;
 }
 
 .mobile-menu__header {
@@ -487,7 +488,7 @@ nav {
   margin-bottom: 0.5rem;
   line-height: 1.2;
   letter-spacing: -0.055em;
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
 }
 
 .hero__booking {
@@ -569,7 +570,7 @@ nav {
   font-weight: 600;
   line-height: 125%;
   font-size: 24px;
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
 }
 
 .main__left--p,
@@ -612,7 +613,7 @@ nav {
   font-size: clamp(1.125rem, -0.75rem + 3.906vw, 1.75rem);
   color: #1c225d;
   font-weight: 600;
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
 }
 
 .box-img {
@@ -634,7 +635,7 @@ nav {
 .box__overlay-title {
   font-size: clamp(1.125rem, -0.75rem + 3.906vw, 1.75rem);
   font-weight: 600;
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
 }
 
 .box__overlay-text {
@@ -761,7 +762,7 @@ body.modal-open {
   font-weight: 700;
   margin-bottom: 6px;
   color: #1c225d;
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
 }
 
 .contact-modal__subtitle {
@@ -918,7 +919,7 @@ body.modal-open {
 }
 
 .footer__heading {
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
   font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
