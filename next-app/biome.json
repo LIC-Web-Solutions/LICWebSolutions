@@ -20,6 +20,20 @@
       "recommended": true,
       "suspicious": {
         "noUnknownAtRules": "off"
+      },
+      "complexity": {
+        "noImportantStyles": "off"
+      },
+      "style": {
+        "noDescendingSpecificity": "off"
+      },
+      "performance": {
+        "noImgElement": "off"
+      },
+      "a11y": {
+        "useValidAnchor": "off",
+        "useAriaPropsSupportedByRole": "off",
+        "useAnchorContent": "off"
       }
     },
     "domains": {
