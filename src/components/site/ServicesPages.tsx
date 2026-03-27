@@ -14,10 +14,15 @@ export function WebDesignUxPage() {
           <li>User flows and sitemap aligned to your business goals.</li>
           <li>Responsive layouts tested across breakpoints and devices.</li>
           <li>Design systems with reusable components for future pages.</li>
-          <li>Accessibility baked in from the first frame—not patched later.</li>
+          <li>
+            Accessibility baked in from the first frame—not patched later.
+          </li>
         </ul>
       </SiteSection>
-      <SiteSection eyebrow="Deliverables" title="From wireframes to polished UI">
+      <SiteSection
+        eyebrow="Deliverables"
+        title="From wireframes to polished UI"
+      >
         <div className="site-split">
           <div className="site-prose">
             <p>
@@ -65,8 +70,8 @@ export function WebDevelopmentPage() {
           <article className="site-card">
             <h3 className="site-card__title">CMS integration</h3>
             <p className="site-card__text">
-              Structured content models so editors can publish without
-              developer bottlenecks.
+              Structured content models so editors can publish without developer
+              bottlenecks.
             </p>
           </article>
           <article className="site-card">
@@ -144,8 +149,8 @@ export function MobileAppDevelopmentPage() {
           <article className="site-card">
             <h3 className="site-card__title">Cross-platform</h3>
             <p className="site-card__text">
-              Shared React Native or Flutter codebases where it makes sense
-              for speed and cost.
+              Shared React Native or Flutter codebases where it makes sense for
+              speed and cost.
             </p>
           </article>
           <article className="site-card">

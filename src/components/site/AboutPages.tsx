@@ -13,22 +13,31 @@ export function AboutUsPage() {
         <div className="site-prose">
           <p>
             We focus on disciplined design: typography, spacing, and performance
-            that reinforce your brand without noisy trends. Every engagement starts
-            with understanding your audience and the outcomes you need from the
-            site.
+            that reinforce your brand without noisy trends. Every engagement
+            starts with understanding your audience and the outcomes you need
+            from the site.
           </p>
           <p>
             Whether you are launching something new or replacing a legacy
-            experience, we align stakeholders early, document decisions, and ship
-            code you can build on.
+            experience, we align stakeholders early, document decisions, and
+            ship code you can build on.
           </p>
         </div>
       </SiteSection>
-      <SiteSection eyebrow="How we work" title="Partnership, not a one-off handoff">
+      <SiteSection
+        eyebrow="How we work"
+        title="Partnership, not a one-off handoff"
+      >
         <ul className="site-list">
-          <li>Discovery workshops that surface real priorities and constraints.</li>
-          <li>Design systems and components that scale as your content grows.</li>
-          <li>Launch support with analytics hooks so you can measure what matters.</li>
+          <li>
+            Discovery workshops that surface real priorities and constraints.
+          </li>
+          <li>
+            Design systems and components that scale as your content grows.
+          </li>
+          <li>
+            Launch support with analytics hooks so you can measure what matters.
+          </li>
         </ul>
       </SiteSection>
       <SiteCta
@@ -113,22 +122,22 @@ export function ProblemSolvingApproachPage() {
         <li>
           <strong className="site-steps__label">Align</strong>
           <span>
-            Goals, audiences, success metrics, and technical constraints captured
-            in a shared brief.
+            Goals, audiences, success metrics, and technical constraints
+            captured in a shared brief.
           </span>
         </li>
         <li>
           <strong className="site-steps__label">Design</strong>
           <span>
-            Wireframes and high-fidelity UI with component thinking, not
-            one-off pages.
+            Wireframes and high-fidelity UI with component thinking, not one-off
+            pages.
           </span>
         </li>
         <li>
           <strong className="site-steps__label">Build</strong>
           <span>
-            Accessible front ends, clean content models, and staging environments
-            for review.
+            Accessible front ends, clean content models, and staging
+            environments for review.
           </span>
         </li>
         <li>
@@ -166,7 +175,10 @@ export function TeamPage() {
       title="Team"
       lead="Cross-functional experts who own design, engineering, and ongoing care for your site."
     >
-      <SiteSection eyebrow="Leadership" title="Senior practitioners on every project">
+      <SiteSection
+        eyebrow="Leadership"
+        title="Senior practitioners on every project"
+      >
         <div className="site-grid site-grid--2">
           <article className="site-card">
             <h3 className="site-card__title">Design & UX</h3>

@@ -81,10 +81,12 @@ export function FeaturedProjectsPage() {
         </article>
         <article className="site-card site-card--tall">
           <p className="site-card__eyebrow">Growth</p>
-          <h3 className="site-card__title">Conversion-focused landing system</h3>
+          <h3 className="site-card__title">
+            Conversion-focused landing system
+          </h3>
           <p className="site-card__text">
-            Modular templates for campaigns, A/B-ready hero slots, and
-            analytics events tied to funnel stages.
+            Modular templates for campaigns, A/B-ready hero slots, and analytics
+            events tied to funnel stages.
           </p>
         </article>
         <article className="site-card site-card--tall">

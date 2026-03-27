@@ -14,22 +14,6 @@ export function LicLanding() {
   useEffect(() => {
     const mobileQuery = window.matchMedia("(max-width: 1023px)");
 
-    const header = document.querySelector<HTMLElement>("#main-navbar");
-    const hero = document.querySelector<HTMLElement>(".header__hero");
-
-    const handleScroll = () => {
-      if (!header || !hero) return;
-      if (!mobileQuery.matches && window.scrollY >= 64) {
-        header.classList.add("scrolled");
-        hero.classList.add("hero-scrolled");
-      } else {
-        header.classList.remove("scrolled");
-        hero.classList.remove("hero-scrolled");
-      }
-    };
-
-    document.addEventListener("scroll", handleScroll, { passive: true });
-
     const panels = Array.from(
       document.querySelectorAll<HTMLElement>(".hero__panels .panel"),
     );
@@ -106,7 +90,6 @@ export function LicLanding() {
     }
 
     return () => {
-      document.removeEventListener("scroll", handleScroll);
       window.clearInterval(rotationTimer);
     };
   }, []);

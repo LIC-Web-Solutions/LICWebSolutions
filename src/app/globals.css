@@ -1026,7 +1026,7 @@ body.modal-open {
   .header__banner {
     display: flex;
   }
-  
+
   nav {
     height: 86px;
     background-color: transparent;
@@ -1050,6 +1050,13 @@ body.modal-open {
     padding-top: 86px;
     height: calc(100vh - 63px);
     padding-bottom: 0;
+  }
+
+  .site-page__hero {
+    margin-top: -86px;
+    padding-top: calc(86px + 2.5rem);
+    padding-bottom: 2.75rem;
+    min-height: clamp(280px, 42vh, 520px);
   }
 
   .main__header {
@@ -1174,11 +1181,50 @@ body.modal-open {
 }
 
 .site-page__hero {
+  position: relative;
+  isolation: isolate;
   padding: calc(65px + 2.5rem) var(--globalPadding) 2.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: #0a1a3a;
+  background-image: url("/assets/lic-water-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.site-page__hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    165deg,
+    rgba(28, 34, 93, 0.78) 0%,
+    rgba(0, 53, 105, 0.72) 42%,
+    rgba(8, 18, 42, 0.92) 100%
+  );
+}
+
+.site-page__hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 45%;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(10, 22, 48, 0.55) 100%
+  );
 }
 
 .site-page__hero-inner {
+  position: relative;
+  z-index: 1;
   max-width: 52rem;
   margin: 0 auto;
 }
@@ -1193,11 +1239,11 @@ body.modal-open {
 }
 
 .site-page__title {
-  font-family: var(--font-montserrat), sans-serif;
-  font-size: clamp(1.85rem, 2vw + 1rem, 2.75rem);
+  font-family: var(--font-playfair-display), Georgia, serif;
+  font-size: clamp(2rem, 2.2vw + 1.1rem, 3rem);
   font-weight: 600;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
   margin-bottom: 1rem;
 }
 
@@ -1425,7 +1471,9 @@ body.modal-open {
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  transition: background 0.2s ease, border-color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .site-cta__btn--primary {
