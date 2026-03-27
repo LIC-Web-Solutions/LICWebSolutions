@@ -3,8 +3,15 @@ import {
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 
-export function LicHeader() {
+import { SITE_NAV } from "@/lib/siteNav";
+
+type LicHeaderProps = {
+  showHero?: boolean;
+};
+
+export function LicHeader({ showHero = true }: LicHeaderProps) {
   return (
     <header>
       <div className="header__banner">
@@ -25,13 +32,13 @@ export function LicHeader() {
 
       <nav id="main-navbar">
         <div className="nav__container">
-          <a href="/" className="nav__logo--wrapper" aria-label="Home">
+          <Link href="/" className="nav__logo--wrapper" aria-label="Home">
             <img
               className="nav__logo--img"
               src="/assets/LICLogo2025FullWhite.png"
               alt="LIC Web Solutions Logo"
             />
-          </a>
+          </Link>
 
           <button
             type="button"
@@ -46,113 +53,24 @@ export function LicHeader() {
           </button>
 
           <ul className="nav__list">
-            <li className="nav__list--item">
-              <span className="list-item__title">
-                About{" "}
-                <FontAwesomeIcon
-                  icon={faChevronDown}
-                  className="fa-chevron-down"
-                />
-              </span>
-              <ul className="nav__dropdown">
-                <li>
-                  <a href="#">About Us</a>
-                </li>
-                <li>
-                  <a href="#">Core Values</a>
-                </li>
-                <li>
-                  <a href="#">Problem Solving Approach</a>
-                </li>
-                <li>
-                  <a href="#">Team</a>
-                </li>
-              </ul>
-            </li>
-
-            <li className="nav__list--item">
-              <span className="list-item__title">
-                Services{" "}
-                <FontAwesomeIcon
-                  icon={faChevronDown}
-                  className="fa-chevron-down"
-                />
-              </span>
-              <ul className="nav__dropdown">
-                <li>
-                  <a href="#">Web Design & UX</a>
-                </li>
-                <li>
-                  <a href="#">Web Development</a>
-                </li>
-                <li>
-                  <a href="#">Website Maintenance</a>
-                </li>
-                <li>
-                  <a href="#">Mobile App Development</a>
-                </li>
-              </ul>
-            </li>
-
-            <li className="nav__list--item">
-              <span className="list-item__title">
-                Work{" "}
-                <FontAwesomeIcon
-                  icon={faChevronDown}
-                  className="fa-chevron-down"
-                />
-              </span>
-              <ul className="nav__dropdown">
-                <li>
-                  <a href="#">Industries We Serve</a>
-                </li>
-                <li>
-                  <a href="#">Featured Projects</a>
-                </li>
-              </ul>
-            </li>
-
-            <li className="nav__list--item">
-              <span className="list-item__title">
-                Insights{" "}
-                <FontAwesomeIcon
-                  icon={faChevronDown}
-                  className="fa-chevron-down"
-                />
-              </span>
-              <ul className="nav__dropdown">
-                <li>
-                  <a href="#">Blog</a>
-                </li>
-                <li>
-                  <a href="#">Industry Insights</a>
-                </li>
-                <li>
-                  <a href="#">Guides & Tutorials</a>
-                </li>
-              </ul>
-            </li>
-
-            <li className="nav__list--item">
-              <span className="list-item__title">
-                Contact{" "}
-                <FontAwesomeIcon
-                  icon={faChevronDown}
-                  className="fa-chevron-down"
-                />
-              </span>
-              <ul className="nav__dropdown">
-                <li>
-                  <a href="#">Book a Call</a>
-                </li>
-                <li>
-                  <a href="#">Support</a>
-                </li>
-                <li>
-                  <a href="#">Locations</a>
-                </li>
-              </ul>
-            </li>
+            {SITE_NAV.map((section) => (
+              <li key={section.id} className="nav__list--item">
+                <span className="list-item__title">
+                  {section.label}{" "}
+                  <FontAwesomeIcon
+                    icon={faChevronDown}
+                    className="fa-chevron-down"
+                  />
+                </span>
+                <ul className="nav__dropdown">
+                  {section.items.map((item) => (
+                    <li key={item.href}>
+                      <Link href={item.href}>{item.label}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
           </ul>
 
           <div className="nav__mobile" id="mobile-menu" aria-hidden="true">
@@ -165,174 +83,82 @@ export function LicHeader() {
               </form>
 
               <ul className="mobile-menu__list">
-                <li className="mobile-menu__item">
-                  <button className="mobile-menu__toggle" type="button">
-                    About
-                    <span className="mobile-menu__chevron">
-                      <FontAwesomeIcon
-                        icon={faChevronDown}
-                        className="fa-chevron-down"
-                      />
-                    </span>
-                  </button>
-                  <ul className="mobile-menu__submenu">
-                    <li>
-                      <a href="#">About Us</a>
-                    </li>
-                    <li>
-                      <a href="#">Core Values</a>
-                    </li>
-                    <li>
-                      <a href="#">Problem Solving Approach</a>
-                    </li>
-                    <li>
-                      <a href="#">Team</a>
-                    </li>
-                  </ul>
-                </li>
-
-                <li className="mobile-menu__item">
-                  <button className="mobile-menu__toggle" type="button">
-                    Services
-                    <span className="mobile-menu__chevron">
-                      <FontAwesomeIcon
-                        icon={faChevronDown}
-                        className="fa-chevron-down"
-                      />
-                    </span>
-                  </button>
-                  <ul className="mobile-menu__submenu">
-                    <li>
-                      <a href="#">Web Design & UX</a>
-                    </li>
-                    <li>
-                      <a href="#">Web Development</a>
-                    </li>
-                    <li>
-                      <a href="#">Website Maintenance</a>
-                    </li>
-                    <li>
-                      <a href="#">Mobile App Development</a>
-                    </li>
-                  </ul>
-                </li>
-
-                <li className="mobile-menu__item">
-                  <button className="mobile-menu__toggle" type="button">
-                    Work
-                    <span className="mobile-menu__chevron">
-                      <FontAwesomeIcon
-                        icon={faChevronDown}
-                        className="fa-chevron-down"
-                      />
-                    </span>
-                  </button>
-                  <ul className="mobile-menu__submenu">
-                    <li>
-                      <a href="#">Industries We Serve</a>
-                    </li>
-                    <li>
-                      <a href="#">Featured Projects</a>
-                    </li>
-                  </ul>
-                </li>
-
-                <li className="mobile-menu__item">
-                  <button className="mobile-menu__toggle" type="button">
-                    Insights
-                    <span className="mobile-menu__chevron">
-                      <FontAwesomeIcon
-                        icon={faChevronDown}
-                        className="fa-chevron-down"
-                      />
-                    </span>
-                  </button>
-                  <ul className="mobile-menu__submenu">
-                    <li>
-                      <a href="#">Blog</a>
-                    </li>
-                    <li>
-                      <a href="#">Industry Insights</a>
-                    </li>
-                    <li>
-                      <a href="#">Guides & Tutorials</a>
-                    </li>
-                  </ul>
-                </li>
-
-                <li className="mobile-menu__item">
-                  <button className="mobile-menu__toggle" type="button">
-                    Contact
-                    <span className="mobile-menu__chevron">
-                      <FontAwesomeIcon
-                        icon={faChevronDown}
-                        className="fa-chevron-down"
-                      />
-                    </span>
-                  </button>
-                  <ul className="mobile-menu__submenu">
-                    <li>
-                      <a href="#">Book a Call</a>
-                    </li>
-                    <li>
-                      <a href="#">Support</a>
-                    </li>
-                    <li>
-                      <a href="#">Locations</a>
-                    </li>
-                  </ul>
-                </li>
+                {SITE_NAV.map((section) => (
+                  <li key={section.id} className="mobile-menu__item">
+                    <button className="mobile-menu__toggle" type="button">
+                      {section.label}
+                      <span className="mobile-menu__chevron">
+                        <FontAwesomeIcon
+                          icon={faChevronDown}
+                          className="fa-chevron-down"
+                        />
+                      </span>
+                    </button>
+                    <ul className="mobile-menu__submenu">
+                      {section.items.map((item) => (
+                        <li key={item.href}>
+                          <Link href={item.href}>{item.label}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
               </ul>
 
               <div className="mobile-menu__actions">
-                <a className="mobile-menu__action" href="#">
+                <a className="mobile-menu__action js-contact-trigger" href="#">
                   Contact
                 </a>
                 <a className="mobile-menu__action" href="#">
                   Client Login
                 </a>
-                <a className="mobile-menu__action" href="#">
+                <Link
+                  className="mobile-menu__action"
+                  href="/contact/book-a-call"
+                >
                   Book a Call
-                </a>
-                <a className="mobile-menu__action" href="#">
+                </Link>
+                <Link className="mobile-menu__action" href="/contact/support">
                   Support
-                </a>
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </nav>
 
-      <div className="header__hero">
-        <video
-          className="videom"
-          autoPlay
-          muted
-          playsInline
-          loop
-          src="/assets/Licskylinefootage.mp4"
-        />
+      {showHero ? (
+        <div className="header__hero">
+          <video
+            className="videom"
+            autoPlay
+            muted
+            playsInline
+            loop
+            src="/assets/Licskylinefootage.mp4"
+          />
 
-        <div className="hero">
-          <div className="hero__panels">
-            <div className="panel active" />
-            <div className="panel" />
-            <div className="panel" />
-            <div className="panel" />
-          </div>
+          <div className="hero">
+            <div className="hero__panels">
+              <div className="panel active" />
+              <div className="panel" />
+              <div className="panel" />
+              <div className="panel" />
+            </div>
 
-          <div className="hero__container">
-            <h1 className="hero__title">
-              Disciplined design
-              <br />
-              for your website.
-            </h1>
-            <div className="hero__booking">
-              <a href="#"> Start with a website template</a>
+            <div className="hero__container">
+              <h1 className="hero__title">
+                Disciplined design
+                <br />
+                for your website.
+              </h1>
+              <div className="hero__booking">
+                <a href="#"> Start with a website template</a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      ) : null}
     </header>
   );
 }
