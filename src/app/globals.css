@@ -1069,6 +1069,7 @@ body.modal-open {
   }
 
   .main__right {
+    width: 60%;
     flex-wrap: wrap;
     margin-top: -100px;
   }
