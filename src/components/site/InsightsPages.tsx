@@ -36,16 +36,16 @@ export function BlogPage() {
             Editorial workflows that scale beyond one hero
           </h3>
           <p className="site-card__text">
-            Roles, approvals, and preview environments that keep publishing
-            safe without bottlenecks.
+            Roles, approvals, and preview environments that keep publishing safe
+            without bottlenecks.
           </p>
         </article>
       </div>
       <SiteSection title="Subscribe">
         <div className="site-prose">
           <p>
-            Full newsletter signup and RSS will live here when you wire your
-            CMS or email provider. For now, reach out and we will add you to
+            Full newsletter signup and RSS will live here when you wire your CMS
+            or email provider. For now, reach out and we will add you to
             updates.
           </p>
         </div>

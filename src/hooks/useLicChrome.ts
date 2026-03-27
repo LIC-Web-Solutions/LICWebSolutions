@@ -8,6 +8,30 @@ export function useLicChrome() {
     const footerYear = document.querySelector<HTMLElement>("#footer-year");
     if (footerYear) footerYear.textContent = String(new Date().getFullYear());
 
+    const mobileQuery = window.matchMedia("(max-width: 1023px)");
+    const header = document.querySelector<HTMLElement>("#main-navbar");
+    const getHero = () =>
+      document.querySelector<HTMLElement>(".header__hero") ??
+      document.querySelector<HTMLElement>(".site-page__hero");
+
+    const syncNavScroll = () => {
+      const hero = getHero();
+      if (!header || !hero) return;
+      if (!mobileQuery.matches && window.scrollY >= 64) {
+        header.classList.add("scrolled");
+        hero.classList.add("hero-scrolled");
+      } else {
+        header.classList.remove("scrolled");
+        hero.classList.remove("hero-scrolled");
+      }
+    };
+
+    syncNavScroll();
+    document.addEventListener("scroll", syncNavScroll, { passive: true });
+    if (typeof mobileQuery.addEventListener === "function") {
+      mobileQuery.addEventListener("change", syncNavScroll);
+    }
+
     const mobileMenu = document.querySelector<HTMLElement>(".nav__mobile");
     const mobileToggle = document.querySelector<HTMLElement>(".nav__toggle");
     const mobileLinks = mobileMenu
@@ -164,6 +188,10 @@ export function useLicChrome() {
     document.addEventListener("keydown", handleEscape);
 
     return () => {
+      document.removeEventListener("scroll", syncNavScroll);
+      if (typeof mobileQuery.removeEventListener === "function") {
+        mobileQuery.removeEventListener("change", syncNavScroll);
+      }
       document.removeEventListener("keydown", handleEscape);
       if (typeof desktopQuery.removeEventListener === "function") {
         desktopQuery.removeEventListener("change", handleDesktopChange);

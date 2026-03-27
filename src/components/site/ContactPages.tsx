@@ -114,7 +114,9 @@ export function LocationsPage() {
       <SiteSection title="Regional coverage">
         <ul className="site-list">
           <li>East Coast business hours for live collaboration.</li>
-          <li>Flexible scheduling for West Coast and international partners.</li>
+          <li>
+            Flexible scheduling for West Coast and international partners.
+          </li>
         </ul>
       </SiteSection>
       <SiteCta
