@@ -1,6 +1,4 @@
-"use client";
-
-import { LicLanding } from "../components/lic/LicLanding";
+import { LicLanding } from "../components/landing/LicLanding";
 
 export default function Page() {
   return <LicLanding />;
