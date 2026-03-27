@@ -1020,12 +1020,13 @@ body.modal-open {
 }
 
 @media (min-width: 1200px) {
-  .header__banner {
-    display: flex;
-  }
 }
 
 @media (min-width: 1024px) {
+  .header__banner {
+    display: flex;
+  }
+  
   nav {
     height: 86px;
     background-color: transparent;
