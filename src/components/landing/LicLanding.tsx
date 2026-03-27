@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { ContactModal } from "./ContactModal";
+import { ContactModal } from "../modals/ContactModal";
 import { LicFooter } from "./LicFooter";
 import { LicHeader } from "./LicHeader";
 import { LicMain } from "./LicMain";
@@ -43,6 +43,7 @@ export function LicLanding() {
     let index = 0;
     let rotationTimer: number | undefined;
 
+    // hero panel rotation
     const updateHero = () => {
       panels.forEach((panel, panelIndex) => {
         panel.classList.toggle("active", panelIndex === index);
@@ -59,7 +60,7 @@ export function LicLanding() {
         updateHero();
       }, 10000);
     };
-
+// every time the user clicks on a panel, the panel becomes active and the title changes
     if (panels.length && heroTitle) {
       panels.forEach((panel, panelIndex) => {
         panel.addEventListener("click", () => {
