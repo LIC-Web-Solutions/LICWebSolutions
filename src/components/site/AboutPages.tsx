@@ -172,12 +172,46 @@ export function TeamPage() {
   return (
     <SitePage
       kicker="About"
-      title="Team"
-      lead="Cross-functional experts who own design, engineering, and ongoing care for your site."
+      title="Meet the team"
+      lead="The people behind disciplined design, solid engineering, and long-term care for your site."
     >
+      <SiteSection eyebrow="Leadership" title="From the founder">
+        <div className="site-split site-split--founder">
+          <div className="site-founder-photo">
+            <img
+              src="/assets/team-founder.png"
+              alt="Mahdi Tanzim, founder of LIC Web Solutions"
+              width={960}
+              height={720}
+            />
+          </div>
+          <div className="site-founder__copy">
+            <h3 className="site-card__title">Mahdi Tanzim</h3>
+            <p className="site-founder__role">Founder &amp; CEO</p>
+            <div className="site-founder__blocks">
+              <section className="site-founder__block">
+                <h4 className="site-founder__block-title">Mission</h4>
+                <p className="site-founder__block-text">
+                  LIC Web Solutions exists to help organizations ship web
+                  experiences that stay fast, clear, and maintainable—so your
+                  team can focus on the work, not wrestling with the stack.
+                </p>
+              </section>
+              <section className="site-founder__block">
+                <h4 className="site-founder__block-title">How I work</h4>
+                <p className="site-founder__block-text">
+                  I stay hands-on with clients on strategy and delivery, and I
+                  build the practice around accountability, craft, and respect
+                  for your audience&apos;s time.
+                </p>
+              </section>
+            </div>
+          </div>
+        </div>
+      </SiteSection>
       <SiteSection
-        eyebrow="Leadership"
-        title="Senior practitioners on every project"
+        eyebrow="Capabilities"
+        title="How the team shows up on every project"
       >
         <div className="site-grid site-grid--2">
           <article className="site-card">
