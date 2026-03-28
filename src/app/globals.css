@@ -396,6 +396,7 @@ nav {
   pointer-events: none;
 }
 
+/* Adjust the last child dropdown to the right so it doesn't go out of bounds */
 .nav__list :last-child .nav__dropdown {
   left: auto;
   right: 0;
@@ -428,6 +429,13 @@ nav {
 
 .fa-chevron-down {
   margin-left: 0.4rem;
+  transition: transform 200ms ease, color 200ms ease;
+  transform-origin: center;
+}
+
+.nav__list--item:hover .fa-chevron-down {
+  transform: scaleY(-1);
+  color: inherit;
 }
 
 .header__hero {
