@@ -1,6 +1,32 @@
+import WorldMap from "@/components/ui/world-map";
+
 import { SiteCta } from "./SiteCta";
 import { SitePage } from "./SitePage";
 import { SiteSection } from "./SiteSection";
+
+/** Hub: Long Island City studio — arcs show remote collaboration reach */
+const LOCATIONS_WORLD_DOTS = [
+  {
+    start: { lat: 40.7518, lng: -73.9291 },
+    end: { lat: 34.0522, lng: -118.2437 },
+  },
+  {
+    start: { lat: 40.7518, lng: -73.9291 },
+    end: { lat: 51.5074, lng: -0.1278 },
+  },
+  {
+    start: { lat: 40.7518, lng: -73.9291 },
+    end: { lat: 28.6139, lng: 77.209 },
+  },
+  {
+    start: { lat: 40.7518, lng: -73.9291 },
+    end: { lat: -23.5505, lng: -46.6333 },
+  },
+  {
+    start: { lat: 40.7518, lng: -73.9291 },
+    end: { lat: 35.6762, lng: 139.6503 },
+  },
+];
 
 export function BookACallPage() {
   return (
@@ -92,32 +118,56 @@ export function LocationsPage() {
       kicker="Contact"
       title="Locations"
       lead="We work with clients across the country—remote-first with optional on-site workshops."
+      heroImageSrc="/assets/locations-hero.png"
     >
       <SiteSection title="Headquarters">
-        <div className="site-split">
-          <div className="site-prose">
-            <p>
-              <strong>Studio</strong>
+        <div className="site-split site-split--locations">
+          <article className="site-address-card">
+            <p className="site-address-card__eyebrow">Visit</p>
+            <h3 className="site-address-card__title">
+              Long Island City studio
+            </h3>
+            <address className="site-address-card__address">
+              34-18 Northern Blvd
               <br />
-              Replace with your address, hours, and parking instructions.
+              Long Island City, NY 11101
+            </address>
+            <p className="site-address-card__hint">
+              East Coast hours · On-site workshops by appointment
             </p>
-          </div>
-          <div className="site-prose">
-            <p>
-              <strong>Map</strong>
-              <br />
-              Embed Google Maps or Mapbox here when you are ready.
-            </p>
+            <a
+              className="site-address-card__directions"
+              href="https://www.google.com/maps/dir/?api=1&destination=34-18+Northern+Blvd,+Long+Island+City,+NY+11101"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Get directions
+            </a>
+          </article>
+          <div className="site-world-map">
+            <WorldMap dots={LOCATIONS_WORLD_DOTS} lineColor="#8dd2e2" />
           </div>
         </div>
       </SiteSection>
       <SiteSection title="Regional coverage">
-        <ul className="site-list">
-          <li>East Coast business hours for live collaboration.</li>
-          <li>
-            Flexible scheduling for West Coast and international partners.
-          </li>
-        </ul>
+        <div className="site-grid site-grid--2">
+          <article className="site-card site-card--locations">
+            <p className="site-card__eyebrow">Collaboration</p>
+            <h3 className="site-card__title">East Coast</h3>
+            <p className="site-card__text">
+              Business hours aligned for live collaboration with teams in
+              Eastern time.
+            </p>
+          </article>
+          <article className="site-card site-card--locations">
+            <p className="site-card__eyebrow">Flexibility</p>
+            <h3 className="site-card__title">Global</h3>
+            <p className="site-card__text">
+              Flexible scheduling for West Coast and international partners when
+              projects need it.
+            </p>
+          </article>
+        </div>
       </SiteSection>
       <SiteCta
         title="Meet remotely"
