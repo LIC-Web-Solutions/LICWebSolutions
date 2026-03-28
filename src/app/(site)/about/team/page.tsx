@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { TeamPage } from "@/components/site/AboutPages";
 
 export const metadata: Metadata = {
-  title: "Team",
+  title: "Meet the team",
   description:
-    "Cross-functional experts in design, engineering, content, and support at LIC Web Solutions.",
+    "Meet the founder and learn how design, engineering, content, and support come together at LIC Web Solutions.",
 };
 
 export default function Page() {
