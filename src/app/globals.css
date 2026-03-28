@@ -370,11 +370,19 @@ nav {
   position: relative;
 }
 
-.nav__list--item:hover,
-.nav__list--item:hover i,
 .nav__list--item:hover .list-item__title,
-.nav__list--item:hover .list-item__title i {
+.nav__list--item:hover .fa-chevron-down {
   color: #8dd2e2;
+}
+
+.nav__list--item:hover .fa-chevron-down {
+  transform: scaleY(-1);
+}
+
+/* * { color } applies to SVG path; fill=currentColor uses path's own color */
+.nav__list--item:hover .fa-chevron-down path {
+  color: inherit;
+  fill: currentColor;
 }
 
 .list-item__title {
@@ -431,11 +439,6 @@ nav {
   margin-left: 0.4rem;
   transition: transform 200ms ease, color 200ms ease;
   transform-origin: center;
-}
-
-.nav__list--item:hover .fa-chevron-down {
-  transform: scaleY(-1);
-  color: inherit;
 }
 
 .header__hero {
