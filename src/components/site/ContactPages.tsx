@@ -1,5 +1,8 @@
+import Link from "next/link";
+
 import WorldMap from "@/components/ui/world-map";
 
+import { CalendlyEmbed } from "./CalendlyEmbed";
 import { SiteCta } from "./SiteCta";
 import { SitePage } from "./SitePage";
 import { SiteSection } from "./SiteSection";
@@ -28,39 +31,146 @@ const LOCATIONS_WORLD_DOTS = [
   },
 ];
 
+const calendlyUrl = process.env.NEXT_PUBLIC_CALENDLY_URL;
+
 export function BookACallPage() {
   return (
     <SitePage
-      kicker="Contact"
-      title="Book a call"
-      lead="Schedule a 30-minute conversation to align on goals, scope, and timeline."
+      kicker="Get started"
+      title="Book a discovery call"
+      lead="This is the first step for new engagements—a short conversation to see if we are a fit, clarify goals and scope, and outline what happens next if we move forward together."
     >
-      <SiteSection title="What to expect">
+      <SiteSection eyebrow="Discovery" title="Why book a call">
         <ul className="site-list">
-          <li>We review your current site and primary pain points.</li>
-          <li>We outline recommended phases and ballpark ranges.</li>
-          <li>We answer questions about process, tooling, and support.</li>
+          <li>
+            Honest read on whether our process and timeline match what you need.
+          </li>
+          <li>
+            A clear picture of recommended phases, dependencies, and ballpark
+            ranges so you can plan internally.
+          </li>
+          <li>
+            Space to ask about our stack, accessibility, maintenance, and how we
+            collaborate after launch.
+          </li>
         </ul>
-      </SiteSection>
-      <SiteSection eyebrow="Calendar" title="Scheduling">
         <div className="site-prose">
           <p>
-            Connect your calendar provider (Calendly, HubSpot, or similar) here.
-            Until then, use the{" "}
-            <a href="#" className="js-contact-trigger site-link">
-              contact form
-            </a>{" "}
-            and we will reach out with times that work.
+            Calls are typically <strong>30 minutes</strong>, over video, with
+            East Coast–friendly scheduling. There is no obligation—just a
+            structured conversation.
           </p>
         </div>
       </SiteSection>
+
+      <SiteSection eyebrow="Prepare" title="Before the call">
+        <div className="site-grid site-grid--2">
+          <article className="site-card">
+            <h3 className="site-card__title">Context</h3>
+            <p className="site-card__text">
+              Your current site URL, product, or what you are replacing—plus any
+              must-keep integrations or constraints.
+            </p>
+          </article>
+          <article className="site-card">
+            <h3 className="site-card__title">Goals &amp; success</h3>
+            <p className="site-card__text">
+              What “done” looks like for your team: leads, credibility,
+              performance, or internal workflows you need the site to support.
+            </p>
+          </article>
+          <article className="site-card">
+            <h3 className="site-card__title">Who joins</h3>
+            <p className="site-card__text">
+              Ideally someone who can speak to priorities and budget, plus
+              whoever will own content or approvals day to day.
+            </p>
+          </article>
+          <article className="site-card">
+            <h3 className="site-card__title">Brand &amp; references</h3>
+            <p className="site-card__text">
+              Logos, style guides, or a few sites you admire—helpful, not
+              required for the first conversation.
+            </p>
+          </article>
+        </div>
+      </SiteSection>
+
+      <SiteSection eyebrow="What happens next" title="After the call">
+        <ol className="site-steps">
+          <li>
+            <strong className="site-steps__label">Follow-up summary</strong>
+            <span>
+              We recap what we heard, open questions, and suggested direction so
+              everyone is aligned in writing.
+            </span>
+          </li>
+          <li>
+            <strong className="site-steps__label">
+              Proposal &amp; estimate
+            </strong>
+            <span>
+              When it makes sense, we share scope options, timeline, and
+              investment ranges for you to review internally.
+            </span>
+          </li>
+          <li>
+            <strong className="site-steps__label">Kickoff</strong>
+            <span>
+              If you move forward, we schedule onboarding, access, and the first
+              working sessions—aligned with our broader delivery approach.
+            </span>
+          </li>
+        </ol>
+        <div className="site-prose">
+          <p>
+            Curious how we work end to end? See our{" "}
+            <Link href="/about/problem-solving-approach" className="site-link">
+              problem-solving approach
+            </Link>
+            .
+          </p>
+        </div>
+      </SiteSection>
+
+      <SiteSection eyebrow="Calendar" title="Scheduling">
+        {calendlyUrl ? (
+          <div className="site-scheduling">
+            <div className="site-prose">
+              <p>
+                Pick a time that works for you. This is a working session, not a
+                sales pitch—bring your questions. If you prefer not to use the
+                calendar, reach out via the{" "}
+                <a href="#" className="js-contact-trigger site-link">
+                  contact form
+                </a>{" "}
+                and we will suggest slots.
+              </p>
+            </div>
+            <CalendlyEmbed url={calendlyUrl} />
+          </div>
+        ) : (
+          <div className="site-prose">
+            <p>
+              Add your Calendly event URL to{" "}
+              <code>NEXT_PUBLIC_CALENDLY_URL</code> in <code>.env.local</code>{" "}
+              (Calendly → Event type → Share). Until then, use the{" "}
+              <a href="#" className="js-contact-trigger site-link">
+                contact form
+              </a>{" "}
+              and we will reach out with times that work.
+            </p>
+          </div>
+        )}
+      </SiteSection>
+
       <SiteCta
-        title="Not ready to meet?"
-        body="Send a quick note and we will follow up with options."
-        primaryHref="/contact/support"
-        primaryLabel="Support"
-        secondaryHref="/"
-        secondaryLabel="Back home"
+        title="Explore how we work first"
+        body="Read our framework from discovery to launch, or meet the people behind the work—then book when you are ready."
+        primaryHref="/about/problem-solving-approach"
+        primaryLabel="Problem-solving approach"
+        secondaryHref="/about/team"
+        secondaryLabel="Meet the team"
       />
     </SitePage>
   );

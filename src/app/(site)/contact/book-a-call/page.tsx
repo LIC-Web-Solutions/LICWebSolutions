@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { BookACallPage } from "@/components/site/ContactPages";
 
 export const metadata: Metadata = {
-  title: "Book a Call",
+  title: "Book a discovery call",
   description:
-    "Schedule a conversation with LIC Web Solutions to align on goals and timeline.",
+    "Schedule a discovery call with LIC Web Solutions—the first step for new projects. Align on goals, scope, and next steps before kickoff.",
 };
 
 export default function Page() {
