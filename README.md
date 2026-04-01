@@ -6,8 +6,25 @@ Marketing and site for LIC Web Solutions, built with the [Next.js](https://nextj
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) (current LTS recommended)
-- [pnpm](https://pnpm.io/)
+- [Node.js](https://nodejs.org/) **20.9+** (see `engines` in `package.json`)
+- [Corepack](https://nodejs.org/api/corepack.html) (ships with Node) so the repo’s pnpm version is used automatically
+
+Enable Corepack once per machine (uses the `packageManager` version in `package.json`):
+
+```bash
+corepack enable
+```
+
+## Package manager (pnpm only)
+
+This project is locked with **`pnpm-lock.yaml`**. Use **pnpm** for installs and dependency changes—do **not** run `npm install` or `yarn` in this repo (that creates conflicting lockfiles and inconsistent `node_modules`).
+
+- Install: `pnpm install`
+- Add: `pnpm add <pkg>` / dev: `pnpm add -D <pkg>`
+- Remove: `pnpm remove <pkg>`
+- Update lockfile after editing `package.json`: `pnpm install`
+
+CI runs `pnpm install --frozen-lockfile`, `pnpm lint`, and `pnpm build` on every push and pull request to `main`.
 
 ## Setup
 
