@@ -7,6 +7,7 @@ export function ContactModal() {
       aria-modal="true"
       aria-labelledby="contact-modal-title"
       aria-hidden="true"
+      inert
     >
       <div className="contact-modal__dialog">
         <button

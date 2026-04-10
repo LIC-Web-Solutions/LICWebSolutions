@@ -2,6 +2,17 @@
 
 import { useEffect } from "react";
 
+/** Fresh nodes on every call so client navigations never leave listeners on detached DOM. */
+function getMobileChrome() {
+  const mobileMenu = document.querySelector<HTMLElement>(".nav__mobile");
+  const mobileToggle = document.querySelector<HTMLElement>(".nav__toggle");
+  return { mobileMenu, mobileToggle };
+}
+
+function getContactModal() {
+  return document.querySelector<HTMLElement>("#contact-modal");
+}
+
 /** Mobile menu, contact modal, footer year, Escape — shared by landing and inner shell. */
 export function useLicChrome() {
   useEffect(() => {
@@ -9,12 +20,12 @@ export function useLicChrome() {
     if (footerYear) footerYear.textContent = String(new Date().getFullYear());
 
     const mobileQuery = window.matchMedia("(max-width: 1023px)");
-    const header = document.querySelector<HTMLElement>("#main-navbar");
     const getHero = () =>
       document.querySelector<HTMLElement>(".header__hero") ??
       document.querySelector<HTMLElement>(".site-page__hero");
 
     const syncNavScroll = () => {
+      const header = document.querySelector<HTMLElement>("#main-navbar");
       const hero = getHero();
       if (!header || !hero) return;
       if (!mobileQuery.matches && window.scrollY >= 64) {
@@ -32,38 +43,34 @@ export function useLicChrome() {
       mobileQuery.addEventListener("change", syncNavScroll);
     }
 
-    const mobileMenu = document.querySelector<HTMLElement>(".nav__mobile");
-    const mobileToggle = document.querySelector<HTMLElement>(".nav__toggle");
-    const mobileLinks = mobileMenu
-      ? Array.from(mobileMenu.querySelectorAll<HTMLAnchorElement>("a"))
-      : [];
-    const mobileItems = mobileMenu
-      ? Array.from(
-          mobileMenu.querySelectorAll<HTMLElement>(".mobile-menu__item"),
-        )
-      : [];
-    const mobileToggles = mobileMenu
-      ? Array.from(
-          mobileMenu.querySelectorAll<HTMLElement>(".mobile-menu__toggle"),
-        )
-      : [];
-
     let closeModalFn: (() => void) | undefined;
+    let lastFocusedElement: Element | null = null;
 
+    /** Single close path: never leave focus inside a subtree we mark aria-hidden + inert. */
     const closeMobileMenu = () => {
+      const { mobileMenu, mobileToggle } = getMobileChrome();
       if (!mobileMenu || !mobileToggle) return;
+      const active = document.activeElement;
+      if (active instanceof Node && mobileMenu.contains(active)) {
+        mobileToggle.focus();
+      }
       mobileMenu.classList.remove("mobile-open");
       mobileMenu.setAttribute("aria-hidden", "true");
+      mobileMenu.inert = true;
       mobileToggle.classList.remove("burger-open");
       mobileToggle.setAttribute("aria-expanded", "false");
-      mobileToggle.setAttribute("aria-label", "Open menu");
-      mobileItems.forEach((item) => {
+      mobileToggle.setAttribute("aria-label", "Open navigation");
+      for (const item of mobileMenu.querySelectorAll<HTMLElement>(
+        ".mobile-menu__item",
+      )) {
         item.classList.remove("mobile-open");
-      });
+      }
     };
 
     const openMobileMenu = () => {
+      const { mobileMenu, mobileToggle } = getMobileChrome();
       if (!mobileMenu || !mobileToggle) return;
+      mobileMenu.inert = false;
       mobileMenu.classList.add("mobile-open");
       mobileMenu.setAttribute("aria-hidden", "false");
       mobileToggle.classList.add("burger-open");
@@ -71,12 +78,127 @@ export function useLicChrome() {
       mobileToggle.setAttribute("aria-label", "Close menu");
     };
 
-    mobileToggle?.addEventListener("click", () => {
-      if (!mobileMenu) return;
-      const isOpen = mobileMenu.classList.contains("mobile-open");
-      if (isOpen) closeMobileMenu();
-      else openMobileMenu();
-    });
+    const openModal = () => {
+      const contactModal = getContactModal();
+      const closeButton = contactModal?.querySelector<HTMLElement>(
+        ".contact-modal__close",
+      );
+      if (!contactModal) return;
+      lastFocusedElement = document.activeElement;
+      contactModal.inert = false;
+      contactModal.classList.add("is-open");
+      contactModal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+      closeButton?.focus();
+    };
+
+    const closeModal = () => {
+      const contactModal = getContactModal();
+      const { mobileToggle } = getMobileChrome();
+      if (!contactModal) return;
+      if (lastFocusedElement && "focus" in lastFocusedElement) {
+        (lastFocusedElement as HTMLElement).focus();
+      } else {
+        mobileToggle?.focus();
+      }
+      contactModal.classList.remove("is-open");
+      contactModal.setAttribute("aria-hidden", "true");
+      contactModal.inert = true;
+      document.body.classList.remove("modal-open");
+    };
+
+    closeModalFn = closeModal;
+
+    /** One delegated click: always resolves live DOM (fixes dead handlers after Next.js navigations). */
+    const onDocumentClick = (event: MouseEvent) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const contactModal = getContactModal();
+
+      if (contactModal?.classList.contains("is-open")) {
+        if (target === contactModal) {
+          closeModal();
+          return;
+        }
+        const closeBtn = target.closest(".contact-modal__close");
+        if (closeBtn) {
+          closeModal();
+          return;
+        }
+      }
+
+      const navToggle = target.closest(".nav__toggle");
+      if (navToggle instanceof HTMLElement) {
+        if (!navToggle.closest("#main-navbar")) return;
+        const { mobileMenu, mobileToggle } = getMobileChrome();
+        if (!mobileMenu || mobileToggle !== navToggle) return;
+        const isOpen = mobileMenu.classList.contains("mobile-open");
+        if (isOpen) closeMobileMenu();
+        else openMobileMenu();
+        return;
+      }
+
+      const subToggle = target.closest<HTMLElement>(".mobile-menu__toggle");
+      if (subToggle) {
+        const { mobileMenu } = getMobileChrome();
+        if (!mobileMenu?.contains(subToggle)) return;
+        const item = subToggle.closest<HTMLElement>(".mobile-menu__item");
+        if (!item) return;
+
+        const items = Array.from(
+          mobileMenu.querySelectorAll<HTMLElement>(".mobile-menu__item"),
+        );
+        const sectionOpen = item.classList.contains("is-open");
+
+        for (const other of items) {
+          if (other !== item) {
+            other.classList.remove("is-open");
+            const otherToggle = other.querySelector<HTMLElement>(
+              ".mobile-menu__toggle",
+            );
+            otherToggle?.setAttribute("aria-expanded", "false");
+          }
+        }
+
+        item.classList.toggle("is-open", !sectionOpen);
+        subToggle.setAttribute("aria-expanded", String(!sectionOpen));
+        return;
+      }
+
+      const contactTrigger = target.closest<HTMLElement>(
+        ".banner__contact, .js-contact-trigger",
+      );
+      if (contactTrigger) {
+        event.preventDefault();
+        closeMobileMenu();
+        openModal();
+        return;
+      }
+
+      const link = target.closest<HTMLAnchorElement>("a");
+      if (link) {
+        const { mobileMenu } = getMobileChrome();
+        if (mobileMenu?.contains(link)) {
+          closeMobileMenu();
+        }
+      }
+    };
+
+    document.addEventListener("click", onDocumentClick);
+
+    const onDocumentSubmit = (event: Event) => {
+      const form = event.target;
+      if (
+        form instanceof HTMLFormElement &&
+        form.classList.contains("contact-modal__form")
+      ) {
+        event.preventDefault();
+        closeModal();
+      }
+    };
+
+    document.addEventListener("submit", onDocumentSubmit);
 
     const desktopQuery = window.matchMedia("(min-width: 1024px)");
     const handleDesktopChange = (event: MediaQueryListEvent) => {
@@ -88,95 +210,16 @@ export function useLicChrome() {
       desktopQuery.addEventListener("change", handleDesktopChange);
     }
 
-    mobileToggles.forEach((toggle) => {
-      toggle.addEventListener("click", () => {
-        const item = toggle.closest<HTMLElement>(".mobile-menu__item");
-        if (!item) return;
-
-        const isOpen = item.classList.contains("is-open");
-
-        mobileItems.forEach((other) => {
-          if (other !== item) {
-            other.classList.remove("is-open");
-            const otherToggle = other.querySelector<HTMLElement>(
-              ".mobile-menu__toggle",
-            );
-            if (otherToggle) otherToggle.setAttribute("aria-expanded", "false");
-          }
-        });
-
-        item.classList.toggle("is-open", !isOpen);
-        toggle.setAttribute("aria-expanded", String(!isOpen));
-      });
-    });
-
-    mobileLinks.forEach((link) => {
-      link.addEventListener("click", closeMobileMenu);
-    });
-
-    const contactModal = document.querySelector<HTMLElement>("#contact-modal");
-    const contactTriggers = Array.from(
-      document.querySelectorAll<HTMLElement>(
-        ".banner__contact, .js-contact-trigger",
-      ),
-    );
-
-    if (contactModal && contactTriggers.length) {
-      const closeButton = contactModal.querySelector<HTMLElement>(
-        ".contact-modal__close",
-      );
-      const modalForm = contactModal.querySelector<HTMLFormElement>(
-        ".contact-modal__form",
-      );
-      let lastFocusedElement: Element | null = null;
-
-      const openModal = () => {
-        lastFocusedElement = document.activeElement;
-        contactModal.classList.add("is-open");
-        contactModal.setAttribute("aria-hidden", "false");
-        document.body.classList.add("modal-open");
-        closeButton?.focus();
-      };
-
-      const closeModal = () => {
-        contactModal.classList.remove("is-open");
-        contactModal.setAttribute("aria-hidden", "true");
-        document.body.classList.remove("modal-open");
-        if (lastFocusedElement && "focus" in lastFocusedElement) {
-          (lastFocusedElement as HTMLElement).focus();
-        }
-      };
-
-      closeModalFn = closeModal;
-
-      contactTriggers.forEach((trigger) => {
-        trigger.addEventListener("click", (event) => {
-          event.preventDefault();
-          closeMobileMenu();
-          openModal();
-        });
-      });
-
-      closeButton?.addEventListener("click", closeModal);
-
-      contactModal.addEventListener("click", (event) => {
-        if (event.target === contactModal) closeModal();
-      });
-
-      modalForm?.addEventListener("submit", (event) => {
-        event.preventDefault();
-        closeModal();
-      });
-    }
-
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return;
 
+      const { mobileMenu } = getMobileChrome();
       if (mobileMenu?.classList.contains("mobile-open")) {
         closeMobileMenu();
         return;
       }
 
+      const contactModal = getContactModal();
       if (
         contactModal?.classList.contains("is-open") &&
         typeof closeModalFn === "function"
@@ -192,6 +235,8 @@ export function useLicChrome() {
       if (typeof mobileQuery.removeEventListener === "function") {
         mobileQuery.removeEventListener("change", syncNavScroll);
       }
+      document.removeEventListener("click", onDocumentClick);
+      document.removeEventListener("submit", onDocumentSubmit);
       document.removeEventListener("keydown", handleEscape);
       if (typeof desktopQuery.removeEventListener === "function") {
         desktopQuery.removeEventListener("change", handleDesktopChange);
