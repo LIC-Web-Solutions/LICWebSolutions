@@ -7,6 +7,8 @@ import Link from "next/link";
 
 import { SITE_NAV } from "@/lib/siteNav";
 
+import { LicHeroInteractive } from "./LicHeroInteractive";
+
 type LicHeaderProps = {
   showHero?: boolean;
 };
@@ -73,7 +75,12 @@ export function LicHeader({ showHero = true }: LicHeaderProps) {
             ))}
           </ul>
 
-          <div className="nav__mobile" id="mobile-menu" aria-hidden="true">
+          <div
+            className="nav__mobile"
+            id="mobile-menu"
+            aria-hidden="true"
+            inert
+          >
             <div className="mobile-menu__panel">
               <form className="mobile-menu__search">
                 <input type="search" placeholder="Search" aria-label="Search" />
@@ -138,25 +145,7 @@ export function LicHeader({ showHero = true }: LicHeaderProps) {
             src="/assets/Licskylinefootage.mp4"
           />
 
-          <div className="hero">
-            <div className="hero__panels">
-              <div className="panel active" />
-              <div className="panel" />
-              <div className="panel" />
-              <div className="panel" />
-            </div>
-
-            <div className="hero__container">
-              <h1 className="hero__title">
-                Disciplined design
-                <br />
-                for your website.
-              </h1>
-              <div className="hero__booking">
-                <a href="#"> Start with a website template</a>
-              </div>
-            </div>
-          </div>
+          <LicHeroInteractive />
         </div>
       ) : null}
     </header>

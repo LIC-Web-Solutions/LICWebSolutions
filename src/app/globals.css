@@ -476,6 +476,9 @@ nav {
   border: none;
   cursor: pointer;
   opacity: 0.25;
+  background: transparent;
+  padding: 0;
+  font: inherit;
 }
 
 .panel::after {
