@@ -142,12 +142,12 @@ export function LicFooter() {
                   hello@licwebsolutions.com
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a className="footer__link" href="tel:+19297089096">
                   <FontAwesomeIcon icon={faPhone} aria-hidden />
                   (929) 708-9096
                 </a>
-              </li>
+              </li> */}
               <li>
                 <a className="footer__link" href="#">
                   <FontAwesomeIcon icon={faLocationDot} aria-hidden />
