@@ -53,6 +53,27 @@ pnpm install
 
 Development defaults to [http://localhost:3000](http://localhost:3000). App routes and pages live under `src/app/`.
 
+## Authentication (Clerk)
+
+The marketing site stays public. **`/portal`** is the signed-in client area; unauthenticated visitors are redirected to **`/sign-in`**. **`/sign-up`** is available for the scaffold (tighten or disable sign-up in the [Clerk Dashboard](https://dashboard.clerk.com) when you move to invite-only).
+
+### Environment variables
+
+Copy [`.env.example`](.env.example) to **`.env.local`** (gitignored) and set:
+
+| Variable | Where it is used |
+| --- | --- |
+| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Browser / Next.js client |
+| `CLERK_SECRET_KEY` | Server and Next.js proxy (never expose in client bundles) |
+
+In the Clerk application, set **Sign-in URL** to `/sign-in`, **Sign-up URL** to `/sign-up`, and **After sign-in** (and optionally **After sign-up**) to `/portal` so users land in the portal after authenticating.
+
+### Vercel and CI
+
+Add the same two variables to **Vercel** for Preview and Production.
+
+**GitHub Actions:** `pnpm build` loads [`src/proxy.ts`](src/proxy.ts) (Next.js “proxy”, formerly `middleware`) and needs Clerk keys at build time. Add [repository secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) named `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY` with the same values as in `.env.local`. Without them, the **Build** step in [`.github/workflows/ci.yml`](.github/workflows/ci.yml) will fail.
+
 ## Stack
 
 - Next.js 16, React 19, TypeScript
