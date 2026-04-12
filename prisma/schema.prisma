@@ -1,0 +1,230 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum WorkspaceStatus {
+  ACTIVE
+  PAUSED
+  ARCHIVED
+}
+
+enum WorkspaceRole {
+  OWNER
+  ADMIN
+  MEMBER
+  VIEWER
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  BLOCKED
+  CLOSED
+}
+
+enum TicketPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum SupportThreadStatus {
+  OPEN
+  WAITING_ON_CLIENT
+  WAITING_ON_LIC
+  RESOLVED
+}
+
+enum CustomizationRequestStatus {
+  DRAFT
+  QUOTED
+  APPROVED
+  IN_PROGRESS
+  DELIVERED
+  REJECTED
+}
+
+enum MonitoringStatus {
+  HEALTHY
+  DEGRADED
+  DOWN
+}
+
+model User {
+  id                    String                 @id @default(cuid())
+  clerkUserId           String                 @unique
+  email                 String?                @db.VarChar(320)
+  fullName              String?                @db.VarChar(160)
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  memberships           WorkspaceMember[]
+  createdTickets        Ticket[]               @relation("TicketCreatedBy")
+  assignedTickets       Ticket[]               @relation("TicketAssignedTo")
+  supportThreads        SupportThread[]        @relation("SupportThreadCreatedBy")
+  supportMessages       SupportMessage[]       @relation("SupportMessageCreatedBy")
+  customizationRequests CustomizationRequest[] @relation("CustomizationCreatedBy")
+  approvedRequests      CustomizationRequest[] @relation("CustomizationApprovedBy")
+  actionEvents          ActionEvent[]          @relation("ActionEventActor")
+}
+
+model Workspace {
+  id                    String                 @id @default(cuid())
+  slug                  String                 @unique @db.VarChar(80)
+  name                  String                 @db.VarChar(120)
+  status                WorkspaceStatus        @default(ACTIVE)
+  primaryDomain         String?                @db.VarChar(255)
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  members               WorkspaceMember[]
+  projects              Project[]
+  tickets               Ticket[]
+  supportThreads        SupportThread[]
+  supportMessages       SupportMessage[]
+  customizationRequests CustomizationRequest[]
+  monitoringChecks      MonitoringCheck[]
+  actionEvents          ActionEvent[]
+}
+
+model WorkspaceMember {
+  id          String        @id @default(cuid())
+  workspaceId String
+  userId      String
+  role        WorkspaceRole @default(MEMBER)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  workspace   Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, userId])
+  @@index([userId])
+  @@index([workspaceId, role])
+}
+
+model Project {
+  id          String    @id @default(cuid())
+  workspaceId String
+  name        String    @db.VarChar(120)
+  repoUrl     String?   @db.VarChar(255)
+  environment String?   @db.VarChar(60)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  tickets     Ticket[]
+  customizationRequests CustomizationRequest[]
+  monitoringChecks MonitoringCheck[]
+
+  @@unique([workspaceId, name])
+  @@index([workspaceId, environment])
+}
+
+model Ticket {
+  id          String        @id @default(cuid())
+  workspaceId String
+  projectId   String?
+  createdById String
+  assignedToId String?
+  title       String        @db.VarChar(180)
+  description String?
+  status      TicketStatus  @default(OPEN)
+  priority    TicketPriority @default(MEDIUM)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  workspace   Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  project     Project?      @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  createdBy   User          @relation("TicketCreatedBy", fields: [createdById], references: [id], onDelete: Restrict)
+  assignedTo  User?         @relation("TicketAssignedTo", fields: [assignedToId], references: [id], onDelete: SetNull)
+
+  @@index([workspaceId, status, priority])
+  @@index([workspaceId, createdAt])
+  @@index([workspaceId, projectId])
+}
+
+model SupportThread {
+  id          String              @id @default(cuid())
+  workspaceId String
+  createdById String
+  subject     String              @db.VarChar(180)
+  status      SupportThreadStatus @default(OPEN)
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  workspace   Workspace           @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  createdBy   User                @relation("SupportThreadCreatedBy", fields: [createdById], references: [id], onDelete: Restrict)
+  messages    SupportMessage[]
+
+  @@index([workspaceId, status, updatedAt])
+}
+
+model SupportMessage {
+  id          String        @id @default(cuid())
+  threadId    String
+  workspaceId String
+  createdById String
+  body        String
+  createdAt   DateTime      @default(now())
+  thread      SupportThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  workspace   Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  createdBy   User          @relation("SupportMessageCreatedBy", fields: [createdById], references: [id], onDelete: Restrict)
+
+  @@index([workspaceId, threadId, createdAt])
+}
+
+model CustomizationRequest {
+  id           String                     @id @default(cuid())
+  workspaceId  String
+  projectId    String?
+  createdById  String
+  approvedById String?
+  type         String                     @db.VarChar(80)
+  specification String
+  estimate     String?                    @db.VarChar(255)
+  status       CustomizationRequestStatus @default(DRAFT)
+  createdAt    DateTime                   @default(now())
+  updatedAt    DateTime                   @updatedAt
+  workspace    Workspace                  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  project      Project?                   @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  createdBy    User                       @relation("CustomizationCreatedBy", fields: [createdById], references: [id], onDelete: Restrict)
+  approvedBy   User?                      @relation("CustomizationApprovedBy", fields: [approvedById], references: [id], onDelete: SetNull)
+
+  @@index([workspaceId, status, createdAt])
+  @@index([workspaceId, projectId])
+}
+
+model MonitoringCheck {
+  id             String           @id @default(cuid())
+  workspaceId    String
+  projectId      String?
+  endpoint       String           @db.VarChar(255)
+  latestStatus   MonitoringStatus @default(HEALTHY)
+  latestLatencyMs Int?
+  lastIncidentAt DateTime?
+  checkedAt      DateTime         @default(now())
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  workspace      Workspace        @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  project        Project?         @relation(fields: [projectId], references: [id], onDelete: SetNull)
+
+  @@index([workspaceId, latestStatus, checkedAt])
+  @@index([workspaceId, projectId])
+}
+
+model ActionEvent {
+  id          String    @id @default(cuid())
+  workspaceId String
+  actorId     String?
+  action      String    @db.VarChar(100)
+  targetType  String    @db.VarChar(60)
+  targetId    String?   @db.VarChar(80)
+  metadata    Json?
+  createdAt   DateTime  @default(now())
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  actor       User?     @relation("ActionEventActor", fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([workspaceId, createdAt])
+  @@index([workspaceId, action])
+}

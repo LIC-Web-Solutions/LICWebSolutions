@@ -9,6 +9,9 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
+    env:
+      # Satisfies Prisma schema `env("DATABASE_URL")` during `pnpm install` → `prisma generate` (no DB connection).
+      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/_ci_prisma_generate?schema=public
     steps:
       - uses: actions/checkout@v4
 
