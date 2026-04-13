@@ -19,9 +19,9 @@ export function LicHeader({ showHero = true }: LicHeaderProps) {
       <div className="header__banner">
         <div className="header__banner--container">
           <div className="banner__right">
-            <a href="#" className="banner__login">
+            <Link href="/sign-in" className="banner__login">
               CLIENT LOGIN
-            </a>
+            </Link>
             <a href="#" className="banner__contact">
               Contact
             </a>
@@ -116,9 +116,9 @@ export function LicHeader({ showHero = true }: LicHeaderProps) {
                 <a className="mobile-menu__action js-contact-trigger" href="#">
                   Contact
                 </a>
-                <a className="mobile-menu__action" href="#">
+                <Link className="mobile-menu__action" href="/sign-in">
                   Client Login
-                </a>
+                </Link>
                 <Link
                   className="mobile-menu__action"
                   href="/contact/book-a-call"

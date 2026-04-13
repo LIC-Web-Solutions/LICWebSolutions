@@ -1,25 +1,8 @@
-import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
 import { BootstrapWorkspaceForm } from "@/app/portal/internal/workspace-bootstrap/BootstrapWorkspaceForm";
-
-function parseAdminIds(): string[] {
-  const raw = process.env.INTERNAL_ADMIN_CLERK_IDS ?? "";
-  return raw
-    .split(",")
-    .map((s) => s.trim())
-    .filter(Boolean);
-}
+import { requireInternalAdmin } from "@/lib/auth/internal-admin";
 
 export default async function WorkspaceBootstrapPage() {
-  const { userId } = await auth();
-  if (!userId) {
-    redirect("/sign-in");
-  }
-
-  const allowed = parseAdminIds();
-  if (allowed.length === 0 || !allowed.includes(userId)) {
-    redirect("/portal/access-denied");
-  }
+  await requireInternalAdmin();
 
   return (
     <main className="mx-auto max-w-2xl px-6 py-12">

@@ -1751,3 +1751,21 @@ body.modal-open {
 .site-link:hover {
   opacity: 0.9;
 }
+
+/* ---- Dashboard + client portal shell (hybrid LIC UI) ---- */
+:root {
+  --dashboard-accent: #0ea5e9;
+  --dashboard-radius-card: 8px;
+  --dashboard-radius-control: 6px;
+}
+
+.dashboard-root {
+  background-color: #09090b;
+  color: #fafafa;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 14px;
+}
+
+.dashboard-root * {
+  font-family: inherit;
+}

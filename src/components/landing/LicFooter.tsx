@@ -5,7 +5,6 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
 
 export function LicFooter() {
   return (
@@ -70,11 +69,6 @@ export function LicFooter() {
                   <a className="footer__link" href="#">
                     Contact
                   </a>
-                </li>
-                <li>
-                  <Link className="footer__link" href="/sign-in">
-                    Client portal
-                  </Link>
                 </li>
               </ul>
             </div>

@@ -1,4 +1,4 @@
-import { PortalHeader } from "@/components/portal/PortalHeader";
+import { PortalAppChrome } from "@/components/portal/PortalAppChrome";
 
 export default function PortalLayout({
   children,
@@ -6,9 +6,8 @@ export default function PortalLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-full flex-col">
-      <PortalHeader />
-      <div className="flex-1">{children}</div>
+    <div className="dashboard-root flex min-h-full flex-col bg-zinc-950 text-zinc-50 antialiased">
+      <PortalAppChrome>{children}</PortalAppChrome>
     </div>
   );
 }
