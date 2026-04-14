@@ -1,0 +1,60 @@
+.root {
+  display: flex;
+  min-height: 100%;
+}
+
+.desktopRail {
+  display: none;
+  width: 15rem;
+  flex-shrink: 0;
+}
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: default;
+}
+
+.mobileRail {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 50;
+  width: 15rem;
+  transform: translateX(-100%);
+  transition: transform 180ms ease;
+}
+
+.mobileRailOpen {
+  transform: translateX(0);
+}
+
+.contentColumn {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+.contentMain {
+  width: 100%;
+  max-width: 84rem;
+  margin: 0 auto;
+  flex: 1;
+  padding: 2rem var(--globalPadding) 3rem;
+}
+
+@media (min-width: 768px) {
+  .desktopRail {
+    display: block;
+  }
+
+  .mobileRail {
+    display: none;
+  }
+
+  .scrim {
+    display: none;
+  }
+}

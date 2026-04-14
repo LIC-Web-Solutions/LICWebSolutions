@@ -5,6 +5,9 @@ import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { approveCustomizationAction } from "@/app/portal/[workspaceSlug]/customization/actions";
 import { hasPermission, PERMISSIONS } from "@/lib/auth/permissions";
+import { cn } from "@/lib/utils";
+import portalStyle from "@/styles/portal.module.css";
+import styles from "./CustomizationRequestList.module.css";
 
 type Row = CustomizationRequest & {
   createdBy: Pick<User, "id" | "email" | "fullName">;
@@ -32,33 +35,24 @@ export function CustomizationRequestList({
   );
 
   if (rows.length === 0) {
-    return (
-      <p className="rounded-lg border border-white/10 bg-white/[0.03] p-5 text-sm opacity-80">
-        No customization requests yet.
-      </p>
-    );
+    return <p className={portalStyle.empty}>No customization requests yet.</p>;
   }
 
   return (
-    <ul className="space-y-4">
+    <ul className={styles.list}>
       {rows.map((r) => {
         const canApproveThis =
           canApprove && (r.status === "DRAFT" || r.status === "QUOTED");
         return (
-          <li
-            key={r.id}
-            className="rounded-lg border border-white/10 bg-white/[0.03] p-5"
-          >
-            <div className="flex flex-wrap items-start justify-between gap-3">
-              <div>
-                <p className="text-xs uppercase tracking-wide opacity-60">
-                  {r.type}
-                </p>
-                <h3 className="mt-1 text-lg font-semibold">{r.status}</h3>
-                <p className="mt-2 whitespace-pre-wrap text-sm opacity-85">
-                  {r.specification}
-                </p>
-                <p className="mt-3 text-xs opacity-60">
+          <li key={r.id} className={portalStyle.listItem}>
+            <div className={styles.row}>
+              <div className={styles.body}>
+                <p className={portalStyle.eyebrow}>{r.type}</p>
+                <h3 className={cn(portalStyle.h2Section, styles.status)}>
+                  {r.status.replaceAll("_", " ").toLowerCase()}
+                </h3>
+                <p className={styles.spec}>{r.specification}</p>
+                <p className={styles.meta}>
                   By {who(r.createdBy)}
                   {r.approvedBy ? ` · Approved by ${who(r.approvedBy)}` : ""}
                 </p>
@@ -73,7 +67,7 @@ export function CustomizationRequestList({
                       router.refresh();
                     });
                   }}
-                  className="rounded-full border border-emerald-400/40 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-200 disabled:opacity-40"
+                  className={cn(portalStyle.btnPrimary, styles.approveButton)}
                 >
                   Approve
                 </button>

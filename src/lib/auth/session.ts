@@ -1,5 +1,4 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
-import type { User } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 
 export class AuthenticationError extends Error {
@@ -43,7 +42,9 @@ export async function upsertCurrentAppUser() {
   });
 }
 
-export async function getCurrentAppUser(): Promise<User | null> {
+type AppUser = Awaited<ReturnType<typeof upsertCurrentAppUser>>;
+
+export async function getCurrentAppUser(): Promise<AppUser | null> {
   const { userId } = await auth();
   if (!userId) {
     return null;

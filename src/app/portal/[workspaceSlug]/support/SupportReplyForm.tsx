@@ -5,6 +5,8 @@ import {
   addSupportMessageWithState,
   type SupportMessageFormState,
 } from "@/app/portal/[workspaceSlug]/support/actions";
+import { cn } from "@/lib/utils";
+import portalStyle from "@/styles/portal.module.css";
 
 const initial: SupportMessageFormState = { error: null };
 
@@ -21,23 +23,23 @@ export function SupportReplyForm({
   );
 
   return (
-    <form action={formAction} className="mt-3 space-y-2">
+    <form action={formAction} className={portalStyle.replyForm}>
       <input type="hidden" name="workspaceSlug" value={workspaceSlug} />
       <input type="hidden" name="threadId" value={threadId} />
       {state.error ? (
-        <p className="text-xs text-red-300">{state.error}</p>
+        <p className={portalStyle.errorText}>{state.error}</p>
       ) : null}
       <textarea
         name="body"
         required
-        rows={2}
-        className="w-full rounded border border-white/15 bg-black/30 px-3 py-2 text-sm outline-none focus:border-white/40"
+        rows={3}
+        className={portalStyle.input}
         placeholder="Write a reply…"
       />
       <button
         type="submit"
         disabled={pending}
-        className="text-xs font-semibold uppercase tracking-wide opacity-90 hover:opacity-100 disabled:opacity-40"
+        className={cn(portalStyle.btnOutline, portalStyle.btnAuto)}
       >
         {pending ? "Sending…" : "Send reply"}
       </button>

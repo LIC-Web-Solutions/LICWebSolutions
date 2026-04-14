@@ -13,6 +13,9 @@ export const ADMIN_NAV = [
   { href: "/admin/clients", label: "Clients", icon: Users },
   { href: "/admin/projects", label: "Projects", icon: FolderKanban },
   { href: "/admin/invoices", label: "Invoices", icon: CreditCard },
+] as const;
+
+export const ADMIN_NAV_SECONDARY = [
   { href: "/admin/leads", label: "Leads", icon: UserPlus },
   { href: "/admin/messages", label: "Messages", icon: MessageSquare },
   { href: "/admin/settings", label: "Settings", icon: Settings },

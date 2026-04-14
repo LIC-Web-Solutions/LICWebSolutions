@@ -1,0 +1,95 @@
+.buttonBase {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.buttonBase:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.buttonDefault {
+  background: var(--lic-teal);
+  color: #fff;
+}
+
+.buttonDefault:hover {
+  background: #67a8ac;
+}
+
+.buttonDestructive {
+  background: #dc2626;
+  color: #fff;
+}
+
+.buttonDestructive:hover {
+  background: #ef4444;
+}
+
+.buttonOutline {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  color: #fff;
+}
+
+.buttonOutline:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.buttonSecondary {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.buttonSecondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.buttonGhost {
+  color: rgba(255, 255, 255, 0.88);
+  background: transparent;
+}
+
+.buttonGhost:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.buttonLink {
+  color: #9dd6d6;
+  text-underline-offset: 4px;
+}
+
+.buttonLink:hover {
+  text-decoration: underline;
+}
+
+.sizeDefault {
+  height: 2.25rem;
+  padding: 0.5rem 1rem;
+}
+
+.sizeSm {
+  height: 2rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+}
+
+.sizeLg {
+  height: 2.5rem;
+  padding: 0.5rem 2rem;
+}
+
+.sizeIcon {
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+}

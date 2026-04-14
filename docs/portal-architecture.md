@@ -2,6 +2,13 @@
 
 This document maps how the signed-in client portal fits together: routing, identity, data access, and where each module lives in the codebase. **No secrets** are documented here; use [`.env.example`](../.env.example) and the project README for variable names and setup.
 
+**Further documentation:** [Client portal user guide](./client-portal-user-guide.md) (end users), [Internal ops runbook](./internal-ops-runbook.md) (provisioning and ops), [Admin dashboard status](./admin-dashboard-status.md) (what `/admin` is vs `/portal`).
+
+## Primary user journeys
+
+- **Client journey:** Marketing `Client Login` -> `/sign-in` -> `/portal` workspace picker -> `/portal/[workspaceSlug]` dashboard -> module actions (`tickets`, `support`, `customization`, `monitoring`).
+- **Internal LIC journey:** allowlisted team member -> `/admin` -> core ops navigation (`Dashboard`, `Clients`, `Projects`, `Invoices`), with `Leads`, `Messages`, and `Settings` treated as secondary/phase-2 surfaces.
+
 ## End-to-end request flow
 
 Unauthenticated visitors hit marketing routes. Paths under `/portal` are protected at the edge of the Next app. Server code resolves the Clerk session, loads or upserts the app `User`, checks workspace membership, then reads or mutates data through Prisma. `DATABASE_URL` points at a Postgres instance (commonly [Neon](https://neon.tech) serverless Postgres).
@@ -64,7 +71,7 @@ The **`/admin`** area is a **UI demo** for an internal agency dashboard (clients
 
 - **Auth:** Clerk session required (via `src/proxy.ts`). **Authorization:** `requireInternalAdmin()` in `src/lib/auth/internal-admin.ts` — only Clerk user ids listed in **`INTERNAL_ADMIN_CLERK_IDS`** may access `/admin` (same env var as `/portal/internal/workspace-bootstrap`).
 - **Routes:** `src/app/admin/page.tsx` (KPIs + chart), `clients`, `projects` (Kanban + table), `invoices`, `leads` (sheet), `settings`, `messages` (stub). Shared chrome: `src/components/admin/AdminAppChrome.tsx`.
-- **Shared UI:** Dashboard shell uses `dashboard-root` in `globals.css` and shadcn-style primitives under `src/components/ui/`.
+- **Shared UI:** Dashboard shell uses `dashboard-root` + CSS Module-driven shell/page styles (`src/styles/portal.module.css`) and module-based shared primitives under `src/components/ui/`.
 
 ## External systems
 
@@ -108,3 +115,9 @@ See [`.env.example`](../.env.example) for `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `
 ### Audit trail
 
 **Table:** `ActionEvent` in `prisma/schema.prisma`. **Helpers:** `src/lib/audit/events.ts` for recording notable actions where integrated.
+
+## Workspace provisioning and readiness references
+
+- **How workspaces are created and assigned:** see [internal-ops-runbook.md](./internal-ops-runbook.md), section **Giving a client access to `/portal`**.
+- **Client-facing behavior and route expectations:** see [client-portal-user-guide.md](./client-portal-user-guide.md).
+- **What is fully data-backed vs prototype status:** `/portal` is Prisma-backed; `/admin` status is documented in [admin-dashboard-status.md](./admin-dashboard-status.md).

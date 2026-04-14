@@ -7,6 +7,10 @@ import Link from "next/link";
 
 import { SITE_NAV } from "@/lib/siteNav";
 
+import {
+  LicHeaderBannerAuth,
+  LicHeaderMobileAuth,
+} from "./LicHeaderAuthControls";
 import { LicHeroInteractive } from "./LicHeroInteractive";
 
 type LicHeaderProps = {
@@ -19,15 +23,7 @@ export function LicHeader({ showHero = true }: LicHeaderProps) {
       <div className="header__banner">
         <div className="header__banner--container">
           <div className="banner__right">
-            <Link href="/sign-in" className="banner__login">
-              CLIENT LOGIN
-            </Link>
-            <a href="#" className="banner__contact">
-              Contact
-            </a>
-            <a href="#" className="banner__search" aria-label="Search">
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </a>
+            <LicHeaderBannerAuth />
           </div>
         </div>
       </div>
@@ -116,9 +112,7 @@ export function LicHeader({ showHero = true }: LicHeaderProps) {
                 <a className="mobile-menu__action js-contact-trigger" href="#">
                   Contact
                 </a>
-                <Link className="mobile-menu__action" href="/sign-in">
-                  Client Login
-                </Link>
+                <LicHeaderMobileAuth />
                 <Link
                   className="mobile-menu__action"
                   href="/contact/book-a-call"

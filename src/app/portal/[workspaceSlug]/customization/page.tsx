@@ -9,6 +9,7 @@ import {
 } from "@/lib/auth/guards";
 import { hasPermission, PERMISSIONS } from "@/lib/auth/permissions";
 import { listCustomizationRequestsForWorkspaceSlug } from "@/lib/customization/customization-mutations";
+import portalStyle from "@/styles/portal.module.css";
 
 interface CustomizationPageProps {
   params: Promise<{ workspaceSlug: string }>;
@@ -38,14 +39,12 @@ export default async function CustomizationPage({
         role={roleLabel(membership.role)}
         workspaceName={workspace.name}
       >
-        <div className="space-y-8">
+        <div className={portalStyle.contentStack}>
           {canCreate ? (
             <NewCustomizationForm workspaceSlug={workspaceSlug} />
           ) : null}
           <section>
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide opacity-70">
-              Requests
-            </h2>
+            <h2 className={portalStyle.sectionTitleXs}>Requests</h2>
             <CustomizationRequestList
               workspaceSlug={workspaceSlug}
               rows={rows}

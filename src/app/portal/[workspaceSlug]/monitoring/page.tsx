@@ -9,6 +9,7 @@ import {
 } from "@/lib/auth/guards";
 import { hasPermission, PERMISSIONS } from "@/lib/auth/permissions";
 import { listMonitoringChecksForWorkspaceSlug } from "@/lib/monitoring/monitoring-mutations";
+import portalStyle from "@/styles/portal.module.css";
 
 interface MonitoringPageProps {
   params: Promise<{ workspaceSlug: string }>;
@@ -36,14 +37,12 @@ export default async function MonitoringPage({ params }: MonitoringPageProps) {
         role={roleLabel(membership.role)}
         workspaceName={workspace.name}
       >
-        <div className="space-y-8">
+        <div className={portalStyle.contentStack}>
           {canManage ? (
             <NewMonitoringCheckForm workspaceSlug={workspaceSlug} />
           ) : null}
           <section>
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide opacity-70">
-              Checks
-            </h2>
+            <h2 className={portalStyle.sectionTitleXs}>Checks</h2>
             <MonitoringCheckTable rows={rows} />
           </section>
         </div>

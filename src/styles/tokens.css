@@ -1,0 +1,16 @@
+:root {
+  --licblue: #1c225d;
+  --licblue2: #003569;
+  --licblue-ink: #0f1438;
+  --licblue-deep: #070b1c;
+  --lic-teal: #539599;
+  --lic-teal-soft: #8dd2e2;
+  --lic-border-soft: rgba(255, 255, 255, 0.14);
+  --lic-border-strong: rgba(255, 255, 255, 0.28);
+  --lic-surface-glass: rgba(8, 12, 35, 0.72);
+  --lic-surface-glass-strong: rgba(8, 12, 35, 0.86);
+  --lic-text-muted: rgba(255, 255, 255, 0.72);
+  --lic-text-faint: rgba(255, 255, 255, 0.56);
+  --globalPadding: clamp(1rem, -5rem + 12.5vw, 3rem);
+  --bodyFontSize: clamp(1rem, 0.66rem + 0.532vw, 1.125rem);
+}

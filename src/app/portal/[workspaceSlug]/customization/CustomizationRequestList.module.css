@@ -1,0 +1,53 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.body {
+  min-width: 0;
+  flex: 1;
+}
+
+.status {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
+
+.spec {
+  margin-top: 0.75rem;
+  white-space: pre-wrap;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.meta {
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.approveButton {
+  align-self: flex-start;
+  flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+  .list {
+    gap: 1.5rem;
+  }
+
+  .row {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+}

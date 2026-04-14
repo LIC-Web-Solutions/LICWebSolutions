@@ -1,0 +1,35 @@
+.root {
+  position: relative;
+  overflow: hidden;
+}
+
+.viewport {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.scrollbarBase {
+  display: flex;
+  user-select: none;
+  touch-action: none;
+}
+
+.scrollbarVertical {
+  height: 100%;
+  width: 0.625rem;
+  padding: 1px;
+}
+
+.scrollbarHorizontal {
+  height: 0.625rem;
+  flex-direction: column;
+  padding: 1px;
+}
+
+.thumb {
+  position: relative;
+  flex: 1;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.24);
+}

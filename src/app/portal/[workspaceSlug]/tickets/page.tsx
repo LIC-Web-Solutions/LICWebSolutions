@@ -10,6 +10,7 @@ import {
 import { hasPermission, PERMISSIONS } from "@/lib/auth/permissions";
 import { requireCurrentAppUser } from "@/lib/auth/session";
 import { listTicketsForWorkspaceSlug } from "@/lib/tickets/ticket-mutations";
+import portalStyle from "@/styles/portal.module.css";
 
 interface TicketsPageProps {
   params: Promise<{ workspaceSlug: string }>;
@@ -38,14 +39,12 @@ export default async function TicketsPage({ params }: TicketsPageProps) {
         role={roleLabel(membership.role)}
         workspaceName={workspace.name}
       >
-        <div className="space-y-8">
+        <div className={portalStyle.contentStack}>
           {canCreate ? (
             <TicketCreateForm workspaceSlug={workspaceSlug} />
           ) : null}
           <section>
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide opacity-70">
-              All tickets
-            </h2>
+            <h2 className={portalStyle.sectionTitleXs}>All tickets</h2>
             <TicketTable
               workspaceSlug={workspaceSlug}
               tickets={tickets}

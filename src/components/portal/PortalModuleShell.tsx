@@ -1,3 +1,6 @@
+import { cn } from "@/lib/utils";
+import portalStyle from "@/styles/portal.module.css";
+
 interface PortalModuleShellProps {
   title: string;
   description: string;
@@ -14,20 +17,14 @@ export function PortalModuleShell({
   children,
 }: PortalModuleShellProps) {
   return (
-    <main className="mx-auto w-full max-w-7xl px-6 py-10 pb-16">
-      <p className="text-xs uppercase tracking-[0.16em] text-zinc-400">
+    <main className={cn(portalStyle.pageFrame, portalStyle.mainShell)}>
+      <p className={portalStyle.eyebrow}>
         {workspaceName} · {role}
       </p>
-      <h1 className="mt-3 text-3xl font-semibold tracking-tight text-zinc-50">
-        {title}
-      </h1>
-      <p className="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-400">
-        {description}
-      </p>
+      <h1 className={cn(portalStyle.h1Offset, portalStyle.h1Page)}>{title}</h1>
+      <p className={portalStyle.lede}>{description}</p>
       {children ? (
-        <div className="mt-8 space-y-8 border-t border-zinc-800/80 pt-8">
-          {children}
-        </div>
+        <div className={portalStyle.sectionBoundary}>{children}</div>
       ) : null}
     </main>
   );

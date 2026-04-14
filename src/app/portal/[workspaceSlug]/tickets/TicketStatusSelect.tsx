@@ -4,6 +4,8 @@ import type { TicketStatus } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { updateTicketStatusAction } from "@/app/portal/[workspaceSlug]/tickets/actions";
+import { cn } from "@/lib/utils";
+import portalStyle from "@/styles/portal.module.css";
 
 const STATUSES: TicketStatus[] = ["OPEN", "IN_PROGRESS", "BLOCKED", "CLOSED"];
 
@@ -32,7 +34,7 @@ export function TicketStatusSelect({
           router.refresh();
         });
       }}
-      className="rounded border border-white/15 bg-black/30 px-2 py-1 text-xs outline-none focus:border-white/40 disabled:opacity-40"
+      className={cn(portalStyle.select, portalStyle.selectWide)}
       aria-label="Ticket status"
     >
       {STATUSES.map((s) => (

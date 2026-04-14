@@ -3,19 +3,20 @@
 import { motion } from "motion/react";
 
 import WorldMap from "@/components/ui/world-map";
+import styles from "./world-map-demo.module.css";
 
 export default function WorldMapDemo() {
   return (
-    <div className="w-full bg-white py-40 dark:bg-black">
-      <div className="mx-auto max-w-7xl text-center">
-        <p className="text-xl font-bold text-black md:text-4xl dark:text-white">
+    <div className={styles.root}>
+      <div className={styles.inner}>
+        <p className={styles.title}>
           Remote{" "}
-          <span className="text-neutral-400">
+          <span className={styles.titleMuted}>
             {Array.from("Connectivity").map((word, idx) => (
               <motion.span
                 // biome-ignore lint/suspicious/noArrayIndexKey: fixed marketing string; order never changes
                 key={idx}
-                className="inline-block"
+                className={styles.char}
                 initial={{ x: -10, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: idx * 0.04 }}
@@ -25,7 +26,7 @@ export default function WorldMapDemo() {
             ))}
           </span>
         </p>
-        <p className="mx-auto max-w-2xl py-4 text-sm text-neutral-500 md:text-lg">
+        <p className={styles.lede}>
           Break free from traditional boundaries. Work from anywhere, at the
           comfort of your own studio apartment. Perfect for Nomads and
           Travellers.

@@ -11,6 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import styles from "./AdminTopbar.module.css";
 
 function breadcrumbsFromPath(pathname: string) {
   const parts = pathname.split("/").filter(Boolean);
@@ -29,29 +30,27 @@ export function AdminTopbar({ onMenuClick }: { onMenuClick: () => void }) {
   const crumbs = breadcrumbsFromPath(pathname);
 
   return (
-    <header className="sticky top-0 z-40 flex h-14 items-center gap-3 border-b border-zinc-800 bg-zinc-950/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-zinc-950/80">
+    <header className={styles.header}>
       <Button
         type="button"
         variant="ghost"
         size="icon"
-        className="md:hidden"
+        className={styles.menuButton}
         aria-label="Open menu"
         onClick={onMenuClick}
       >
-        <Menu className="size-5" />
+        <Menu className={styles.menuIcon} />
       </Button>
-      <nav
-        className="min-w-0 flex-1 truncate text-sm text-zinc-400"
-        aria-label="Breadcrumb"
-      >
+      <nav className={styles.crumbs} aria-label="Breadcrumb">
+        <span className={styles.kicker}>LIC operations</span>
         {crumbs.map((c, i) => (
           <span key={c}>
-            {i > 0 ? <span className="mx-1.5 text-zinc-600">/</span> : null}
+            {i > 0 ? <span className={styles.slash}>/</span> : null}
             <span
               className={
                 i === crumbs.length - 1
-                  ? "font-medium text-zinc-100"
-                  : "capitalize"
+                  ? styles.crumbCurrent
+                  : styles.crumbOther
               }
             >
               {c}
@@ -63,39 +62,35 @@ export function AdminTopbar({ onMenuClick }: { onMenuClick: () => void }) {
         type="button"
         variant="outline"
         size="sm"
-        className="hidden gap-2 sm:inline-flex"
+        className={styles.searchButton}
         disabled
         title="Search coming soon"
       >
-        <Search className="size-4" />
+        <Search className={styles.plusIcon} />
         Search
-        <kbd className="pointer-events-none hidden rounded border border-zinc-600 bg-zinc-900 px-1.5 font-mono text-[10px] font-medium text-zinc-500 lg:inline">
-          ⌘K
-        </kbd>
+        <kbd className={styles.kbd}>⌘K</kbd>
       </Button>
       <Button
         type="button"
         variant="ghost"
         size="icon"
-        className="relative text-zinc-400"
+        className={styles.notificationButton}
         disabled
         aria-label="Notifications"
         title="Notifications coming soon"
       >
         <span className="sr-only">Notifications</span>
-        <span className="text-lg leading-none">🔔</span>
-        <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-sky-600 px-0.5 text-[10px] font-semibold text-white">
-          2
-        </span>
+        <span className={styles.notificationGlyph}>🔔</span>
+        <span className={styles.notificationBadge}>2</span>
       </Button>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button type="button" size="sm" className="gap-1">
-            <Plus className="size-4" />
-            <span className="hidden sm:inline">New</span>
+          <Button type="button" size="sm" className={styles.newButton}>
+            <Plus className={styles.plusIcon} />
+            <span className={styles.newButtonText}>New</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-48">
+        <DropdownMenuContent align="end" className={styles.menuSheet}>
           <DropdownMenuItem asChild>
             <Link href="/admin/projects">New project</Link>
           </DropdownMenuItem>

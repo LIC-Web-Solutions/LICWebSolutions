@@ -5,6 +5,8 @@ import {
   type BootstrapWorkspaceState,
   bootstrapWorkspaceWithState,
 } from "@/app/portal/internal/workspace-bootstrap/actions";
+import { cn } from "@/lib/utils";
+import portalStyle from "@/styles/portal.module.css";
 
 const initial: BootstrapWorkspaceState = { error: null };
 
@@ -15,23 +17,23 @@ export function BootstrapWorkspaceForm() {
   );
 
   return (
-    <form action={formAction} className="mx-auto max-w-md space-y-4">
-      <h2 className="text-lg font-semibold">Create workspace</h2>
+    <form
+      action={formAction}
+      className={cn(portalStyle.narrowForm, portalStyle.surface)}
+    >
+      <h2 className={portalStyle.h2Section}>Create workspace</h2>
       {state.ok ? (
-        <p className="text-sm text-emerald-200">
+        <p className={portalStyle.successText}>
           Workspace created. Open the portal home to select it.
         </p>
       ) : null}
       {state.error ? (
-        <p className="text-sm text-red-300" role="alert">
+        <p className={portalStyle.errorText} role="alert">
           {state.error}
         </p>
       ) : null}
       <div>
-        <label
-          htmlFor="ws-name"
-          className="text-xs uppercase tracking-wide opacity-70"
-        >
+        <label htmlFor="ws-name" className={portalStyle.label}>
           Display name
         </label>
         <input
@@ -39,15 +41,12 @@ export function BootstrapWorkspaceForm() {
           name="name"
           required
           maxLength={120}
-          className="mt-1 w-full rounded border border-white/15 bg-black/30 px-3 py-2 text-sm outline-none focus:border-white/40"
+          className={portalStyle.input}
           placeholder="Acme Corp"
         />
       </div>
       <div>
-        <label
-          htmlFor="ws-slug"
-          className="text-xs uppercase tracking-wide opacity-70"
-        >
+        <label htmlFor="ws-slug" className={portalStyle.label}>
           URL slug
         </label>
         <input
@@ -56,17 +55,17 @@ export function BootstrapWorkspaceForm() {
           required
           maxLength={80}
           pattern="[a-z0-9]+(-[a-z0-9]+)*"
-          className="mt-1 w-full rounded border border-white/15 bg-black/30 px-3 py-2 text-sm outline-none focus:border-white/40"
+          className={portalStyle.input}
           placeholder="acme-corp"
         />
-        <p className="mt-1 text-xs opacity-50">
+        <p className={portalStyle.helperText}>
           Used in URLs: /portal/your-slug/…
         </p>
       </div>
       <button
         type="submit"
         disabled={pending || state.ok}
-        className="rounded-full border border-white/30 px-4 py-2 text-xs font-semibold uppercase tracking-wide disabled:opacity-40"
+        className={portalStyle.btnPrimary}
       >
         {pending ? "Creating…" : "Create and assign me as owner"}
       </button>

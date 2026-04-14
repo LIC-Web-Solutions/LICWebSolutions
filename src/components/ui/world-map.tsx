@@ -4,6 +4,7 @@ import DottedMap from "dotted-map";
 import { motion } from "motion/react";
 import { useTheme } from "next-themes";
 import { useId, useMemo } from "react";
+import styles from "./world-map.module.css";
 
 interface MapProps {
   dots?: Array<{
@@ -51,10 +52,10 @@ export default function WorldMap({
   };
 
   return (
-    <div className="relative aspect-[2/1] w-full rounded-lg bg-white font-sans dark:bg-black">
+    <div className={styles.root}>
       <img
         src={`data:image/svg+xml;utf8,${encodeURIComponent(svgMap)}`}
-        className="pointer-events-none h-full w-full select-none [mask-image:linear-gradient(to_bottom,transparent,white_10%,white_90%,transparent)]"
+        className={styles.mapImage}
         alt=""
         height={495}
         width={1056}
@@ -62,7 +63,7 @@ export default function WorldMap({
       />
       <svg
         viewBox="0 0 800 400"
-        className="pointer-events-none absolute inset-0 h-full w-full select-none"
+        className={styles.svg}
         role="img"
         aria-label="Animated routes between studio locations"
       >

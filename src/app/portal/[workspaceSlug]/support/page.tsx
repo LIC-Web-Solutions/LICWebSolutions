@@ -9,6 +9,7 @@ import {
 } from "@/lib/auth/guards";
 import { hasPermission, PERMISSIONS } from "@/lib/auth/permissions";
 import { listSupportThreadsForWorkspaceSlug } from "@/lib/support/support-mutations";
+import portalStyle from "@/styles/portal.module.css";
 
 interface SupportPageProps {
   params: Promise<{ workspaceSlug: string }>;
@@ -33,14 +34,12 @@ export default async function SupportPage({ params }: SupportPageProps) {
         role={roleLabel(membership.role)}
         workspaceName={workspace.name}
       >
-        <div className="space-y-8">
+        <div className={portalStyle.contentStack}>
           {canCreate ? (
             <NewSupportThreadForm workspaceSlug={workspaceSlug} />
           ) : null}
           <section>
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide opacity-70">
-              Threads
-            </h2>
+            <h2 className={portalStyle.sectionTitleXs}>Threads</h2>
             <SupportThreadList
               workspaceSlug={workspaceSlug}
               threads={threads}

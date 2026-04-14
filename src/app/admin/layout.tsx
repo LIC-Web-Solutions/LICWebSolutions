@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AdminAppChrome } from "@/components/admin/AdminAppChrome";
 import { requireInternalAdmin } from "@/lib/auth/internal-admin";
+import styles from "./AdminLayout.module.css";
 
 export const metadata: Metadata = {
   title: {
@@ -17,7 +18,7 @@ export default async function AdminLayout({
   await requireInternalAdmin();
 
   return (
-    <div className="dashboard-root min-h-full">
+    <div className={`dashboard-root ${styles.root}`}>
       <AdminAppChrome>{children}</AdminAppChrome>
     </div>
   );

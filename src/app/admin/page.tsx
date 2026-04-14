@@ -10,7 +10,6 @@ import {
 import {
   mockActivities,
   mockInvoices,
-  mockLeads,
   mockMilestones,
   mockMonthlyRevenue,
   mockProjects,
@@ -65,13 +64,11 @@ export default function AdminDashboardPage() {
   const overdueCount = mockInvoices.filter(
     (i) => i.status === "OVERDUE",
   ).length;
-  const pipelineLeads = mockLeads.filter(
-    (l) => l.status !== "CONVERTED" && l.status !== "LOST",
-  ).length;
-  const newThisWeek = mockLeads.filter((l) => {
-    const t = new Date(l.submittedAt).getTime();
-    const week = Date.now() - 7 * 24 * 60 * 60 * 1000;
-    return t >= week;
+  const projectsAtRisk = mockProjects.filter((p) => {
+    if (p.status === "COMPLETED" || p.status === "ARCHIVED") {
+      return false;
+    }
+    return daysUntil(p.deadline) <= 7;
   }).length;
 
   const sortedMilestones = [...mockMilestones]
@@ -87,7 +84,7 @@ export default function AdminDashboardPage() {
           Dashboard
         </h1>
         <p className="mt-1 text-sm text-zinc-400">
-          Agency snapshot — mock data for UI demo.
+          Core operations snapshot for LIC delivery work.
         </p>
       </div>
 
@@ -136,15 +133,13 @@ export default function AdminDashboardPage() {
         </Card>
         <Card className="transition-colors hover:border-zinc-600">
           <CardHeader className="pb-2">
-            <CardDescription>Leads in pipeline</CardDescription>
+            <CardDescription>Projects at risk</CardDescription>
             <CardTitle className="text-3xl tabular-nums">
-              {pipelineLeads}
+              {projectsAtRisk}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-xs text-zinc-500">
-              {newThisWeek} new this week (mock)
-            </p>
+            <p className="text-xs text-zinc-500">Due in 7 days or less</p>
           </CardContent>
         </Card>
       </div>

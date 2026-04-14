@@ -1,0 +1,75 @@
+.endpoint {
+  word-break: break-all;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.mobileMeta {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.875rem;
+}
+
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.metaLabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.metaValue {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.metaValueStrong {
+  color: #fff;
+  font-weight: 500;
+}
+
+.metaValueChecked {
+  text-align: right;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.table {
+  width: 100%;
+  min-width: 32.5rem;
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+.tdEndpoint {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.tdMuted {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.tdFaint {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.tdSoft {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.75);
+}

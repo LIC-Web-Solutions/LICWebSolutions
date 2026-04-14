@@ -1,0 +1,46 @@
+.label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--lic-text-faint);
+}
+
+.input {
+  width: 100%;
+  margin-top: 0.4rem;
+  padding: 0.66rem 0.75rem;
+  border: 1px solid var(--lic-border-strong);
+  background: rgba(2, 5, 18, 0.85);
+  color: #fff;
+  font-size: 0.9375rem;
+}
+
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.36);
+}
+
+.input:focus {
+  outline: 2px solid rgba(83, 149, 153, 0.38);
+  border-color: var(--lic-teal);
+}
+
+.buttonPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.625rem 1.1rem;
+  border: 1px solid rgba(83, 149, 153, 0.7);
+  background: rgba(83, 149, 153, 0.3);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.buttonPrimary:hover {
+  background: rgba(83, 149, 153, 0.45);
+}

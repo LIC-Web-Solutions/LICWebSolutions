@@ -1,7 +1,6 @@
 "use client";
 
 import { UserButton } from "@clerk/nextjs";
-import { Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -9,8 +8,11 @@ import {
   humanizeWorkspaceSlug,
   parseWorkspaceSlugFromPathname,
 } from "@/lib/portal/parse-workspace-slug";
+import { cn } from "@/lib/utils";
+import portalStyle from "@/styles/portal.module.css";
+import styles from "./PortalTopbar.module.css";
 
-export function PortalTopbar({ onMenuClick }: { onMenuClick: () => void }) {
+export function PortalTopbar() {
   const pathname = usePathname();
   const slug = parseWorkspaceSlugFromPathname(pathname);
 
@@ -32,42 +34,58 @@ export function PortalTopbar({ onMenuClick }: { onMenuClick: () => void }) {
   }
 
   return (
-    <header className="sticky top-0 z-40 flex h-14 items-center gap-3 border-b border-zinc-800 bg-zinc-950/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-zinc-950/80">
-      <Button
-        type="button"
-        variant="ghost"
-        size="icon"
-        className="lg:hidden"
-        aria-label="Open menu"
-        onClick={onMenuClick}
-      >
-        <Menu className="size-5" />
-      </Button>
-      <nav
-        className="min-w-0 flex-1 truncate text-sm text-zinc-400"
-        aria-label="Breadcrumb"
-      >
-        {crumbItems.map((item, i) => (
-          <span key={item.key}>
-            {i > 0 ? <span className="mx-1.5 text-zinc-600">/</span> : null}
-            <span
-              className={
-                i === crumbItems.length - 1
-                  ? "font-medium text-zinc-100"
-                  : undefined
-              }
+    <header className={cn(styles.header, portalStyle.navBar)}>
+      <div className={styles.inner}>
+        <nav className={styles.crumbNav} aria-label="Breadcrumb">
+          <div className={styles.crumbList}>
+            {crumbItems.map((item, i) => (
+              <span key={item.key} className={styles.crumbItem}>
+                {i > 0 ? (
+                  <span className={styles.crumbSlash} aria-hidden>
+                    /
+                  </span>
+                ) : null}
+                <span
+                  className={
+                    i === crumbItems.length - 1
+                      ? styles.crumbActive
+                      : styles.crumbInactive
+                  }
+                >
+                  {item.label}
+                </span>
+              </span>
+            ))}
+          </div>
+        </nav>
+
+        <div className={styles.actions}>
+          <span className={styles.kicker}>LIC client portal</span>
+          {slug ? (
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className={styles.workspaceButton}
+              asChild
             >
-              {item.label}
-            </span>
-          </span>
-        ))}
-      </nav>
-      {slug ? (
-        <Button type="button" variant="outline" size="sm" asChild>
-          <Link href="/portal">Switch workspace</Link>
-        </Button>
-      ) : null}
-      <UserButton />
+              <Link href="/portal">
+                <span className={styles.workspaceButtonDesktop}>
+                  Switch workspace
+                </span>
+                <span className={styles.workspaceButtonMobile}>Workspaces</span>
+              </Link>
+            </Button>
+          ) : null}
+          <UserButton
+            appearance={{
+              elements: {
+                avatarBox: styles.avatarBox,
+              },
+            }}
+          />
+        </div>
+      </div>
     </header>
   );
 }

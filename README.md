@@ -61,6 +61,14 @@ pnpm install
 
 Development defaults to [http://localhost:3000](http://localhost:3000). App routes and pages live under `src/app/`.
 
+## Documentation (portal and dashboards)
+
+- [docs/portal-architecture.md](docs/portal-architecture.md) — technical map (Clerk, Prisma, routes)
+- [docs/client-portal-user-guide.md](docs/client-portal-user-guide.md) — what end clients see at `/portal`
+- [docs/internal-ops-runbook.md](docs/internal-ops-runbook.md) — provisioning, environment, smoke checks
+- [docs/admin-dashboard-status.md](docs/admin-dashboard-status.md) — what `/admin` is today (mock) vs `/portal` (Prisma-backed)
+- [docs/style-system.md](docs/style-system.md) — CSS Modules architecture, tokens, and LIC UX conventions
+
 ## Authentication and authorization
 
 The marketing site stays public. Portal routes under `**/portal/****` require authentication and use workspace-scoped RBAC authorization for feature access.
@@ -180,7 +188,8 @@ The workflow sets a **placeholder** `DATABASE_URL` during install so `postinstal
 ## Stack
 
 - Next.js 16, React 19, TypeScript
-- Tailwind CSS v4
+- CSS Modules + LIC tokenized style layer (`src/styles/*`)
+- Tailwind CSS v4 (installed for compatibility)
 - Biome (lint/format)
 
 ## Troubleshooting

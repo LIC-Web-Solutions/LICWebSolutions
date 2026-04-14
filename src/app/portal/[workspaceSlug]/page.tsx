@@ -1,8 +1,3 @@
-import {
-  CustomizationRequestStatus,
-  SupportThreadStatus,
-  TicketStatus,
-} from "@prisma/client";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { PortalModuleShell } from "@/components/portal/PortalModuleShell";
@@ -20,6 +15,8 @@ import {
 } from "@/lib/auth/guards";
 import { PORTAL_WORKSPACE_SECTIONS } from "@/lib/portal/nav";
 import { prisma } from "@/lib/prisma";
+import portalStyle from "@/styles/portal.module.css";
+import styles from "./WorkspaceOverviewPage.module.css";
 
 interface WorkspaceOverviewPageProps {
   params: Promise<{ workspaceSlug: string }>;
@@ -44,24 +41,19 @@ export default async function WorkspaceOverviewPage({
       monitoringChecks,
     ] = await Promise.all([
       prisma.ticket.count({
-        where: { workspaceId: wid, status: { not: TicketStatus.CLOSED } },
+        where: { workspaceId: wid, status: { not: "CLOSED" } },
       }),
       prisma.supportThread.count({
         where: {
           workspaceId: wid,
-          status: { not: SupportThreadStatus.RESOLVED },
+          status: { not: "RESOLVED" },
         },
       }),
       prisma.customizationRequest.count({
         where: {
           workspaceId: wid,
           status: {
-            in: [
-              CustomizationRequestStatus.DRAFT,
-              CustomizationRequestStatus.QUOTED,
-              CustomizationRequestStatus.APPROVED,
-              CustomizationRequestStatus.IN_PROGRESS,
-            ],
+            in: ["DRAFT", "QUOTED", "APPROVED", "IN_PROGRESS"],
           },
         },
       }),
@@ -71,72 +63,92 @@ export default async function WorkspaceOverviewPage({
     return (
       <PortalModuleShell
         title="Workspace dashboard"
-        description="Use the modules below to manage delivery workflows and operational support."
+        description="Centralize everything for this project workspace: track requests, ask for support, review scoped changes, and monitor service health."
         role={roleLabel(membership.role)}
         workspaceName={workspace.name}
       >
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <Card>
-            <CardHeader className="pb-2">
-              <CardDescription>Open tickets</CardDescription>
-              <CardTitle className="text-2xl tabular-nums">
-                {openTickets}
-              </CardTitle>
+        <div className={styles.statsGrid}>
+          <Card className={styles.statCard}>
+            <CardHeader className={styles.statHeader}>
+              <CardDescription className={styles.statDesc}>
+                Open tickets
+              </CardDescription>
+              <CardTitle className={styles.statValue}>{openTickets}</CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-xs text-zinc-500">Excludes closed</p>
+            <CardContent className={styles.statContent}>
+              <Link
+                href={`/portal/${workspace.slug}/tickets`}
+                className={portalStyle.linkAccent}
+              >
+                Review ticket queue →
+              </Link>
             </CardContent>
           </Card>
-          <Card>
-            <CardHeader className="pb-2">
-              <CardDescription>Open support threads</CardDescription>
-              <CardTitle className="text-2xl tabular-nums">
+          <Card className={styles.statCard}>
+            <CardHeader className={styles.statHeader}>
+              <CardDescription className={styles.statDesc}>
+                Open support threads
+              </CardDescription>
+              <CardTitle className={styles.statValue}>
                 {openSupportThreads}
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-xs text-zinc-500">Excludes resolved</p>
+            <CardContent className={styles.statContent}>
+              <Link
+                href={`/portal/${workspace.slug}/support`}
+                className={portalStyle.linkAccent}
+              >
+                Open support conversations →
+              </Link>
             </CardContent>
           </Card>
-          <Card>
-            <CardHeader className="pb-2">
-              <CardDescription>Active customizations</CardDescription>
-              <CardTitle className="text-2xl tabular-nums">
+          <Card className={styles.statCard}>
+            <CardHeader className={styles.statHeader}>
+              <CardDescription className={styles.statDesc}>
+                Active customizations
+              </CardDescription>
+              <CardTitle className={styles.statValue}>
                 {activeCustomizations}
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-xs text-zinc-500">Draft through in progress</p>
+            <CardContent className={styles.statContent}>
+              <Link
+                href={`/portal/${workspace.slug}/customization`}
+                className={portalStyle.linkAccent}
+              >
+                Track change requests →
+              </Link>
             </CardContent>
           </Card>
-          <Card>
-            <CardHeader className="pb-2">
-              <CardDescription>Monitoring checks</CardDescription>
-              <CardTitle className="text-2xl tabular-nums">
+          <Card className={styles.statCard}>
+            <CardHeader className={styles.statHeader}>
+              <CardDescription className={styles.statDesc}>
+                Monitoring checks
+              </CardDescription>
+              <CardTitle className={styles.statValue}>
                 {monitoringChecks}
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-xs text-zinc-500">Total endpoints tracked</p>
+            <CardContent className={styles.statContent}>
+              <Link
+                href={`/portal/${workspace.slug}/monitoring`}
+                className={portalStyle.linkAccent}
+              >
+                View live status checks →
+              </Link>
             </CardContent>
           </Card>
         </div>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className={styles.modulesGrid}>
           {MODULE_CARDS.map((module) => (
             <Link
               key={module.path}
               href={`/portal/${workspace.slug}/${module.path}`}
-              className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 transition hover:border-zinc-600 hover:bg-zinc-900/70"
+              className={portalStyle.moduleCard}
             >
-              <h2 className="text-lg font-semibold text-zinc-50">
-                {module.label}
-              </h2>
-              <p className="mt-2 text-sm leading-relaxed text-zinc-400">
-                {module.description}
-              </p>
-              <p className="mt-4 font-mono text-xs text-zinc-500">
-                /portal/…/{module.path}
-              </p>
+              <h2 className={styles.moduleTitle}>{module.label}</h2>
+              <p className={styles.moduleText}>{module.description}</p>
+              <p className={styles.moduleAction}>Open {module.label}</p>
             </Link>
           ))}
         </div>

@@ -1,4 +1,5 @@
 import { PortalAppChrome } from "@/components/portal/PortalAppChrome";
+import styles from "./PortalLayout.module.css";
 
 export default function PortalLayout({
   children,
@@ -6,7 +7,7 @@ export default function PortalLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="dashboard-root flex min-h-full flex-col bg-zinc-950 text-zinc-50 antialiased">
+    <div className={`dashboard-root ${styles.root}`}>
       <PortalAppChrome>{children}</PortalAppChrome>
     </div>
   );

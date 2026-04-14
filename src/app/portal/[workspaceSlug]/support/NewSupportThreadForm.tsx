@@ -5,6 +5,8 @@ import {
   createSupportThreadWithState,
   type SupportThreadFormState,
 } from "@/app/portal/[workspaceSlug]/support/actions";
+import { cn } from "@/lib/utils";
+import portalStyle from "@/styles/portal.module.css";
 
 const initial: SupportThreadFormState = { error: null };
 
@@ -21,20 +23,17 @@ export function NewSupportThreadForm({
   return (
     <form
       action={formAction}
-      className="space-y-3 rounded-lg border border-white/10 bg-white/[0.03] p-5"
+      className={cn(portalStyle.formStack4, portalStyle.surface)}
     >
       <input type="hidden" name="workspaceSlug" value={workspaceSlug} />
-      <h2 className="text-lg font-semibold">New support thread</h2>
+      <h2 className={portalStyle.h2Section}>New support thread</h2>
       {state.error ? (
-        <p className="text-sm text-red-300" role="alert">
+        <p className={portalStyle.errorText} role="alert">
           {state.error}
         </p>
       ) : null}
       <div>
-        <label
-          htmlFor="support-subject"
-          className="text-xs uppercase tracking-wide opacity-70"
-        >
+        <label htmlFor="support-subject" className={portalStyle.label}>
           Subject
         </label>
         <input
@@ -42,14 +41,14 @@ export function NewSupportThreadForm({
           name="subject"
           required
           maxLength={180}
-          className="mt-1 w-full rounded border border-white/15 bg-black/30 px-3 py-2 text-sm outline-none focus:border-white/40"
+          className={portalStyle.input}
           placeholder="What do you need help with?"
         />
       </div>
       <button
         type="submit"
         disabled={pending}
-        className="rounded-full border border-white/30 px-4 py-2 text-xs font-semibold uppercase tracking-wide disabled:opacity-40"
+        className={portalStyle.btnPrimary}
       >
         {pending ? "Creating…" : "Open thread"}
       </button>

@@ -9,6 +9,8 @@ import {
   parseWorkspaceSlugFromPathname,
 } from "@/lib/portal/parse-workspace-slug";
 import { cn } from "@/lib/utils";
+import portalStyle from "@/styles/portal.module.css";
+import styles from "./PortalSidebar.module.css";
 
 const ICONS = {
   "": LayoutGrid,
@@ -18,32 +20,42 @@ const ICONS = {
   monitoring: LineChart,
 } as const;
 
-export function PortalSidebar({ onNavigate }: { onNavigate?: () => void }) {
+export function PortalSidebar({
+  onNavigate,
+  onClose,
+}: {
+  onNavigate?: () => void;
+  onClose?: () => void;
+}) {
   const pathname = usePathname();
   const slug = parseWorkspaceSlugFromPathname(pathname);
 
   return (
-    <div className="flex h-full flex-col border-r border-zinc-800 bg-zinc-950">
-      <div className="flex h-14 items-center border-b border-zinc-800 px-4">
-        <Link
-          href="/portal"
-          className="text-lg font-semibold tracking-tight text-zinc-50"
-          onClick={onNavigate}
-        >
+    <div className={portalStyle.sidebarShell}>
+      <div className={portalStyle.sidebarHeader}>
+        <Link href="/portal" className={styles.brandLink} onClick={onNavigate}>
           LIC
         </Link>
-        <span className="ml-2 text-xs font-medium uppercase tracking-wide text-zinc-500">
-          Portal
-        </span>
+        <span className={styles.brandSuffix}>Portal</span>
+        {onClose ? (
+          <button
+            type="button"
+            className={styles.mobileClose}
+            onClick={onClose}
+            aria-label="Close sidebar"
+          >
+            ✕
+          </button>
+        ) : null}
       </div>
-      <nav className="flex flex-1 flex-col gap-0.5 p-2" aria-label="Portal">
+      <nav className={portalStyle.sidebarNav} aria-label="Portal">
         {!slug ? (
           <Link
             href="/portal"
             onClick={onNavigate}
-            className="flex items-center gap-3 rounded-md bg-sky-600/20 px-3 py-2 text-sm font-medium text-sky-100"
+            className={cn(portalStyle.navLink, portalStyle.navLinkActive)}
           >
-            <LayoutGrid className="size-4 shrink-0" aria-hidden />
+            <LayoutGrid className={styles.navIcon} aria-hidden />
             Workspaces
           </Link>
         ) : (
@@ -65,13 +77,11 @@ export function PortalSidebar({ onNavigate }: { onNavigate?: () => void }) {
                 href={href}
                 onClick={onNavigate}
                 className={cn(
-                  "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500",
-                  active
-                    ? "bg-sky-600/20 text-sky-100"
-                    : "text-zinc-400 hover:bg-zinc-800/80 hover:text-zinc-100",
+                  portalStyle.navLink,
+                  active ? portalStyle.navLinkActive : undefined,
                 )}
               >
-                <Icon className="size-4 shrink-0 opacity-90" aria-hidden />
+                <Icon className={styles.navIcon} aria-hidden />
                 {section.label}
               </Link>
             );
@@ -79,28 +89,15 @@ export function PortalSidebar({ onNavigate }: { onNavigate?: () => void }) {
         )}
       </nav>
       {slug ? (
-        <div className="border-t border-zinc-800 p-3 text-xs text-zinc-500">
-          <p className="truncate font-medium text-zinc-400">
+        <div className={styles.workspaceMeta}>
+          <p className={styles.workspaceMetaTitle}>
             {humanizeWorkspaceSlug(slug)}
           </p>
-          <p className="mt-0.5 font-mono text-[0.65rem] text-zinc-600">
-            {slug}
-          </p>
+          <p className={styles.workspaceMetaSlug}>{slug}</p>
         </div>
       ) : null}
-      <div className="border-t border-zinc-800 p-3 text-xs">
-        <Link
-          href="/admin"
-          className="block rounded-md px-2 py-1.5 text-zinc-500 hover:bg-zinc-800 hover:text-zinc-200"
-          onClick={onNavigate}
-        >
-          Agency admin
-        </Link>
-        <Link
-          href="/"
-          className="mt-1 block rounded-md px-2 py-1.5 text-zinc-500 hover:bg-zinc-800 hover:text-zinc-200"
-          onClick={onNavigate}
-        >
+      <div className={styles.footerSlot}>
+        <Link href="/" className={styles.marketingLink} onClick={onNavigate}>
           Marketing site
         </Link>
       </div>

@@ -11,6 +11,9 @@ import { useTransition } from "react";
 import { resolveSupportThreadAction } from "@/app/portal/[workspaceSlug]/support/actions";
 import { SupportReplyForm } from "@/app/portal/[workspaceSlug]/support/SupportReplyForm";
 import { hasPermission, PERMISSIONS } from "@/lib/auth/permissions";
+import { cn } from "@/lib/utils";
+import portalStyle from "@/styles/portal.module.css";
+import styles from "./SupportThreadList.module.css";
 
 type Msg = SupportMessage & {
   createdBy: Pick<User, "id" | "email" | "fullName">;
@@ -41,24 +44,24 @@ export function SupportThreadList({
 
   if (threads.length === 0) {
     return (
-      <p className="rounded-lg border border-white/10 bg-white/[0.03] p-5 text-sm opacity-80">
+      <p className={portalStyle.empty}>
         No threads yet. Open one above if you have permission.
       </p>
     );
   }
 
   return (
-    <ul className="space-y-6">
+    <ul className={styles.list}>
       {threads.map((t) => (
-        <li
-          key={t.id}
-          className="rounded-lg border border-white/10 bg-white/[0.03] p-5"
-        >
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <div>
-              <h3 className="text-lg font-semibold">{t.subject}</h3>
-              <p className="mt-1 text-xs opacity-70">
-                Opened by {who(t.createdBy)} · {t.status.replaceAll("_", " ")}
+        <li key={t.id} className={portalStyle.listItem}>
+          <div className={styles.header}>
+            <div className={styles.headerBody}>
+              <h3 className={cn(portalStyle.h2Section, styles.title)}>
+                {t.subject}
+              </h3>
+              <p className={styles.meta}>
+                Opened by {who(t.createdBy)} ·{" "}
+                {t.status.replaceAll("_", " ").toLowerCase()}
               </p>
             </div>
             {canResolve && t.status !== "RESOLVED" ? (
@@ -71,17 +74,17 @@ export function SupportThreadList({
                     router.refresh();
                   });
                 }}
-                className="rounded-full border border-white/25 px-3 py-1 text-xs font-semibold uppercase tracking-wide disabled:opacity-40"
+                className={cn(portalStyle.btnOutline, styles.resolveButton)}
               >
                 Mark resolved
               </button>
             ) : null}
           </div>
-          <ul className="mt-4 space-y-3 border-t border-white/10 pt-4">
+          <ul className={styles.messages}>
             {t.messages.map((m) => (
-              <li key={m.id} className="text-sm">
-                <p className="text-xs opacity-60">{who(m.createdBy)}</p>
-                <p className="mt-1 whitespace-pre-wrap opacity-90">{m.body}</p>
+              <li key={m.id} className={styles.messageItem}>
+                <p className={styles.messageAuthor}>{who(m.createdBy)}</p>
+                <p className={styles.messageBody}>{m.body}</p>
               </li>
             ))}
           </ul>

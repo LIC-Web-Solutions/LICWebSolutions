@@ -1,0 +1,166 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-montserrat), sans-serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.lede {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.kpiGrid {
+  display: grid;
+  gap: 1rem;
+}
+
+.kpiCard:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.kpiTitle {
+  font-size: 1.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.kpiText {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.kpiOverdue {
+  font-size: 0.75rem;
+  color: #fca5a5;
+  font-weight: 500;
+}
+
+.detailsGrid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.recentList,
+.deadlineList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.recentItem {
+  display: flex;
+  gap: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.recentItem:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.bullet {
+  margin-top: 0.15rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.recentBody {
+  min-width: 0;
+  flex: 1;
+}
+
+.recentLink {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.recentLink:hover {
+  color: #9dd6d6;
+  text-decoration: underline;
+}
+
+.recentText {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.recentTime {
+  margin-top: 0.125rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.deadlineItem {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.dot {
+  margin-top: 0.4rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.dotRiskHigh {
+  background: #ef4444;
+}
+
+.dotRiskMed {
+  background: #f59e0b;
+}
+
+.dotRiskLow {
+  background: #10b981;
+}
+
+.deadlineBody {
+  min-width: 0;
+}
+
+.deadlineTitle {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.deadlineMeta {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+@media (min-width: 640px) {
+  .kpiGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .detailsGrid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .recentCard {
+    grid-column: span 3 / span 3;
+  }
+
+  .deadlinesCard {
+    grid-column: span 2 / span 2;
+  }
+}
+
+@media (min-width: 1280px) {
+  .kpiGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
