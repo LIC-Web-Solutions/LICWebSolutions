@@ -24,6 +24,29 @@ interface WorkspaceOverviewPageProps {
 
 const MODULE_CARDS = PORTAL_WORKSPACE_SECTIONS.filter((s) => s.path !== "");
 
+function inferHostingProvider(repoUrl?: string | null) {
+  if (!repoUrl) {
+    return "Not connected";
+  }
+  const normalized = repoUrl.toLowerCase();
+  if (normalized.includes("vercel")) {
+    return "Vercel";
+  }
+  if (normalized.includes("netlify")) {
+    return "Netlify";
+  }
+  if (normalized.includes("cloudflare")) {
+    return "Cloudflare";
+  }
+  if (normalized.includes("github")) {
+    return "GitHub deployment pipeline";
+  }
+  if (normalized.includes("gitlab")) {
+    return "GitLab deployment pipeline";
+  }
+  return "Custom";
+}
+
 export default async function WorkspaceOverviewPage({
   params,
 }: WorkspaceOverviewPageProps) {
@@ -34,36 +57,42 @@ export default async function WorkspaceOverviewPage({
       await requireWorkspaceAccess(workspaceSlug);
 
     const wid = workspace.id;
-    const [
-      openTickets,
-      openSupportThreads,
-      activeCustomizations,
-      monitoringChecks,
-    ] = await Promise.all([
+    const [openTickets, projects, members] = await Promise.all([
       prisma.ticket.count({
         where: { workspaceId: wid, status: { not: "CLOSED" } },
       }),
-      prisma.supportThread.count({
-        where: {
-          workspaceId: wid,
-          status: { not: "RESOLVED" },
-        },
+      prisma.project.findMany({
+        where: { workspaceId: wid },
+        orderBy: { createdAt: "desc" },
       }),
-      prisma.customizationRequest.count({
-        where: {
-          workspaceId: wid,
-          status: {
-            in: ["DRAFT", "QUOTED", "APPROVED", "IN_PROGRESS"],
+      prisma.workspaceMember.findMany({
+        where: { workspaceId: wid },
+        include: {
+          user: {
+            select: {
+              email: true,
+              fullName: true,
+            },
           },
         },
       }),
-      prisma.monitoringCheck.count({ where: { workspaceId: wid } }),
     ]);
+
+    const primaryProject = projects[0];
+    const environments = Array.from(
+      new Set(projects.map((project) => project.environment).filter(Boolean)),
+    ) as string[];
+    const contactEmails = Array.from(
+      new Set(members.map((member) => member.user.email).filter(Boolean)),
+    ) as string[];
+    const hostingProvider = inferHostingProvider(primaryProject?.repoUrl);
+    const emailProvider =
+      contactEmails.length > 0 ? "Client-managed inboxes" : "Not connected";
 
     return (
       <PortalModuleShell
         title="Workspace dashboard"
-        description="Centralize everything for this project workspace: track requests, ask for support, review scoped changes, and monitor service health."
+        description="Centralize your project operations: delivery queue, hosting profile, domain details, and team contacts."
         role={roleLabel(membership.role)}
         workspaceName={workspace.name}
       >
@@ -87,55 +116,86 @@ export default async function WorkspaceOverviewPage({
           <Card className={styles.statCard}>
             <CardHeader className={styles.statHeader}>
               <CardDescription className={styles.statDesc}>
-                Open support threads
+                Hosting provider
               </CardDescription>
               <CardTitle className={styles.statValue}>
-                {openSupportThreads}
+                {hostingProvider}
               </CardTitle>
             </CardHeader>
             <CardContent className={styles.statContent}>
-              <Link
-                href={`/portal/${workspace.slug}/support`}
-                className={portalStyle.linkAccent}
-              >
-                Open support conversations →
-              </Link>
+              <p className={portalStyle.helperText}>
+                Based on your linked repository and deployment metadata.
+              </p>
             </CardContent>
           </Card>
           <Card className={styles.statCard}>
             <CardHeader className={styles.statHeader}>
               <CardDescription className={styles.statDesc}>
-                Active customizations
+                Primary domain
               </CardDescription>
               <CardTitle className={styles.statValue}>
-                {activeCustomizations}
+                {workspace.primaryDomain || "Not set"}
               </CardTitle>
             </CardHeader>
             <CardContent className={styles.statContent}>
-              <Link
-                href={`/portal/${workspace.slug}/customization`}
-                className={portalStyle.linkAccent}
-              >
-                Track change requests →
-              </Link>
+              <p className={portalStyle.helperText}>
+                DNS and SSL are managed against this domain target.
+              </p>
             </CardContent>
           </Card>
           <Card className={styles.statCard}>
             <CardHeader className={styles.statHeader}>
               <CardDescription className={styles.statDesc}>
-                Monitoring checks
+                Email and contacts
               </CardDescription>
               <CardTitle className={styles.statValue}>
-                {monitoringChecks}
+                {emailProvider}
               </CardTitle>
             </CardHeader>
             <CardContent className={styles.statContent}>
-              <Link
-                href={`/portal/${workspace.slug}/monitoring`}
-                className={portalStyle.linkAccent}
-              >
-                View live status checks →
-              </Link>
+              <p className={portalStyle.helperText}>
+                {contactEmails.length > 0
+                  ? contactEmails.join(", ")
+                  : "No member emails available yet."}
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+        <div className={styles.modulesGrid}>
+          <Card className={styles.statCard}>
+            <CardHeader className={styles.statHeader}>
+              <CardDescription className={styles.statDesc}>
+                Environments
+              </CardDescription>
+              <CardTitle className={styles.statValue}>
+                {environments.length > 0
+                  ? environments.join(", ")
+                  : "Not tagged"}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className={styles.statContent}>
+              <p className={portalStyle.helperText}>
+                Set per project (`production`, `staging`, etc.) for clearer
+                rollout visibility.
+              </p>
+            </CardContent>
+          </Card>
+          <Card className={styles.statCard}>
+            <CardHeader className={styles.statHeader}>
+              <CardDescription className={styles.statDesc}>
+                Repositories
+              </CardDescription>
+              <CardTitle className={styles.statValue}>
+                {projects.length === 0
+                  ? "No projects yet"
+                  : `${projects.length} linked`}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className={styles.statContent}>
+              <p className={portalStyle.helperText}>
+                {primaryProject?.repoUrl ||
+                  "Add project repository URLs to show code ownership."}
+              </p>
             </CardContent>
           </Card>
         </div>

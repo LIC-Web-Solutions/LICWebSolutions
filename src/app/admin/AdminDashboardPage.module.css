@@ -1,3 +1,153 @@
+.adminDashboard {
+  display: grid;
+  gap: 2rem;
+}
+
+.adminDashboard__intro {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.adminDashboard__title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #fafafa;
+}
+
+.adminDashboard__subtitle {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.adminDashboard__statsGrid {
+  display: grid;
+  gap: 1rem;
+}
+
+.adminDashboard__summaryGrid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.adminDashboard__activityList {
+  display: grid;
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.adminDashboard__activityItem {
+  display: flex;
+  gap: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0.75rem;
+}
+
+.adminDashboard__activityItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.adminDashboard__activityBullet {
+  margin-top: 0.15rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.adminDashboard__activityBody {
+  min-width: 0;
+  flex: 1;
+}
+
+.adminDashboard__activityLink {
+  font-size: 0.9rem;
+  color: rgba(244, 247, 255, 0.94);
+  text-decoration: none;
+}
+
+.adminDashboard__activityLink:hover {
+  color: #8dd2e2;
+  text-decoration: underline;
+}
+
+.adminDashboard__activityText {
+  font-size: 0.9rem;
+  color: rgba(244, 247, 255, 0.92);
+}
+
+.adminDashboard__activityTime {
+  margin-top: 0.2rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.adminDashboard__milestoneList {
+  display: grid;
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.adminDashboard__milestoneItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.adminDashboard__milestoneIndicator {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  margin-top: 0.35rem;
+  flex-shrink: 0;
+}
+
+.adminDashboard__milestoneIndicator--high {
+  background: #ef4444;
+}
+
+.adminDashboard__milestoneIndicator--medium {
+  background: #f59e0b;
+}
+
+.adminDashboard__milestoneIndicator--low {
+  background: #10b981;
+}
+
+.adminDashboard__milestoneBody {
+  min-width: 0;
+}
+
+.adminDashboard__milestoneTitle {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #f8fafc;
+}
+
+.adminDashboard__milestoneMeta {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.56);
+}
+
+@media (min-width: 640px) {
+  .adminDashboard__statsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .adminDashboard__summaryGrid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .adminDashboard__statsGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
 .page {
   display: flex;
   flex-direction: column;

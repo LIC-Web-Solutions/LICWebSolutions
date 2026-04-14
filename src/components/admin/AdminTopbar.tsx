@@ -1,7 +1,7 @@
 "use client";
 
 import { UserButton } from "@clerk/nextjs";
-import { Menu, Plus, Search } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -25,22 +25,12 @@ function breadcrumbsFromPath(pathname: string) {
   return ["Admin", ...rest.map((p) => decodeURIComponent(p))];
 }
 
-export function AdminTopbar({ onMenuClick }: { onMenuClick: () => void }) {
+export function AdminTopbar() {
   const pathname = usePathname();
   const crumbs = breadcrumbsFromPath(pathname);
 
   return (
     <header className={styles.header}>
-      <Button
-        type="button"
-        variant="ghost"
-        size="icon"
-        className={styles.menuButton}
-        aria-label="Open menu"
-        onClick={onMenuClick}
-      >
-        <Menu className={styles.menuIcon} />
-      </Button>
       <nav className={styles.crumbs} aria-label="Breadcrumb">
         <span className={styles.kicker}>LIC operations</span>
         {crumbs.map((c, i) => (

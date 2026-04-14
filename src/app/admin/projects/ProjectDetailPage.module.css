@@ -1,0 +1,45 @@
+.projectDetail {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.projectDetail__header {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.projectDetail__eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.projectDetail__title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #f8fafc;
+}
+
+.projectDetail__meta {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.projectDetail__metaSecondary {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.projectDetail__infoGrid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .projectDetail__infoGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

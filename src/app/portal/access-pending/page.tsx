@@ -21,16 +21,16 @@ export default function AccessPendingPage() {
       </p>
       <div className={portalStyle.buttonRow}>
         <Link
-          href="/"
+          href="/portal/workspace-request"
           className={cn(portalStyle.btnPrimary, portalStyle.centerBtn)}
         >
-          Back to site
+          Request workspace
         </Link>
         <Link
-          href="/portal"
+          href="/"
           className={cn(portalStyle.btnOutline, portalStyle.centerBtn)}
         >
-          Try portal home
+          Back to site
         </Link>
       </div>
     </main>

@@ -2,6 +2,7 @@ const RESERVED_FIRST_SEGMENTS = new Set([
   "access-pending",
   "access-denied",
   "internal",
+  "workspace-request",
 ]);
 
 /** Returns workspace slug from `/portal/[slug]/...` or undefined for chooser / system routes. */

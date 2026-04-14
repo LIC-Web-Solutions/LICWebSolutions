@@ -1,0 +1,107 @@
+.workspaceRequests {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.workspaceRequests__header {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.workspaceRequests__title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #fff;
+}
+
+.workspaceRequests__subtitle {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.95rem;
+}
+
+.workspaceRequests__list {
+  display: grid;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.workspaceRequests__card {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(9, 14, 38, 0.76);
+  border-radius: 0.85rem;
+  padding: 1rem;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.workspaceRequests__cardTop {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.workspaceRequests__name {
+  margin: 0;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.workspaceRequests__meta {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.85rem;
+}
+
+.workspaceRequests__status {
+  margin: 0;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.workspaceRequests__status--approved {
+  color: #8de2ad;
+}
+
+.workspaceRequests__status--rejected {
+  color: #ff9b9b;
+}
+
+.workspaceRequests__status--new {
+  color: #8dd2e2;
+}
+
+.workspaceRequests__invites {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.83rem;
+}
+
+.workspaceRequests__actions {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.workspaceRequests__actionsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.workspaceRequests__note {
+  width: 100%;
+}
+
+.workspaceRequests__empty {
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 0.85rem;
+  padding: 1rem;
+  color: rgba(255, 255, 255, 0.72);
+}

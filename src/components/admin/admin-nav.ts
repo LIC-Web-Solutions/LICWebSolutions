@@ -1,4 +1,5 @@
 import {
+  ClipboardList,
   CreditCard,
   FolderKanban,
   LayoutDashboard,
@@ -16,6 +17,11 @@ export const ADMIN_NAV = [
 ] as const;
 
 export const ADMIN_NAV_SECONDARY = [
+  {
+    href: "/admin/workspace-requests",
+    label: "Workspace Requests",
+    icon: ClipboardList,
+  },
   { href: "/admin/leads", label: "Leads", icon: UserPlus },
   { href: "/admin/messages", label: "Messages", icon: MessageSquare },
   { href: "/admin/settings", label: "Settings", icon: Settings },

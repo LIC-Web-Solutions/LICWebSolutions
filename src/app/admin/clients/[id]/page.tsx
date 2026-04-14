@@ -11,28 +11,52 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  getClientById,
-  getInvoicesForClient,
-  getProjectsForClient,
-} from "@/lib/admin/mock-data";
+import { listAdminInvoices, listAdminProjects } from "@/lib/admin/read-models";
+import { prisma } from "@/lib/prisma";
 
 type Props = { params: Promise<{ id: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const client = getClientById(id);
-  return { title: client ? client.company : "Client" };
+  const client = await prisma.user.findUnique({
+    where: { id },
+    include: {
+      memberships: {
+        include: { workspace: true },
+      },
+    },
+  });
+  return { title: client?.memberships[0]?.workspace.name ?? "Client" };
 }
 
 export default async function AdminClientDetailPage({ params }: Props) {
   const { id } = await params;
-  const client = getClientById(id);
-  if (!client) {
+  const user = await prisma.user.findUnique({
+    where: { id },
+    include: {
+      memberships: {
+        include: { workspace: true },
+      },
+    },
+  });
+  if (!user) {
     notFound();
   }
-  const projects = getProjectsForClient(client.id);
-  const invoices = getInvoicesForClient(client.id);
+  const workspaceIds = user.memberships.map(
+    (membership) => membership.workspaceId,
+  );
+  const projects = (await listAdminProjects()).filter((project) =>
+    workspaceIds.includes(project.clientId),
+  );
+  const invoices = (await listAdminInvoices()).filter((invoice) =>
+    workspaceIds.includes(invoice.clientId),
+  );
+  const clientName = user.fullName || user.email || "Unknown user";
+  const companyName = user.memberships[0]?.workspace.name || "Unassigned";
+  const totalBilled = invoices.reduce(
+    (sum, invoice) => sum + invoice.amount,
+    0,
+  );
 
   return (
     <div className="space-y-6">
@@ -42,10 +66,10 @@ export default async function AdminClientDetailPage({ params }: Props) {
             Client
           </p>
           <h1 className="text-2xl font-semibold tracking-tight text-zinc-50">
-            {client.company}
+            {companyName}
           </h1>
           <p className="mt-1 text-sm text-zinc-400">
-            {client.name} · {client.email}
+            {clientName} · {user.email || "No email on record"}
           </p>
         </div>
         <Button type="button" variant="outline" disabled>
@@ -66,7 +90,7 @@ export default async function AdminClientDetailPage({ params }: Props) {
               <CardHeader className="pb-2">
                 <CardDescription>Total billed</CardDescription>
                 <CardTitle className="text-xl tabular-nums">
-                  ${client.totalBilled.toLocaleString()}
+                  ${totalBilled.toLocaleString()}
                 </CardTitle>
               </CardHeader>
             </Card>
@@ -74,7 +98,10 @@ export default async function AdminClientDetailPage({ params }: Props) {
               <CardHeader className="pb-2">
                 <CardDescription>Active projects</CardDescription>
                 <CardTitle className="text-xl tabular-nums">
-                  {client.activeProjects}
+                  {
+                    projects.filter((project) => project.status !== "COMPLETED")
+                      .length
+                  }
                 </CardTitle>
               </CardHeader>
             </Card>
@@ -83,11 +110,9 @@ export default async function AdminClientDetailPage({ params }: Props) {
                 <CardDescription>Status</CardDescription>
                 <CardTitle className="text-xl">
                   <Badge
-                    variant={
-                      client.status === "ACTIVE" ? "success" : "secondary"
-                    }
+                    variant={workspaceIds.length > 0 ? "success" : "secondary"}
                   >
-                    {client.status}
+                    {workspaceIds.length > 0 ? "ACTIVE" : "ARCHIVED"}
                   </Badge>
                 </CardTitle>
               </CardHeader>
@@ -98,12 +123,14 @@ export default async function AdminClientDetailPage({ params }: Props) {
               <CardTitle className="text-base">Tags</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-wrap gap-2">
-              {client.tags.length === 0 ? (
-                <p className="text-sm text-zinc-500">No tags (mock)</p>
+              {workspaceIds.length === 0 ? (
+                <p className="text-sm text-zinc-500">
+                  No workspace tags available.
+                </p>
               ) : (
-                client.tags.map((t) => (
-                  <Badge key={t} variant="outline">
-                    {t}
+                user.memberships.map((membership) => (
+                  <Badge key={membership.id} variant="outline">
+                    {membership.role}
                   </Badge>
                 ))
               )}
@@ -114,7 +141,7 @@ export default async function AdminClientDetailPage({ params }: Props) {
           <Card>
             <CardContent className="divide-y divide-zinc-800 p-0">
               {projects.length === 0 ? (
-                <p className="p-6 text-sm text-zinc-500">No projects (mock)</p>
+                <p className="p-6 text-sm text-zinc-500">No projects yet.</p>
               ) : (
                 projects.map((p) => (
                   <Link
@@ -134,7 +161,7 @@ export default async function AdminClientDetailPage({ params }: Props) {
           <Card>
             <CardContent className="divide-y divide-zinc-800 p-0">
               {invoices.length === 0 ? (
-                <p className="p-6 text-sm text-zinc-500">No invoices (mock)</p>
+                <p className="p-6 text-sm text-zinc-500">No invoices yet.</p>
               ) : (
                 invoices.map((i) => (
                   <Link
@@ -158,7 +185,7 @@ export default async function AdminClientDetailPage({ params }: Props) {
           <Card>
             <CardHeader>
               <CardTitle className="text-base">Notes</CardTitle>
-              <CardDescription>Simple textarea mock</CardDescription>
+              <CardDescription>Internal account notes</CardDescription>
             </CardHeader>
             <CardContent>
               <textarea

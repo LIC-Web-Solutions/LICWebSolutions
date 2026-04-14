@@ -27,8 +27,17 @@ export default async function PortalPage() {
       </h1>
       <p className={portalStyle.lede}>
         Select the client workspace you want to work in. This is where you track
-        delivery requests, open support conversations, and review project
-        updates with LIC Web Solutions.
+        delivery requests and project operations with LIC Web Solutions.
+      </p>
+      <p className={portalStyle.helperText}>
+        Need a new workspace for a fresh project?{" "}
+        <Link
+          href="/portal/workspace-request"
+          className={portalStyle.linkAccent}
+        >
+          Submit a workspace request
+        </Link>
+        .
       </p>
       <ul className={portalStyle.workspaceList}>
         {memberships.map(({ workspace, role }: WorkspaceListItem) => (

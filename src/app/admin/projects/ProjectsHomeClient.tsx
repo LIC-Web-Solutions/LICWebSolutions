@@ -18,8 +18,7 @@ export function ProjectsHomeClient({ initial }: { initial: Project[] }) {
             Projects
           </h1>
           <p className="mt-1 text-sm text-zinc-400">
-            Kanban (dnd-kit) or table view — mock data; drag updates local state
-            only.
+            Kanban (dnd-kit) or table view sourced from live project records.
           </p>
         </div>
         <div className="flex gap-1">

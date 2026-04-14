@@ -61,7 +61,7 @@ export function LeadsPageClient({ leads }: { leads: Lead[] }) {
             Leads
           </h1>
           <p className="mt-1 text-sm text-zinc-400">
-            Mock pipeline — slide-over for quick actions.
+            Workspace-request pipeline with slide-over detail actions.
           </p>
         </div>
         <Button type="button" disabled>
@@ -176,7 +176,7 @@ export function LeadsPageClient({ leads }: { leads: Lead[] }) {
                   Mark as lost
                 </Button>
                 <Button type="button" variant="outline" asChild>
-                  <Link href="/admin/clients">View clients (mock)</Link>
+                  <Link href="/admin/clients">View clients</Link>
                 </Button>
               </div>
             </>

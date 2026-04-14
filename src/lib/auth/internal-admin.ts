@@ -20,3 +20,16 @@ export async function requireInternalAdmin() {
     redirect("/portal/access-denied");
   }
 }
+
+/** Throws instead of redirecting; useful for server actions. */
+export async function assertInternalAdminOrThrow() {
+  const { userId } = await auth();
+  if (!userId) {
+    throw new Error("Not signed in");
+  }
+  const allowed = parseInternalAdminClerkIds();
+  if (allowed.length === 0 || !allowed.includes(userId)) {
+    throw new Error("Not authorized");
+  }
+  return userId;
+}

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { mockInvoices } from "@/lib/admin/mock-data";
+import { listAdminInvoices } from "@/lib/admin/read-models";
 import type { InvoiceStatus } from "@/types/admin-dashboard";
 
 export const metadata: Metadata = {
@@ -25,7 +25,9 @@ function statusVariant(
   }
 }
 
-export default function AdminInvoicesPage() {
+export default async function AdminInvoicesPage() {
+  const invoices = await listAdminInvoices();
+
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
@@ -34,7 +36,7 @@ export default function AdminInvoicesPage() {
             Invoices
           </h1>
           <p className="mt-1 text-sm text-zinc-400">
-            Mock list — filters and date picker stubbed.
+            Derived from customization estimates and approval lifecycle states.
           </p>
         </div>
         <Button type="button" asChild>
@@ -81,7 +83,7 @@ export default function AdminInvoicesPage() {
                 </tr>
               </thead>
               <tbody>
-                {mockInvoices.map((inv) => (
+                {invoices.map((inv) => (
                   <tr
                     key={inv.id}
                     className="border-b border-zinc-800/80 hover:bg-zinc-800/40"
@@ -109,6 +111,13 @@ export default function AdminInvoicesPage() {
                     </td>
                   </tr>
                 ))}
+                {invoices.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="px-4 py-6 text-sm text-zinc-500">
+                      No invoice records available yet.
+                    </td>
+                  </tr>
+                ) : null}
               </tbody>
             </table>
           </div>

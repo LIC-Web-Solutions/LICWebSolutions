@@ -56,6 +56,13 @@ enum MonitoringStatus {
   DOWN
 }
 
+enum WorkspaceRequestStatus {
+  NEW
+  IN_REVIEW
+  APPROVED
+  REJECTED
+}
+
 model User {
   id                    String                 @id @default(cuid())
   clerkUserId           String                 @unique
@@ -71,6 +78,9 @@ model User {
   customizationRequests CustomizationRequest[] @relation("CustomizationCreatedBy")
   approvedRequests      CustomizationRequest[] @relation("CustomizationApprovedBy")
   actionEvents          ActionEvent[]          @relation("ActionEventActor")
+  workspaceRequests     WorkspaceRequest[]     @relation("WorkspaceRequestCreatedBy")
+  reviewedWorkspaceRequests WorkspaceRequest[] @relation("WorkspaceRequestReviewedBy")
+  workspaceRequestInvites WorkspaceRequestInvite[] @relation("WorkspaceRequestInviteUser")
 }
 
 model Workspace {
@@ -227,4 +237,39 @@ model ActionEvent {
 
   @@index([workspaceId, createdAt])
   @@index([workspaceId, action])
+}
+
+model WorkspaceRequest {
+  id               String                 @id @default(cuid())
+  requestedById    String
+  reviewedById     String?
+  proposedName     String                 @db.VarChar(120)
+  proposedSlug     String                 @db.VarChar(80)
+  inviteEmailsCsv  String?
+  status           WorkspaceRequestStatus @default(NEW)
+  adminNote        String?
+  approvedWorkspaceId String?
+  createdAt        DateTime               @default(now())
+  updatedAt        DateTime               @updatedAt
+  requestedBy      User                   @relation("WorkspaceRequestCreatedBy", fields: [requestedById], references: [id], onDelete: Cascade)
+  reviewedBy       User?                  @relation("WorkspaceRequestReviewedBy", fields: [reviewedById], references: [id], onDelete: SetNull)
+  invites          WorkspaceRequestInvite[]
+
+  @@index([status, createdAt])
+  @@index([requestedById, createdAt])
+  @@unique([proposedSlug, status])
+}
+
+model WorkspaceRequestInvite {
+  id          String   @id @default(cuid())
+  requestId   String
+  email       String   @db.VarChar(320)
+  invitedUserId String?
+  createdAt   DateTime @default(now())
+  request     WorkspaceRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  invitedUser User?    @relation("WorkspaceRequestInviteUser", fields: [invitedUserId], references: [id], onDelete: SetNull)
+
+  @@index([requestId])
+  @@index([email])
+  @@index([invitedUserId])
 }

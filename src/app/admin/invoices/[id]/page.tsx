@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { InvoiceEditor } from "@/components/admin/invoices/InvoiceEditor";
 import { Badge } from "@/components/ui/badge";
-import { getInvoiceById } from "@/lib/admin/mock-data";
+import { getAdminInvoiceById } from "@/lib/admin/read-models";
 import type { InvoiceStatus } from "@/types/admin-dashboard";
 
 type Props = { params: Promise<{ id: string }> };
@@ -24,13 +24,13 @@ function statusVariant(
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const inv = getInvoiceById(id);
+  const inv = await getAdminInvoiceById(id);
   return { title: inv ? `Invoice #${inv.number}` : "Invoice" };
 }
 
 export default async function AdminInvoiceDetailPage({ params }: Props) {
   const { id } = await params;
-  const invoice = getInvoiceById(id);
+  const invoice = await getAdminInvoiceById(id);
   if (!invoice) {
     notFound();
   }

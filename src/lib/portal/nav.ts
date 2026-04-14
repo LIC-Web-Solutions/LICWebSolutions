@@ -11,24 +11,6 @@ export const PORTAL_WORKSPACE_SECTIONS = [
     description:
       "Track requests, bugs, and delivery status for your applications.",
   },
-  {
-    label: "Support",
-    path: "support" as const,
-    description:
-      "Open support threads and keep implementation context in one place.",
-  },
-  {
-    label: "Customization",
-    path: "customization" as const,
-    description:
-      "Submit and review scoped change requests with approval milestones.",
-  },
-  {
-    label: "Monitoring",
-    path: "monitoring" as const,
-    description:
-      "View uptime checks and incident updates for your managed properties.",
-  },
 ] as const;
 
 export type PortalWorkspaceSectionPath =

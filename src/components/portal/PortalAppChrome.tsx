@@ -6,12 +6,18 @@ import { PortalTopbar } from "@/components/portal/PortalTopbar";
 import styles from "./PortalAppChrome.module.css";
 
 export function PortalAppChrome({ children }: { children: React.ReactNode }) {
+  const [desktopOpen, setDesktopOpen] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <div className={styles.root}>
-      <aside className={styles.desktopRail}>
-        <PortalSidebar />
+      <aside
+        className={`${styles.desktopRail} ${desktopOpen ? styles.desktopRailOpen : styles.desktopRailCollapsed}`}
+      >
+        <PortalSidebar
+          isExpanded={desktopOpen}
+          onToggle={() => setDesktopOpen((open) => !open)}
+        />
       </aside>
       {mobileOpen ? (
         <button
@@ -21,25 +27,18 @@ export function PortalAppChrome({ children }: { children: React.ReactNode }) {
           onClick={() => setMobileOpen(false)}
         />
       ) : null}
-      {!mobileOpen ? (
-        <button
-          type="button"
-          className={styles.mobileOpenHandle}
-          aria-label="Open sidebar"
-          onClick={() => setMobileOpen(true)}
-        >
-          ☰
-        </button>
-      ) : null}
       <aside
         className={`${styles.mobileRail} ${mobileOpen ? styles.mobileRailOpen : ""}`}
       >
         <PortalSidebar
+          isExpanded={mobileOpen}
+          onToggle={() => setMobileOpen((open) => !open)}
           onNavigate={() => setMobileOpen(false)}
-          onClose={() => setMobileOpen(false)}
         />
       </aside>
-      <div className={styles.contentColumn}>
+      <div
+        className={`${styles.contentColumn} ${desktopOpen ? styles.contentColumnDesktopOpen : styles.contentColumnDesktopCollapsed}`}
+      >
         <PortalTopbar />
         <div className={styles.contentBody}>{children}</div>
       </div>

@@ -1,17 +1,39 @@
 "use client";
 
+import { DoorOpen, Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import styles from "./AdminSidebar.module.css";
 import { ADMIN_NAV, ADMIN_NAV_SECONDARY } from "./admin-nav";
 
-export function AdminSidebar({ onNavigate }: { onNavigate?: () => void }) {
+export function AdminSidebar({
+  isExpanded,
+  onToggle,
+  onNavigate,
+}: {
+  isExpanded: boolean;
+  onToggle: () => void;
+  onNavigate?: () => void;
+}) {
   const pathname = usePathname();
 
   return (
-    <div className={styles.root}>
+    <div
+      className={cn(
+        styles.root,
+        !isExpanded ? styles.rootCollapsed : undefined,
+      )}
+    >
       <div className={styles.header}>
+        <button
+          type="button"
+          className={styles.toggleButton}
+          onClick={onToggle}
+          aria-label={isExpanded ? "Collapse sidebar" : "Expand sidebar"}
+        >
+          <Menu className={styles.toggleIcon} aria-hidden />
+        </button>
         <Link href="/admin" className={styles.brand} onClick={onNavigate}>
           LIC
         </Link>
@@ -30,11 +52,12 @@ export function AdminSidebar({ onNavigate }: { onNavigate?: () => void }) {
               onClick={onNavigate}
               className={cn(
                 styles.link,
+                !isExpanded ? styles.linkCompact : undefined,
                 active ? styles.linkPrimaryActive : undefined,
               )}
             >
               <Icon className={styles.icon} aria-hidden />
-              {label}
+              <span className={styles.linkLabel}>{label}</span>
             </Link>
           );
         })}
@@ -48,11 +71,12 @@ export function AdminSidebar({ onNavigate }: { onNavigate?: () => void }) {
               onClick={onNavigate}
               className={cn(
                 styles.link,
+                !isExpanded ? styles.linkCompact : undefined,
                 active ? styles.linkSecondaryActive : undefined,
               )}
             >
               <Icon className={styles.icon} aria-hidden />
-              {label}
+              <span className={styles.linkLabel}>{label}</span>
             </Link>
           );
         })}
@@ -62,7 +86,8 @@ export function AdminSidebar({ onNavigate }: { onNavigate?: () => void }) {
           Client portal
         </Link>
         <Link href="/" className={styles.footerLink} onClick={onNavigate}>
-          Marketing site
+          <DoorOpen className={styles.leaveIcon} aria-hidden />
+          <span>Leave admin</span>
         </Link>
       </div>
     </div>

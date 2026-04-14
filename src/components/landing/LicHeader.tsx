@@ -130,12 +130,20 @@ export function LicHeader({ showHero = true }: LicHeaderProps) {
 
       {showHero ? (
         <div className="header__hero">
+          <img
+            className="hero__fallback-image"
+            src="/assets/lic-water-bg.jpg"
+            alt=""
+            aria-hidden="true"
+          />
           <video
             className="videom"
             autoPlay
             muted
             playsInline
             loop
+            preload="metadata"
+            poster="/assets/lic-water-bg.jpg"
             src="/assets/Licskylinefootage.mp4"
           />
 

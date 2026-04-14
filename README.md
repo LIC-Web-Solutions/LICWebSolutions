@@ -68,6 +68,13 @@ Development defaults to [http://localhost:3000](http://localhost:3000). App rout
 - [docs/internal-ops-runbook.md](docs/internal-ops-runbook.md) — provisioning, environment, smoke checks
 - [docs/admin-dashboard-status.md](docs/admin-dashboard-status.md) — what `/admin` is today (mock) vs `/portal` (Prisma-backed)
 - [docs/style-system.md](docs/style-system.md) — CSS Modules architecture, tokens, and LIC UX conventions
+- [docs/css-naming-convention.md](docs/css-naming-convention.md) — BEM naming rules for CSS Modules
+- [docs/ux-baseline-audit.md](docs/ux-baseline-audit.md) — route-by-route UX baseline checks
+- [docs/learning/00-stack-and-file-provenance.md](docs/learning/00-stack-and-file-provenance.md) — stack overview and generated-vs-manual file provenance
+- [docs/learning/01-prisma-neon-clerk-in-this-project.md](docs/learning/01-prisma-neon-clerk-in-this-project.md) — practical auth/database walkthrough
+- [docs/learning/02-sql-crash-course-for-lic-portal.md](docs/learning/02-sql-crash-course-for-lic-portal.md) — SQL basics mapped to this codebase
+- [docs/learning/03-src-architecture-rundown.md](docs/learning/03-src-architecture-rundown.md) — clear `src` structure and runtime flow
+- [docs/learning/04-portal-admin-foundation-roadmap.md](docs/learning/04-portal-admin-foundation-roadmap.md) — no-demo roadmap for portal/admin model
 
 ## Authentication and authorization
 
