@@ -54,44 +54,46 @@ export function AdminRevenueChart({ data }: { data: MonthlyRevenue[] }) {
           </Button>
         </div>
       </CardHeader>
-      <CardContent className="h-72 pt-2">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart
-            data={chartData}
-            margin={{ top: 8, right: 8, left: 0, bottom: 0 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" />
-            <XAxis dataKey="month" tick={{ fill: "#a1a1aa", fontSize: 12 }} />
-            <YAxis
-              tick={{ fill: "#a1a1aa", fontSize: 12 }}
-              tickFormatter={(v) =>
-                mode === "revenue" ? `$${Number(v) / 1000}k` : String(v)
-              }
-            />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: "#18181b",
-                border: "1px solid #3f3f46",
-                borderRadius: 8,
-              }}
-              labelStyle={{ color: "#fafafa" }}
-              formatter={(value) => {
-                const n = typeof value === "number" ? value : Number(value);
-                if (Number.isNaN(n)) {
-                  return ["—", ""];
+      <CardContent className="min-w-0 pt-2">
+        <div className="h-[280px] w-full min-w-0 min-h-0">
+          <ResponsiveContainer width="100%" height={280}>
+            <BarChart
+              data={chartData}
+              margin={{ top: 8, right: 8, left: 0, bottom: 0 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" />
+              <XAxis dataKey="month" tick={{ fill: "#a1a1aa", fontSize: 12 }} />
+              <YAxis
+                tick={{ fill: "#a1a1aa", fontSize: 12 }}
+                tickFormatter={(v) =>
+                  mode === "revenue" ? `$${Number(v) / 1000}k` : String(v)
                 }
-                return mode === "revenue"
-                  ? [`$${n.toLocaleString()}`, "Revenue"]
-                  : [String(n), "Invoices"];
-              }}
-            />
-            {mode === "revenue" ? (
-              <Bar dataKey="revenue" fill="#0ea5e9" radius={[4, 4, 0, 0]} />
-            ) : (
-              <Bar dataKey="invoices" fill="#22c55e" radius={[4, 4, 0, 0]} />
-            )}
-          </BarChart>
-        </ResponsiveContainer>
+              />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "#18181b",
+                  border: "1px solid #3f3f46",
+                  borderRadius: 8,
+                }}
+                labelStyle={{ color: "#fafafa" }}
+                formatter={(value) => {
+                  const n = typeof value === "number" ? value : Number(value);
+                  if (Number.isNaN(n)) {
+                    return ["—", ""];
+                  }
+                  return mode === "revenue"
+                    ? [`$${n.toLocaleString()}`, "Revenue"]
+                    : [String(n), "Invoices"];
+                }}
+              />
+              {mode === "revenue" ? (
+                <Bar dataKey="revenue" fill="#0ea5e9" radius={[4, 4, 0, 0]} />
+              ) : (
+                <Bar dataKey="invoices" fill="#22c55e" radius={[4, 4, 0, 0]} />
+              )}
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </CardContent>
     </Card>
   );
