@@ -35,9 +35,24 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# caches / local tooling
+.swc/
+.turbo/
+dist/
+.idea/
+
+# playwright (if you add E2E later)
+playwright-report/
+test-results/
+blob-report/
 
 # vercel
 .vercel
+
+# clerk (local / keyless — may contain instance secrets)
+.clerk/
 
 # typescript
 *.tsbuildinfo
