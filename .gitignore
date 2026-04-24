@@ -39,5 +39,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local tools / dev
+/.agents/
+/.clerk/
+
 # typescript
 *.tsbuildinfo
