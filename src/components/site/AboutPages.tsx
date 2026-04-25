@@ -179,7 +179,7 @@ export function TeamPage() {
         <div className="site-split site-split--founder">
           <div className="site-founder-photo">
             <img
-              src="/assets/team-founder.png"
+              src="/assets/team-founder.jpg"
               alt="Mahdi Tanzim, founder of LIC Web Solutions"
               width={960}
               height={720}
