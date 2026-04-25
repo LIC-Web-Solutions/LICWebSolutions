@@ -19,15 +19,15 @@ export function LicHeader({ showHero = true }: LicHeaderProps) {
       <div className="header__banner">
         <div className="header__banner--container">
           <div className="banner__right">
-            <a href="#" className="banner__login">
+            {/* <a href="#" className="banner__login">
               CLIENT LOGIN
-            </a>
+            </a> */}
             <a href="#" className="banner__contact">
               Contact
             </a>
-            <a href="#" className="banner__search" aria-label="Search">
+            {/* <a href="#" className="banner__search" aria-label="Search">
               <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </a>
+            </a> */}
           </div>
         </div>
       </div>
