@@ -1346,6 +1346,14 @@ body.modal-open {
     grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.35fr);
     gap: 2rem;
   }
+
+  .site-split--reverse .site-founder-photo {
+    order: 2;
+  }
+
+  .site-split--reverse .site-founder__copy {
+    order: 1;
+  }
 }
 
 .site-founder-photo {

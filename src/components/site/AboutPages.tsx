@@ -190,19 +190,87 @@ export function TeamPage() {
             <p className="site-founder__role">Founder &amp; CEO</p>
             <div className="site-founder__blocks">
               <section className="site-founder__block">
-                <h4 className="site-founder__block-title">Mission</h4>
+                <h4 className="site-founder__block-title">Direction</h4>
                 <p className="site-founder__block-text">
-                  LIC Web Solutions exists to help organizations ship web
-                  experiences that stay fast, clear, and maintainable—so your
-                  team can focus on the work, not wrestling with the stack.
+                  Mahdi guides the product vision, design standards, and client
+                  communication behind each engagement so every website has a
+                  clear purpose before the first build sprint starts.
                 </p>
               </section>
               <section className="site-founder__block">
-                <h4 className="site-founder__block-title">How I work</h4>
+                <h4 className="site-founder__block-title">Practice</h4>
                 <p className="site-founder__block-text">
-                  I stay hands-on with clients on strategy and delivery, and I
-                  build the practice around accountability, craft, and respect
-                  for your audience&apos;s time.
+                  He stays hands-on from strategy through launch, keeping the
+                  team aligned around polished interfaces, measurable outcomes,
+                  and decisions clients can understand.
+                </p>
+              </section>
+            </div>
+          </div>
+        </div>
+      </SiteSection>
+      <SiteSection eyebrow="Engineering" title="Backend engineering">
+        <div className="site-split site-split--founder site-split--reverse">
+          <div className="site-founder-photo">
+            <img
+              src="/assets/tahmphoto.jpeg"
+              alt="Tahmidur Rabb, backend engineer at LIC Web Solutions"
+              width={960}
+              height={720}
+            />
+          </div>
+          <div className="site-founder__copy">
+            <h3 className="site-card__title">Tahmidur Rabb</h3>
+            <p className="site-founder__role">Backend Engineer</p>
+            <div className="site-founder__blocks">
+              <section className="site-founder__block">
+                <h4 className="site-founder__block-title">Systems</h4>
+                <p className="site-founder__block-text">
+                  Tahmidur builds the APIs, data models, and service
+                  integrations that power client-facing platforms, drawing on
+                  production work with TypeScript, Python, SQL, and cloud tools.
+                </p>
+              </section>
+              <section className="site-founder__block">
+                <h4 className="site-founder__block-title">Technical range</h4>
+                <p className="site-founder__block-text">
+                  His background spans financial data pipelines, SaaS booking
+                  systems, payments, email automation, and cybersecurity study at
+                  NYU, giving projects a practical engineering foundation.
+                </p>
+              </section>
+            </div>
+          </div>
+        </div>
+      </SiteSection>
+      <SiteSection eyebrow="Sales" title="Client growth">
+        <div className="site-split site-split--founder">
+          <div className="site-founder-photo">
+            <img
+              src="/assets/hasanphoto.jpeg"
+              alt="Mahmudul Hasan, Head of Sales at LIC Web Solutions"
+              width={960}
+              height={720}
+            />
+          </div>
+          <div className="site-founder__copy">
+            <h3 className="site-card__title">Mahmudul Hasan</h3>
+            <p className="site-founder__role">Head of Sales</p>
+            <div className="site-founder__blocks">
+              <section className="site-founder__block">
+                <h4 className="site-founder__block-title">Client fit</h4>
+                <p className="site-founder__block-text">
+                  Hasan helps organizations turn early conversations into
+                  practical project scopes, connecting business goals with the
+                  right website, workflow, or technology solution.
+                </p>
+              </section>
+              <section className="site-founder__block">
+                <h4 className="site-founder__block-title">Operations</h4>
+                <p className="site-founder__block-text">
+                  He brings B2C sales, ServiceNow administration, project
+                  management, Jira, and Scrum experience to keep expectations
+                  clear from discovery through handoff.
                 </p>
               </section>
             </div>
