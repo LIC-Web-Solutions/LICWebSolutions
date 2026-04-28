@@ -190,19 +190,21 @@ export function TeamPage() {
             <p className="site-founder__role">Founder &amp; CEO</p>
             <div className="site-founder__blocks">
               <section className="site-founder__block">
-                <h4 className="site-founder__block-title">Direction</h4>
+                <h4 className="site-founder__block-title">Technical direction</h4>
                 <p className="site-founder__block-text">
-                  Mahdi guides the product vision, design standards, and client
-                  communication behind each engagement so every website has a
-                  clear purpose before the first build sprint starts.
+                  Mahdi leads LIC Web Solutions as a hands-on technical founder,
+                  owning front-end architecture, responsive UI systems,
+                  performance, accessibility, and the engineering decisions that
+                  turn client ideas into production-ready websites.
                 </p>
               </section>
               <section className="site-founder__block">
-                <h4 className="site-founder__block-title">Practice</h4>
+                <h4 className="site-founder__block-title">Product engineering</h4>
                 <p className="site-founder__block-text">
-                  He stays hands-on from strategy through launch, keeping the
-                  team aligned around polished interfaces, measurable outcomes,
-                  and decisions clients can understand.
+                  His work on FeedPilot and a DevFest 2024 Columbia-winning
+                  project reflects a strong front-end foundation across
+                  component design, user flows, API-connected interfaces, and
+                  polished execution under real product constraints.
                 </p>
               </section>
             </div>
