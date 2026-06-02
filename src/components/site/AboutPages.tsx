@@ -190,7 +190,9 @@ export function TeamPage() {
             <p className="site-founder__role">Founder &amp; CEO</p>
             <div className="site-founder__blocks">
               <section className="site-founder__block">
-                <h4 className="site-founder__block-title">Technical direction</h4>
+                <h4 className="site-founder__block-title">
+                  Technical direction
+                </h4>
                 <p className="site-founder__block-text">
                   Mahdi leads LIC Web Solutions as a hands-on technical founder,
                   owning front-end architecture, responsive UI systems,
@@ -199,7 +201,9 @@ export function TeamPage() {
                 </p>
               </section>
               <section className="site-founder__block">
-                <h4 className="site-founder__block-title">Product engineering</h4>
+                <h4 className="site-founder__block-title">
+                  Product engineering
+                </h4>
                 <p className="site-founder__block-text">
                   His work on FeedPilot and a DevFest 2024 Columbia-winning
                   project reflects a strong front-end foundation across
@@ -237,8 +241,8 @@ export function TeamPage() {
                 <h4 className="site-founder__block-title">Technical range</h4>
                 <p className="site-founder__block-text">
                   His background spans financial data pipelines, SaaS booking
-                  systems, payments, email automation, and cybersecurity study at
-                  NYU, giving projects a practical engineering foundation.
+                  systems, payments, email automation, and cybersecurity study
+                  at NYU, giving projects a practical engineering foundation.
                 </p>
               </section>
             </div>

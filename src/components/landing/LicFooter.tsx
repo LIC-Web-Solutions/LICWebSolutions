@@ -3,11 +3,7 @@ import {
   faInstagram,
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
-import {
-  faEnvelope,
-  faLocationDot,
-  faPhone,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export function LicFooter() {
